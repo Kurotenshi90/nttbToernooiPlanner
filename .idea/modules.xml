@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TafelTennis.iml" filepath="$PROJECT_DIR$/TafelTennis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tiseql.iml" filepath="$PROJECT_DIR$/tiseql.iml" />
     </modules>
   </component>
 </project>

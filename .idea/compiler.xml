@@ -22,11 +22,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="TafelTennis" />
+        <module name="tiseql" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="TafelTennis" target="1.5" />
+      <module name="tiseql" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
