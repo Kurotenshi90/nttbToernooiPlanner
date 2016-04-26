@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="1024.0" styleClass="test" stylesheets="@../../../../../dea-code-examples-master/exercises/untitled/src/sample/test.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <TableView fx:id="ToernooiTable" layoutX="75.0" layoutY="200.0" prefHeight="554.0" prefWidth="495.0">
+        <columns>
+          <TableColumn fx:id="ToernooiNaam" prefWidth="123.0" text="Toernooinaam" />
+          <TableColumn fx:id="Toernooileider" minWidth="0.0" prefWidth="136.0" text="Toernooileider" />
+            <TableColumn fx:id="Begindatum" prefWidth="112.0" text="Begindatum" />
+            <TableColumn fx:id="Einddatum" prefWidth="123.0" text="Einddatum" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Group layoutY="100.0">
+         <children>
+            <Button layoutX="675.0" layoutY="294.0" mnemonicParsing="false" styleClass="button-big" text="Toernooi bekijken" />
+            <Button fx:id="ToernooiAanmaken" layoutX="675.0" layoutY="125.0" mnemonicParsing="false" styleClass="button-big" text="Toernooi aanmaken" />
+            <Button layoutX="675.0" layoutY="210.0" mnemonicParsing="false" styleClass="button-big" text="Toernooi bewerken" />
+         </children>
+      </Group>
+      <ImageView fitHeight="200.0" fitWidth="1024.0">
+         <image>
+            <Image url="@TopBorder.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>
