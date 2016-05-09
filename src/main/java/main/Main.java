@@ -22,7 +22,6 @@ public class Main extends Application {
     public static final List<CommisieLid> commisieleden = new ArrayList<>();
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         List<CommisieLidInToernooi> dingetje = new ArrayList<>();
         dingetje.add(new CommisieLidInToernooi("Arie", "Bas"));
         dingetje.get(0).setLeider(true);

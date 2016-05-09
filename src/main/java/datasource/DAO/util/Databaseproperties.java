@@ -1,5 +1,6 @@
 package datasource.DAO.util;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -8,27 +9,51 @@ import java.util.Properties;
  * Created by Peter-Paul on 09/05/2016.
  */
 public class Databaseproperties {
-    Properties properties = new Properties();
-    public  Databaseproperties() throws IOException, ClassNotFoundException {
+    Properties prop = new Properties();
+    public InputStream input = null;
+    public Databaseproperties(){
+        try {
 
-        String resourceName = "database.properties"; // could also be a constant
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        Properties props = new Properties();
-        try(InputStream resourceStream = loader.getResourceAsStream(resourceName)) {
-            props.load(resourceStream);
+            String filename = "databaseproperties/DatabaseProperties";
+            input = Databaseproperties.class.getClassLoader().getResourceAsStream(filename);
+
+            if(input== null) {
+                System.out.println("Sorry, unable to find " + filename);
+                return;
+            }
+
+            //load a properties file from class path, inside static method
+            prop.load(input);
+
+            //get the property value and print it out
+            System.out.println(prop.getProperty("url"));
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally{
+            if(input!=null){
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        System.out.println(getURL());
-        //roperties.load(Databaseproperties.class.getResourceAsStream("DatabaseProperties.properties"));
-        //Class.forName(properties.getProperty("driver"));
-    }
+        try {
+            Class.forName(prop.getProperty("driver"));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
+    }
     public String getUsername(){
-        return properties.getProperty("username");
+        return prop.getProperty("username");
     }
     public String getPassword(){
-        return properties.getProperty("password");
+        return prop.getProperty("password");
     }
     public String getURL(){
-        return properties.getProperty("url");
+        return prop.getProperty("url");
     }
 }

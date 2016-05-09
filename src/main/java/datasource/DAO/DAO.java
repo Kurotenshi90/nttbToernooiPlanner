@@ -1,7 +1,6 @@
 package datasource.DAO;
 
 import datasource.DAO.util.Databaseproperties;
-import datasource.util.DatabaseProperties;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,33 +12,25 @@ import java.sql.SQLException;
  * Created by Peter-Paul on 26/04/2016.
  */
 public class DAO {
-    public static Connection conn;
+    public  Connection conn;
+    public  Databaseproperties databaseproperties;
 
-
-    public static Databaseproperties databaseproperties;
-
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        //databaseproperties = new Databaseproperties();
-        connect();
-        try {
-            ResultSet test = conn.prepareStatement("SELECT * FROM klasse").executeQuery();
-            while(test.next()){
-                System.out.println(test.getString(2));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        disconnect();
+    public DAO(){
+        databaseproperties= new Databaseproperties();
+        System.out.println(databaseproperties.getURL());
+        System.out.println(databaseproperties.input);
     }
-    public static void connect(){
+
+
+    public void connect(){
         try{
-            conn = DriverManager.getConnection("jdbc:sqlserver://groep4.ise.icaprojecten.nl", "toernooimanager", "TM123mt!");
+            conn = DriverManager.getConnection(databaseproperties.getURL(), databaseproperties.getUsername(), databaseproperties.getPassword());
         }
         catch (Exception e){
             e.printStackTrace();
         }
     }
-    public  static  void disconnect(){
+    public void disconnect(){
         try {
             conn.close();
         }
@@ -47,5 +38,8 @@ public class DAO {
             e.printStackTrace();
         }
 
+    }
+    public Connection getConn(){
+        return conn;
     }
 }
