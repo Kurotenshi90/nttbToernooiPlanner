@@ -19,10 +19,10 @@ public class DAO {
     public static Databaseproperties databaseproperties;
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        databaseproperties = new Databaseproperties();
+        //databaseproperties = new Databaseproperties();
         connect();
         try {
-            ResultSet test =conn.prepareStatement("SELECT * FROM klasse").executeQuery();
+            ResultSet test = conn.prepareStatement("SELECT * FROM klasse").executeQuery();
             while(test.next()){
                 System.out.println(test.getString(2));
             }
@@ -33,7 +33,7 @@ public class DAO {
     }
     public static void connect(){
         try{
-            conn = DriverManager.getConnection(databaseproperties.getURL(), databaseproperties.getUsername(), databaseproperties.getPassword());
+            conn = DriverManager.getConnection("jdbc:sqlserver://groep4.ise.icaprojecten.nl", "toernooimanager", "TM123mt!");
         }
         catch (Exception e){
             e.printStackTrace();
