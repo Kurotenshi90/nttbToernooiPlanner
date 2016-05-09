@@ -3,6 +3,7 @@ package main;
 /**
  * Created by Peter-Paul on 29/04/2016.
  */
+import datasource.DAO.util.Databaseproperties;
 import domain.CommisieLid;
 import domain.CommisieLidInToernooi;
 import domain.Locatie;
@@ -21,6 +22,7 @@ public class Main extends Application {
     public static final List<CommisieLid> commisieleden = new ArrayList<>();
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         List<CommisieLidInToernooi> dingetje = new ArrayList<>();
         dingetje.add(new CommisieLidInToernooi("Arie", "Bas"));
         dingetje.get(0).setLeider(true);
