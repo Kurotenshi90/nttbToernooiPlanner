@@ -23,7 +23,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         List<CommisieLidInToernooi> dingetje = new ArrayList<>();
-        dingetje.add(new CommisieLidInToernooi("Arie", "Bas"));
+        dingetje.add(new CommisieLidInToernooi("Arie"));
         dingetje.get(0).setLeider(true);
 
         storage.add(new Toernooi("afdelingsKampionschap", "2016-04-12", "2016-04-13", "2016-3-01", new Locatie("Arnhem", "Ruitenberglaan", "26"), 0.20, "hier wordt er betaald",dingetje, null ));

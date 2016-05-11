@@ -7,14 +7,13 @@ import javafx.beans.property.SimpleBooleanProperty;
  */
 public class CommisieLidInToernooi {
     private String voornaam;
-    private String achternaam;
     private SimpleBooleanProperty leider = new SimpleBooleanProperty(false);
     private SimpleBooleanProperty contactpersoon = new SimpleBooleanProperty(false);
 
 
-    public CommisieLidInToernooi(String voornaam, String achternaam) {
+    public CommisieLidInToernooi(String voornaam) {
         this.voornaam = voornaam;
-        this.achternaam = achternaam;
+
     }
 
     public String getVoornaam() {
@@ -23,14 +22,6 @@ public class CommisieLidInToernooi {
 
     public void setVoornaam(String voornaam) {
         this.voornaam = voornaam;
-    }
-
-    public String getAchternaam() {
-        return achternaam;
-    }
-
-    public void setAchternaam(String achternaam) {
-        this.achternaam = achternaam;
     }
 
     public SimpleBooleanProperty leiderProperty(){

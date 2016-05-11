@@ -50,7 +50,6 @@
       <TableView fx:id="CommisieLeden" layoutX="46.0" layoutY="337.0" prefHeight="200.0" prefWidth="200.0">
         <columns>
           <TableColumn fx:id="CommisieVoornaam" prefWidth="75.0" text="Voornaam" />
-          <TableColumn fx:id="CommisieAchternaam" prefWidth="75.0" text="Achternaam" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

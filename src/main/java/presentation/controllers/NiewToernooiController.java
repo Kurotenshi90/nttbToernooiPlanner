@@ -2,6 +2,7 @@ package presentation.controllers;
 
 import domain.CommisieLid;
 import domain.CommisieLidInToernooi;
+import domain.NieuwToernooiCommissieLeden;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,6 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.Main;
+import presentation.models.NieuwToernooiModel;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,9 +25,8 @@ import java.util.ResourceBundle;
 public class NiewToernooiController implements Initializable {
     @FXML Button CommisieLidToevoegen;
 
-    @FXML TableView<CommisieLid> CommisieLeden;
-    @FXML TableColumn<CommisieLid, String> CommisieVoornaam;
-    @FXML TableColumn<CommisieLid, String> CommisieAchternaam;
+    @FXML TableView<NieuwToernooiCommissieLeden> CommisieLeden;
+    @FXML TableColumn<NieuwToernooiCommissieLeden, String> CommisieVoornaam;
 
     @FXML TableView<CommisieLidInToernooi> AddedCommisieLeden;
     @FXML TableColumn<CommisieLidInToernooi, String> AddedCommisieVoornaam;
@@ -33,12 +34,15 @@ public class NiewToernooiController implements Initializable {
 
     private List<CommisieLidInToernooi> addedCommisieLeden = new ArrayList<>();
 
+    private NieuwToernooiModel nieuwToernooiModel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        nieuwToernooiModel = new NieuwToernooiModel();
         initializeButtons();
         initializeTableViewCommisieLeden();
         initializeTableViewAddedCommisieLeden();
+        System.out.println(nieuwToernooiModel.getNieuwToernooiCommissieLeden().get(1).getNaam());
 
 
     }
@@ -53,9 +57,9 @@ public class NiewToernooiController implements Initializable {
         CommisieLidToevoegen.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                CommisieLid selected = CommisieLeden.getSelectionModel().getSelectedItem();
+                NieuwToernooiCommissieLeden selected = CommisieLeden.getSelectionModel().getSelectedItem();
                 if(selected != null) {
-                    addedCommisieLeden.add(new CommisieLidInToernooi(selected.getVoornaam(), selected.getAchternaam()));
+                    addedCommisieLeden.add(new CommisieLidInToernooi(selected.getNaam()));
                     AddedCommisieLeden.getItems().setAll(addedCommisieLeden);
                 }
                 System.out.println("hoi");
@@ -64,8 +68,7 @@ public class NiewToernooiController implements Initializable {
     }
 
     private void initializeTableViewCommisieLeden() {
-        CommisieVoornaam.setCellValueFactory(new PropertyValueFactory<CommisieLid, String>("voornaam"));
-        CommisieAchternaam.setCellValueFactory(new PropertyValueFactory<CommisieLid, String>("achternaam"));
-        CommisieLeden.getItems().setAll(Main.commisieleden);
+        CommisieVoornaam.setCellValueFactory(new PropertyValueFactory<NieuwToernooiCommissieLeden, String>("naam"));
+        CommisieLeden.getItems().setAll(nieuwToernooiModel.getNieuwToernooiCommissieLeden());
     }
 }

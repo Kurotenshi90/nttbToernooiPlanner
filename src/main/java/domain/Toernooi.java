@@ -49,7 +49,7 @@ public class Toernooi {
         String leider= "";
         for(CommisieLidInToernooi item: commisieLidInToernooi) {
             if (item.getLeider()) {
-                leider = item.getVoornaam() + " " + item.getAchternaam();
+                leider = item.getVoornaam();
 
             }
         }
