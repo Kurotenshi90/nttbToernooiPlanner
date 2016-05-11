@@ -19,22 +19,46 @@ public class Toernooi {
     public Locatie locatie;
     public double prijs;
     public String betalingsinformatie;
+    public String toernooisoort;
     private List<CommisieLidInToernooi> commisieLidInToernooi;
     private List<ToernooiSysteemType> toernooiSysteemTypes;
 
-    public Toernooi(String naam, String begindatum, String einddatum, String inschrijfdatum, Locatie locatie, double prijs,
-                    String betalingsinformatie, List<CommisieLidInToernooi> commisieLidInToernooi, List<ToernooiSysteemType> toernooiSysteemTypes) throws ParseException {
-
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    public Toernooi(String naam, Date begindatum, Date einddatum, Date inschrijfdatum, Locatie locatie, double prijs, String betalingsinformatie, String toernooisoort,
+                    List<CommisieLidInToernooi> commisieLidInToernooi, List<ToernooiSysteemType> toernooiSysteemTypes) {
         this.naam = naam;
-        this.begindatum = format.parse(begindatum);
-        this.einddatum = format.parse(einddatum);
-        this.inschrijfdatum = format.parse(inschrijfdatum);
+        this.begindatum = begindatum;
+        this.einddatum = einddatum;
+        this.inschrijfdatum = inschrijfdatum;
         this.locatie = locatie;
         this.prijs = prijs;
         this.betalingsinformatie = betalingsinformatie;
+        this.toernooisoort = toernooisoort;
         this.commisieLidInToernooi = commisieLidInToernooi;
         this.toernooiSysteemTypes = toernooiSysteemTypes;
+    }
+
+    public List<CommisieLidInToernooi> getCommisieLidInToernooi() {
+        return commisieLidInToernooi;
+    }
+
+    public void setCommisieLidInToernooi(List<CommisieLidInToernooi> commisieLidInToernooi) {
+        this.commisieLidInToernooi = commisieLidInToernooi;
+    }
+
+    public List<ToernooiSysteemType> getToernooiSysteemTypes() {
+        return toernooiSysteemTypes;
+    }
+
+    public void setToernooiSysteemTypes(List<ToernooiSysteemType> toernooiSysteemTypes) {
+        this.toernooiSysteemTypes = toernooiSysteemTypes;
+    }
+
+    public String getToernooisoort() {
+        return toernooisoort;
+    }
+
+    public void setToernooisoort(String toernooisoort) {
+        this.toernooisoort = toernooisoort;
     }
 
     public String getNaam() {

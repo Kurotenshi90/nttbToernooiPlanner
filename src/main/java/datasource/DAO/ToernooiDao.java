@@ -1,7 +1,9 @@
 package datasource.DAO;
 
 import domain.HomePageToernooi;
+import domain.Toernooi;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -45,5 +47,28 @@ public class ToernooiDao extends DAO {
 
 
         return values;
+    }
+
+    public void saveToernooi(Toernooi toernooi){
+        String update = "EXEC STP_NieuwToernooiToevoegen ?, ?, ?, ?, ?, ?, ?, ?, ?";
+        connect();
+        try{
+            PreparedStatement preparedStatement = conn.prepareStatement(update);
+            preparedStatement.setInt(1, toernooi.getLocatie().getLocatienr());
+            preparedStatement.setString(2, toernooi.getToernooisoort());
+            preparedStatement.setDate(3, new java.sql.Date(toernooi.getBegindatum().getTime()));
+            preparedStatement.setDate(4, new java.sql.Date(toernooi.getEinddatum().getTime()));
+            preparedStatement.setDate(5, new java.sql.Date(toernooi.getInschrijfdatum().getTime()));
+            preparedStatement.setDouble(6, toernooi.getPrijs());
+            preparedStatement.setString(7, toernooi.getBetalingsinformatie());
+            preparedStatement.setString(8, toernooi.getNaam());
+           // SQLServerDataTable
+            preparedStatement.setObject(9, toernooi.getCommisieLidInToernooi());
+            preparedStatement.executeUpdate();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
     }
 }
