@@ -39,12 +39,7 @@ public class Databaseproperties {
                 }
             }
         }
-        try {
-            Class.forName(prop.getProperty("driver"));
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+
 
     }
     public String getUsername(){
@@ -55,5 +50,9 @@ public class Databaseproperties {
     }
     public String getURL(){
         return prop.getProperty("url");
+    }
+
+    public String getDriver() {
+        return prop.getProperty("driver");
     }
 }

@@ -16,6 +16,7 @@ public class Database {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
         DAO da = new DAO();
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         da.connect();
         try {
             ResultSet test = da.getConn().prepareStatement("SELECT * FROM Toernooi").executeQuery();

@@ -19,6 +19,14 @@ public class DAO {
         databaseproperties= new Databaseproperties();
         System.out.println(databaseproperties.getURL());
         System.out.println(databaseproperties.input);
+        System.out.println(databaseproperties.getDriver());
+
+        try {
+            Class.forName(databaseproperties.getDriver());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
