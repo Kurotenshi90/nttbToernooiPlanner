@@ -1,5 +1,6 @@
 package presentation.controllers;
 
+import domain.HomePageToernooi;
 import domain.Toernooi;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import main.Main;
+import presentation.models.HomePageModel;
 
 import java.net.URL;
 import java.text.DateFormat;
@@ -25,19 +27,21 @@ import java.util.ResourceBundle;
  * Created by Peter-Paul on 29/04/2016.
  */
 public class HomeController implements Initializable{
-    @FXML private TableView<Toernooi> TableViewToernooiOverzicht;
-    @FXML private TableColumn<Toernooi, String> TableViewToernooiOverzicht_Toernooinaam;
-    @FXML private TableColumn<Toernooi, String> TableViewToernooiOverzicht_Toernooileider;
-    @FXML private TableColumn<Toernooi, String> TableViewToernooiOverzicht_Inschrijfdatum;
-    @FXML private TableColumn<Toernooi, String> TableViewToernooiOverzicht_Begindatum;
-    @FXML private TableColumn<Toernooi, String> TableViewToernooiOverzicht_Einddatum;
-    @FXML private TableColumn<Toernooi, String> TableViewToernooiOverzicht_Plaats;
-    @FXML private TableColumn<Toernooi, String> TableViewToernooiOverzicht_Straat;
-    @FXML private TableColumn<Toernooi, String> TableViewToernooiOverzicht_Nummer;
+    @FXML private TableView<HomePageToernooi> TableViewToernooiOverzicht;
+    @FXML private TableColumn<HomePageToernooi, String> TableViewToernooiOverzicht_Toernooinaam;
+    @FXML private TableColumn<HomePageToernooi, String> TableViewToernooiOverzicht_Toernooileider;
+    @FXML private TableColumn<HomePageToernooi, String> TableViewToernooiOverzicht_Inschrijfdatum;
+    @FXML private TableColumn<HomePageToernooi, String> TableViewToernooiOverzicht_Begindatum;
+    @FXML private TableColumn<HomePageToernooi, String> TableViewToernooiOverzicht_Einddatum;
+    @FXML private TableColumn<HomePageToernooi, String> TableViewToernooiOverzicht_Plaats;
+    @FXML private TableColumn<HomePageToernooi, String> TableViewToernooiOverzicht_Straat;
+    @FXML private TableColumn<HomePageToernooi, String> TableViewToernooiOverzicht_Nummer;
     @FXML private Button Button_ToernooiAanmaken;
-
+    private HomePageModel homePageModel;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        homePageModel = new HomePageModel();
+
         initializeTableViewToernooiOverzicht();
         initializeButtons();
 
@@ -64,38 +68,38 @@ public class HomeController implements Initializable{
     private void initializeTableViewToernooiOverzicht(){
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-        TableViewToernooiOverzicht_Toernooinaam.setCellValueFactory(new PropertyValueFactory<Toernooi, String>("naam"));
-        TableViewToernooiOverzicht_Toernooileider.setCellValueFactory(new PropertyValueFactory<Toernooi, String>("leider"));
-        TableViewToernooiOverzicht_Inschrijfdatum.setCellValueFactory( Toernooi -> {
+        TableViewToernooiOverzicht_Toernooinaam.setCellValueFactory(new PropertyValueFactory<HomePageToernooi, String>("toernooinaam"));
+        TableViewToernooiOverzicht_Toernooileider.setCellValueFactory(new PropertyValueFactory<HomePageToernooi, String>("toernooileider"));
+        TableViewToernooiOverzicht_Inschrijfdatum.setCellValueFactory( HomePageToernooi -> {
             SimpleStringProperty property = new SimpleStringProperty();
-            property.setValue(format.format(Toernooi.getValue().einddatum));
+            property.setValue(format.format(HomePageToernooi.getValue().getEinddatum()));
             return property;
         });
-        TableViewToernooiOverzicht_Begindatum.setCellValueFactory( Toernooi -> {
+        TableViewToernooiOverzicht_Begindatum.setCellValueFactory( HomePageToernooi -> {
             SimpleStringProperty property = new SimpleStringProperty();
-            property.setValue(format.format(Toernooi.getValue().begindatum));
+            property.setValue(format.format(HomePageToernooi.getValue().getBegindatum()));
             return property;
         });
-        TableViewToernooiOverzicht_Einddatum.setCellValueFactory(Toernooi -> {
+        TableViewToernooiOverzicht_Einddatum.setCellValueFactory(HomePageToernooi -> {
             SimpleStringProperty property = new SimpleStringProperty();
-            property.setValue(format.format(Toernooi.getValue().inschrijfdatum));
+            property.setValue(format.format(HomePageToernooi.getValue().getInschrijdatum()));
             return property;
         });
-        TableViewToernooiOverzicht_Plaats.setCellValueFactory(Toernooi -> {
+        TableViewToernooiOverzicht_Plaats.setCellValueFactory(HomePageToernooi -> {
             SimpleStringProperty property = new SimpleStringProperty();
-            property.setValue(Toernooi.getValue().getLocatie().getPlaats());
+            property.setValue(HomePageToernooi.getValue().getPlaats());
             return property;
         });
-        TableViewToernooiOverzicht_Straat.setCellValueFactory(Toernooi -> {
+        TableViewToernooiOverzicht_Straat.setCellValueFactory(HomePageToernooi -> {
             SimpleStringProperty property = new SimpleStringProperty();
-            property.setValue(Toernooi.getValue().getLocatie().getStraatnaam());
+            property.setValue(HomePageToernooi.getValue().getStraat());
             return property;
         });
-        TableViewToernooiOverzicht_Nummer.setCellValueFactory(Toernooi -> {
+        TableViewToernooiOverzicht_Nummer.setCellValueFactory(HomePageToernooi -> {
             SimpleStringProperty property = new SimpleStringProperty();
-            property.setValue(Toernooi.getValue().getLocatie().getHuisnummer());
+            property.setValue(HomePageToernooi.getValue().getNummer());
             return property;
         });
-        TableViewToernooiOverzicht.getItems().setAll(Main.storage);
+        TableViewToernooiOverzicht.getItems().setAll(homePageModel.getHomepagetoernooi());
     }
 }
