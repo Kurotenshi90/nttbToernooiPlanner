@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Peter-Paul on 26/04/2016.
  */
-public class NiewToernooiController implements Initializable {
+public class NieuwToernooiController implements Initializable {
     @FXML Button CommisieLidToevoegen;
     @FXML Button CommisieLidVerwijderen;
     @FXML Button ToernooiAanmaken;
@@ -138,10 +138,13 @@ public class NiewToernooiController implements Initializable {
     }
 
     private void goToHome(Button button) {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/NieuwToernooi.fxml"));
+        HomeController controller = new HomeController();
+        loader.setController(controller);
         Stage stage = (Stage) button.getScene().getWindow();
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("views/Home.fxml"));
+            root = loader.load();
         } catch (Exception e) {
             e.printStackTrace();
         }

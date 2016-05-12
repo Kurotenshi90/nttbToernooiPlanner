@@ -1,6 +1,7 @@
 package presentation.controllers;
 
 import domain.HomePageToernooi;
+import domain.NieuwToernooiCommissieLeden;
 import domain.Toernooi;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -37,6 +38,7 @@ public class HomeController implements Initializable{
     @FXML private TableColumn<HomePageToernooi, String> TableViewToernooiOverzicht_Straat;
     @FXML private TableColumn<HomePageToernooi, String> TableViewToernooiOverzicht_Nummer;
     @FXML private Button Button_ToernooiAanmaken;
+    @FXML private Button Button_ToernooiBewerken;
     private HomePageModel homePageModel;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -51,10 +53,13 @@ public class HomeController implements Initializable{
         Button_ToernooiAanmaken.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/NieuwToernooi.fxml"));
+                NieuwToernooiController controller = new NieuwToernooiController();
+                loader.setController(controller);
                 Stage stage = (Stage) Button_ToernooiAanmaken.getScene().getWindow();
                 Parent root = null;
                 try {
-                    root = FXMLLoader.load(getClass().getClassLoader().getResource("views/NieuwToernooi.fxml"));
+                    root = loader.load();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -62,7 +67,35 @@ public class HomeController implements Initializable{
                 stage.setScene(scene);
                 stage.show();
             }
+
+
         });
+
+        Button_ToernooiBewerken.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                openFxml();
+            }
+
+            private void openFxml() {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/NieuwToernooi.fxml"));
+                UpdateToernooiController controller = new UpdateToernooiController();
+                loader.setController(controller);
+                Stage stage = (Stage) Button_ToernooiBewerken.getScene().getWindow();
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Scene scene = new Scene(root, 1920, 1080);
+                stage.setScene(scene);
+                stage.show();
+            }
+
+
+        });
+
     }
 
     private void initializeTableViewToernooiOverzicht(){

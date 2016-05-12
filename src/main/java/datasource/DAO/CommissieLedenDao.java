@@ -1,7 +1,6 @@
 package datasource.DAO;
 
 import domain.NieuwToernooiCommissieLeden;
-import presentation.controllers.NiewToernooiController;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
