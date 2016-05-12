@@ -1,6 +1,5 @@
 package presentation.controllers;
 
-import domain.CommisieLid;
 import domain.CommisieLidInToernooi;
 import domain.Locatie;
 import domain.NieuwToernooiCommissieLeden;
@@ -16,12 +15,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import main.Main;
-import presentation.models.NieuwToernooiModel;
+import presentation.models.ToernooiModel;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -57,11 +53,11 @@ public class NieuwToernooiController implements Initializable {
 
 
 
-    private NieuwToernooiModel nieuwToernooiModel;
+    private ToernooiModel nieuwToernooiModel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        nieuwToernooiModel = new NieuwToernooiModel();
+        nieuwToernooiModel = new ToernooiModel();
         initializeButtons();
         initializeTableViewCommisieLeden();
         initializeTableViewAddedCommisieLeden();

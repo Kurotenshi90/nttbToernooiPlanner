@@ -12,6 +12,7 @@ import java.util.Locale;
  * Created by Peter-Paul on 20/04/2016.
  */
 public class Toernooi {
+    public int ID;
     public String naam;
     public Date begindatum;
     public Date einddatum;
@@ -133,6 +134,11 @@ public class Toernooi {
         this.betalingsinformatie = betalingsinformatie;
     }
 
+    public int getID() {
+        return ID;
+    }
 
-
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 }

@@ -74,23 +74,23 @@ public class HomeController implements Initializable{
         Button_ToernooiBewerken.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                openFxml();
-            }
+                HomePageToernooi toernooi = TableViewToernooiOverzicht.getSelectionModel().getSelectedItem();
+                if(toernooi != null) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/NieuwToernooi.fxml"));
+                    UpdateToernooiController controller = new UpdateToernooiController(toernooi.getId());
 
-            private void openFxml() {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/NieuwToernooi.fxml"));
-                UpdateToernooiController controller = new UpdateToernooiController();
-                loader.setController(controller);
-                Stage stage = (Stage) Button_ToernooiBewerken.getScene().getWindow();
-                Parent root = null;
-                try {
-                    root = loader.load();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    loader.setController(controller);
+                    Stage stage = (Stage) Button_ToernooiBewerken.getScene().getWindow();
+                    Parent root = null;
+                    try {
+                        root = loader.load();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Scene scene = new Scene(root, 1920, 1080);
+                    stage.setScene(scene);
+                    stage.show();
                 }
-                Scene scene = new Scene(root, 1920, 1080);
-                stage.setScene(scene);
-                stage.show();
             }
 
 

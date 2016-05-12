@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by donnyolijslager on 11-05-16.
  */
-public class NieuwToernooiModel {
+public class ToernooiModel {
     private ArrayList<NieuwToernooiCommissieLeden> nieuwToernooiCommissieLeden;
     private ArrayList<NieuwToernooiCommissieLeden> nieuwToernooiCommissieLedenshow;
     private ArrayList<CommisieLidInToernooi> addedCommisieLeden = new ArrayList<>();
@@ -25,11 +25,12 @@ public class NieuwToernooiModel {
     private ToernooiService toernooiService;
     private LocatieService locatieService;
     private Locatie locatie;
+    private Toernooi toernooi;
 
 
 
 
-    public NieuwToernooiModel() {
+    public ToernooiModel() {
         commissieService = new CommissieService();
         locatieService = new LocatieService();
         toernooiService = new ToernooiService();
@@ -103,5 +104,13 @@ public class NieuwToernooiModel {
         toernooi.setToernooisoort(toernooisoort);
 
         toernooiService.saveToernooi(toernooi);
+    }
+
+    public void getOneToernooi(int toernooiID){
+        toernooi = toernooiService.getOneToernooi(toernooiID);
+    }
+
+    public Toernooi getToernooi() {
+        return toernooi;
     }
 }
