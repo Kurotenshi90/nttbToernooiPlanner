@@ -9,14 +9,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import presentation.controllers.HomeController;
+import presentation.controllers.MenuController;
 
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/Home.fxml"));
-        HomeController controller = new HomeController();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/Menu.fxml"));
+        MenuController controller = new MenuController();
         loader.setController(controller);
         Parent root = loader.load();
 

@@ -91,7 +91,5 @@ public class ToernooiDao extends DAO {
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
     }
 }
