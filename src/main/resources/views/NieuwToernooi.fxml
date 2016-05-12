@@ -71,7 +71,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="CommisieLidToevoegen" layoutX="275.0" layoutY="475.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
+      <Button fx:id="CommisieLidToevoegen" layoutX="275.0" layoutY="400.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
       <Button fx:id="ToernooiToevoegen" layoutX="1111.0" layoutY="789.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
       <TableView fx:id="Toernooi" layoutX="934.0" layoutY="714.0" prefHeight="200.0" prefWidth="149.0">
          <columnResizePolicy>
@@ -126,5 +126,6 @@
          </columns>
       </TableView>
       <Button fx:id="KlasseToevoegen" layoutX="1583.0" layoutY="789.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
+      <Button fx:id="CommisieLidVerwijderen" layoutX="273.0" layoutY="550.0" mnemonicParsing="false" styleClass="button-ball" text="&lt;" />
     </children>
 </Pane>
