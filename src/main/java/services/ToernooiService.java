@@ -21,4 +21,8 @@ public class ToernooiService {
     public void saveToernooi(Toernooi toernooi){
         toernooiDao.saveToernooi(toernooi);
     }
+
+    public Toernooi getOneToernooi(int toernooiID){
+        return toernooiDao.getOneToernooi(toernooiID);
+    }
 }
