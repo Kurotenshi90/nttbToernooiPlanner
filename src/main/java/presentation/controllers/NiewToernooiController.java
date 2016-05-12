@@ -7,11 +7,15 @@ import domain.NieuwToernooiCommissieLeden;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import main.Main;
 import presentation.models.NieuwToernooiModel;
 
@@ -25,6 +29,7 @@ import java.util.ResourceBundle;
  */
 public class NiewToernooiController implements Initializable {
     @FXML Button CommisieLidToevoegen;
+    @FXML Button CommisieLidVerwijderen;
     @FXML Button ToernooiAanmaken;
 
     @FXML TableView<NieuwToernooiCommissieLeden> CommisieLeden;
@@ -94,8 +99,8 @@ public class NiewToernooiController implements Initializable {
         ToernooiAanmaken.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-              //  nieuwToernooiModel.saveToernooi(););
-
+               nieuwToernooiModel.saveToernooi(ToernooiNaamValue.getText(), java.sql.Date.valueOf(BegindatumValue.getValue()), java.sql.Date.valueOf(EinddatumValue.getValue()), java.sql.Date.valueOf(InschrijfdatumValue.getValue()), Double.parseDouble(PrijsValue.getText()), BetalingsinformatieValue.getText(), "Knockout");
+                goToHome(ToernooiAanmaken);
             }
         });
 
@@ -107,6 +112,19 @@ public class NiewToernooiController implements Initializable {
                     PlaatsValue.setText(locatie.getPlaats());
                     StraatValue.setText(locatie.getStraatnaam());
                     HuisnummerValue.setText(locatie.getHuisnummer());
+                    nieuwToernooiModel.setLocatie(locatie);
+                }
+            }
+        });
+
+        CommisieLidVerwijderen.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                CommisieLidInToernooi selected = AddedCommisieLeden.getSelectionModel().getSelectedItem();
+                if(selected !=null) {
+                    nieuwToernooiModel.deleteCommissieLid(selected);
+                    AddedCommisieLeden.getItems().setAll(nieuwToernooiModel.getAddedCommisieLeden());
+                    CommisieLeden.getItems().setAll(nieuwToernooiModel.getNieuwToernooiCommissieLeden());
                 }
             }
         });
@@ -117,5 +135,18 @@ public class NiewToernooiController implements Initializable {
     private void initializeTableViewCommisieLeden() {
         CommisieVoornaam.setCellValueFactory(new PropertyValueFactory<NieuwToernooiCommissieLeden, String>("naam"));
         CommisieLeden.getItems().setAll(nieuwToernooiModel.getNieuwToernooiCommissieLeden());
+    }
+
+    private void goToHome(Button button) {
+        Stage stage = (Stage) button.getScene().getWindow();
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("views/Home.fxml"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root, 1920, 1080);
+        stage.setScene(scene);
+        stage.show();
     }
 }
