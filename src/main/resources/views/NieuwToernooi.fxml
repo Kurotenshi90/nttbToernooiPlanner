@@ -15,21 +15,21 @@
                 <Image url="@../images/TopBorder.png" />
             </image>
         </ImageView>
-        <DatePicker fx:id="BegindatumValue" layoutX="300.0" layoutY="190.0" />
-        <DatePicker fx:id="EinddatumValue" layoutX="300.0" layoutY="240.0" />
-        <TextField fx:id="ToernooiNaamValue" layoutX="50.0" layoutY="140.0" />
+        <DatePicker fx:id="BegindatumValue" layoutX="360.0" layoutY="200.0" />
+        <DatePicker fx:id="EinddatumValue" layoutX="360.0" layoutY="250.0" />
+        <TextField fx:id="ToernooiNaamValue" layoutX="50.0" layoutY="150.0" />
         <Button fx:id="ToernooiAanmaken" layoutX="1577.0" layoutY="940.0" mnemonicParsing="false" styleClass="button-big" text="Toernooi Aanmaken" />
-        <Label layoutX="55.0" layoutY="120.0" text="Toernooinaam" />
-        <Label layoutX="305.0" layoutY="170.0" text="Begindatum" />
-        <Label layoutX="305.0" layoutY="220.0" text="Eindatum" />
-        <Label layoutX="305.0" layoutY="120.0" text="Inschrijfdatum" />
-        <DatePicker fx:id="InschrijfdatumValue" layoutX="300.0" layoutY="140.0" />
+        <Label layoutX="50.0" layoutY="130.0" text="Toernooinaam" />
+        <Label layoutX="360.0" layoutY="180.0" text="Begindatum" />
+        <Label layoutX="360.0" layoutY="230.0" text="Eindatum" />
+        <Label layoutX="360.0" layoutY="130.0" text="Inschrijfdatum" />
+        <DatePicker fx:id="InschrijfdatumValue" layoutX="360.0" layoutY="150.0" />
         <Label layoutX="1306.0" layoutY="156.0" text="Locatie" />
         <Button layoutX="1306.0" layoutY="397.0" mnemonicParsing="false" styleClass="button-small" text="Nieuwe locatie toevoegen" />
-        <Label layoutX="55.0" layoutY="170.0" text="Prijs" />
-        <TextField fx:id="PrijsValue" layoutX="50.0" layoutY="190.0" />
-        <TextArea fx:id="BetalingsinformatieValue" layoutX="50.0" layoutY="240.0" prefHeight="67.0" prefWidth="192.0" />
-        <Label layoutX="55.0" layoutY="220.0" text="Betalingsinformatie" />
+        <Label layoutX="50.0" layoutY="180.0" text="Prijs" />
+        <TextField fx:id="PrijsValue" layoutX="50.0" layoutY="200.0" />
+        <TextArea fx:id="BetalingsinformatieValue" layoutX="50.0" layoutY="250.0" prefHeight="67.0" prefWidth="192.0" />
+        <Label layoutX="50.0" layoutY="230.0" text="Betalingsinformatie" />
         <TableView fx:id="LocatieTable" layoutX="1299.0" layoutY="181.0" prefHeight="200.0" prefWidth="500.0">
             <columns>
                 <TableColumn fx:id="Plaats" prefWidth="75.0" text="Plaats" />
@@ -40,13 +40,13 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
         </TableView>
-        <TextField fx:id="StraatValue" editable="false" layoutX="512.0" layoutY="193.0" />
-        <Label layoutX="517.0" layoutY="173.0" text="Straat" />
-        <Label layoutX="517.0" layoutY="123.0" text="Plaats" />
-        <TextField fx:id="PlaatsValue" editable="false" layoutX="512.0" layoutY="143.0" />
-        <Label layoutX="517.0" layoutY="220.0" text="Huisnummer" />
-        <TextField fx:id="HuisnummerValue" editable="false" layoutX="517.0" layoutY="240.0" />
-      <TableView fx:id="CommisieLeden" layoutX="46.0" layoutY="337.0" prefHeight="300.0" prefWidth="200.0">
+        <TextField fx:id="StraatValue" editable="false" layoutX="600.0" layoutY="200.0" />
+        <Label layoutX="600.0" layoutY="180.0" text="Straat" />
+        <Label layoutX="600.0" layoutY="130.0" text="Plaats" />
+        <TextField fx:id="PlaatsValue" editable="false" layoutX="600.0" layoutY="150.0" />
+        <Label layoutX="600.0" layoutY="230.0" text="Huisnummer" />
+        <TextField fx:id="HuisnummerValue" editable="false" layoutX="600.0" layoutY="250.0" />
+      <TableView fx:id="CommisieLeden" layoutX="50.0" layoutY="350.0" prefHeight="300.0" prefWidth="200.0">
         <columns>
           <TableColumn fx:id="CommisieVoornaam" prefWidth="75.0" text="Voornaam" />
         </columns>
@@ -54,7 +54,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TableView fx:id="AddedCommisieLeden" editable="true" layoutX="355.0" layoutY="337.0" prefHeight="300.0" prefWidth="600.0">
+      <TableView fx:id="AddedCommisieLeden" editable="true" layoutX="360.0" layoutY="350.0" prefHeight="300.0" prefWidth="600.0">
         <columns>
             <TableColumn fx:id="AddedCommisieVoornaam" prefWidth="75.0" text="Voornaam" />
             <TableColumn fx:id="AddedCommisieAchternaam" prefWidth="75.0" text="Achternaam" />
@@ -71,7 +71,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="CommisieLidToevoegen" layoutX="275.0" layoutY="424.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
+      <Button fx:id="CommisieLidToevoegen" layoutX="275.0" layoutY="475.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
       <Button fx:id="ToernooiToevoegen" layoutX="1111.0" layoutY="789.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
       <TableView fx:id="Toernooi" layoutX="934.0" layoutY="714.0" prefHeight="200.0" prefWidth="149.0">
          <columnResizePolicy>
