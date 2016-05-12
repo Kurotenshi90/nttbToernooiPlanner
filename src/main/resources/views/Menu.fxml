@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="200.0" fitWidth="1920.0">
+         <image>
+            <Image url="@../images/TopBorder.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="ToernooiBeheren" layoutX="825.0" layoutY="300.0" mnemonicParsing="false" styleClass="button-big" text="Toernooi beheren" />
+      <Button fx:id="InschriijvenToernooi" layoutX="825.0" layoutY="400.0" mnemonicParsing="false" styleClass="button-big" text="Inschrijven toernooi" />
+      <Button fx:id="ToernooiInplannen" layoutX="825.0" layoutY="500.0" mnemonicParsing="false" styleClass="button-big" text="Toernooi inplannen" />
+      <Button fx:id="Exit" layoutX="825.0" layoutY="600.0" mnemonicParsing="false" styleClass="button-big" text="Exit" />
+      <Button fx:id="Home" layoutX="10.0" layoutY="5.0" mnemonicParsing="false" styleClass="button-home" />
+   </children>
+</Pane>
