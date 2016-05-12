@@ -2,15 +2,16 @@ package presentation.controllers;
 
 import domain.CommisieLid;
 import domain.CommisieLidInToernooi;
+import domain.Locatie;
 import domain.NieuwToernooiCommissieLeden;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import main.Main;
 import presentation.models.NieuwToernooiModel;
 
@@ -24,6 +25,7 @@ import java.util.ResourceBundle;
  */
 public class NiewToernooiController implements Initializable {
     @FXML Button CommisieLidToevoegen;
+    @FXML Button ToernooiAanmaken;
 
     @FXML TableView<NieuwToernooiCommissieLeden> CommisieLeden;
     @FXML TableColumn<NieuwToernooiCommissieLeden, String> CommisieVoornaam;
@@ -32,7 +34,23 @@ public class NiewToernooiController implements Initializable {
     @FXML TableColumn<CommisieLidInToernooi, String> AddedCommisieVoornaam;
     @FXML TableColumn<CommisieLidInToernooi, String> AddedCommisieAchternaam;
 
-    private List<CommisieLidInToernooi> addedCommisieLeden = new ArrayList<>();
+    @FXML TableView<Locatie> LocatieTable;
+    @FXML TableColumn<Locatie, String> Plaats;
+    @FXML TableColumn<Locatie, String> Straat;
+    @FXML TableColumn<Locatie, String> Huisnummer;
+
+    @FXML TextField ToernooiNaamValue;
+    @FXML TextField PrijsValue;
+    @FXML TextArea BetalingsinformatieValue;
+    @FXML TextField PlaatsValue;
+    @FXML TextField StraatValue;
+    @FXML TextField HuisnummerValue;
+
+    @FXML DatePicker InschrijfdatumValue;
+    @FXML DatePicker BegindatumValue;
+    @FXML DatePicker EinddatumValue;
+
+
 
     private NieuwToernooiModel nieuwToernooiModel;
 
@@ -42,15 +60,19 @@ public class NiewToernooiController implements Initializable {
         initializeButtons();
         initializeTableViewCommisieLeden();
         initializeTableViewAddedCommisieLeden();
-        System.out.println(nieuwToernooiModel.getNieuwToernooiCommissieLeden().get(1).getNaam());
+        initializeLocatieTable();
+    }
 
-
+    private void initializeLocatieTable() {
+        Plaats.setCellValueFactory(new PropertyValueFactory<Locatie, String>("plaats"));
+        Straat.setCellValueFactory(new PropertyValueFactory<Locatie, String>("straatnaam"));
+        Huisnummer.setCellValueFactory(new PropertyValueFactory<Locatie, String>("huisnummer"));
+        LocatieTable.getItems().setAll(nieuwToernooiModel.getLocaties());
     }
 
     private void initializeTableViewAddedCommisieLeden() {
-        AddedCommisieVoornaam.setCellValueFactory(new PropertyValueFactory<CommisieLidInToernooi, String>("voornaam"));
-        AddedCommisieAchternaam.setCellValueFactory(new PropertyValueFactory<CommisieLidInToernooi, String>("achternaam"));
-        AddedCommisieLeden.getItems().setAll(addedCommisieLeden);
+        AddedCommisieVoornaam.setCellValueFactory(new PropertyValueFactory<CommisieLidInToernooi, String>("naam"));
+        AddedCommisieLeden.getItems().setAll(nieuwToernooiModel.getAddedCommisieLeden());
     }
 
     private void initializeButtons() {
@@ -59,12 +81,37 @@ public class NiewToernooiController implements Initializable {
             public void handle(ActionEvent event) {
                 NieuwToernooiCommissieLeden selected = CommisieLeden.getSelectionModel().getSelectedItem();
                 if(selected != null) {
-                    //addedCommisieLeden.add(new CommisieLidInToernooi(selected.getNaam()));
-                    AddedCommisieLeden.getItems().setAll(addedCommisieLeden);
+                    CommisieLidInToernooi commissieLid = new CommisieLidInToernooi();
+                    commissieLid.setNaam(selected.getNaam());
+                    commissieLid.setLidnr(selected.getLidnr());
+                    nieuwToernooiModel.addAddedCommisieLeden(commissieLid);
+                    AddedCommisieLeden.getItems().setAll(nieuwToernooiModel.getAddedCommisieLeden());
+                    CommisieLeden.getItems().setAll(nieuwToernooiModel.getNieuwToernooiCommissieLeden());
                 }
-                System.out.println("hoi");
             }
         });
+
+        ToernooiAanmaken.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+              //  nieuwToernooiModel.saveToernooi(););
+
+            }
+        });
+
+        LocatieTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.getButton() == MouseButton.PRIMARY){
+                    Locatie locatie = LocatieTable.getSelectionModel().getSelectedItem();
+                    PlaatsValue.setText(locatie.getPlaats());
+                    StraatValue.setText(locatie.getStraatnaam());
+                    HuisnummerValue.setText(locatie.getHuisnummer());
+                }
+            }
+        });
+
+
     }
 
     private void initializeTableViewCommisieLeden() {

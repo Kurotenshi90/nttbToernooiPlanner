@@ -5,7 +5,15 @@ package domain;
  */
 public class NieuwToernooiCommissieLeden {
     private String naam;
+    private int lidnr;
 
+    public int getLidnr() {
+        return lidnr;
+    }
+
+    public void setLidnr(int lidnr) {
+        this.lidnr = lidnr;
+    }
 
     public String getNaam() {
         return naam;

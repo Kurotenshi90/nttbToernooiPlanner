@@ -18,11 +18,12 @@ public class CommissieLedenDao extends DAO {
         connect();
 
         try {
-        ResultSet resultSet = conn.prepareStatement("SELECT naam FROM CommissieLid").executeQuery();
+        ResultSet resultSet = conn.prepareStatement("SELECT naam, Commissielidnr FROM CommissieLid").executeQuery();
             while (resultSet.next()){
                 NieuwToernooiCommissieLeden nieuwToernooiCommissieLeden = new NieuwToernooiCommissieLeden();
 
                 nieuwToernooiCommissieLeden.setNaam(resultSet.getString(1));
+                nieuwToernooiCommissieLeden.setLidnr(resultSet.getInt(2));
                 returnValue.add(nieuwToernooiCommissieLeden);
             }
         } catch (SQLException e) {
