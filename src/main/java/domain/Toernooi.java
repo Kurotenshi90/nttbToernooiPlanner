@@ -69,16 +69,16 @@ public class Toernooi {
         this.naam = naam;
     }
 
-    public String getLeider() {
-        String leider= "";
-        for(CommisieLidInToernooi item: commisieLidInToernooi) {
-            if (item.getLeider()) {
-                leider = item.getVoornaam();
-
-            }
-        }
-        return leider;
-    }
+//    public String getLeider() {
+//        String leider= "";
+//        for(CommisieLidInToernooi item: commisieLidInToernooi) {
+//            if (item.getLeider()) {
+//                leider = item.getVoornaam();
+//
+//            }
+//        }
+//        return leider;
+//    }
 
 
     public Date getBegindatum() {

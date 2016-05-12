@@ -1,5 +1,6 @@
 package datasource.DAO;
 
+import domain.CommisieLidInToernooi;
 import domain.HomePageToernooi;
 import domain.Toernooi;
 
@@ -63,7 +64,29 @@ public class ToernooiDao extends DAO {
             preparedStatement.setString(7, toernooi.getBetalingsinformatie());
             preparedStatement.setString(8, toernooi.getNaam());
            // SQLServerDataTable
-            preparedStatement.setObject(9, toernooi.getCommisieLidInToernooi());
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("[{");
+            boolean checkPastFirstRound= false;
+            for(CommisieLidInToernooi c: toernooi.getCommisieLidInToernooi()){
+                if(checkPastFirstRound){
+                    stringBuilder.append("},{");
+                }
+                stringBuilder.append("\"Commissielidnr\":"+c.getLidnr()+",");
+                stringBuilder.append("\"Toernooinr\":" + 0 + ",");
+                String dummy = "";
+                if(c.getLeider()){
+                    dummy = "leider";
+                }
+                else if (c.getContactpersoon()){
+                    dummy = "contactpersoon";
+                }
+                stringBuilder.append("\"rol\":\""+dummy+"\"");
+                checkPastFirstRound = true;
+            }
+            stringBuilder.append("}]");
+            System.out.println(stringBuilder.toString());
+
+            preparedStatement.setString(9, stringBuilder.toString());
             preparedStatement.executeUpdate();
         }catch (Exception e){
             e.printStackTrace();

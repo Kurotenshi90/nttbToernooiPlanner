@@ -24,10 +24,17 @@ public class Database {
         ToernooiDao da = new ToernooiDao();
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         da.connect();
-//        ArrayList<CommisieLidInToernooi> arrayList = new ArrayList();
+        ArrayList<CommisieLidInToernooi> arrayList = new ArrayList();
 //        arrayList.add(new CommisieLidInToernooi("hoi"))
+        CommisieLidInToernooi commisieLidInToernooi = new CommisieLidInToernooi();
+        commisieLidInToernooi.setLidnr(3);
+        commisieLidInToernooi.setLeider(true);
+        arrayList.add(commisieLidInToernooi);
+        arrayList.add(commisieLidInToernooi);
+        arrayList.add(commisieLidInToernooi);
+        arrayList.add(commisieLidInToernooi);
 
-        Toernooi toernooi = new Toernooi("henk", new Date(), new Date(), new Date(), new Locatie(2,"","",""),5,"hoi","Knockout", null,null);
+        Toernooi toernooi = new Toernooi("yolo", new Date(), new Date(), new Date(), new Locatie(2,"","",""),5,"hoi","Knockout", arrayList,null);
         da.saveToernooi(toernooi);
         da.disconnect();
     }

@@ -59,7 +59,7 @@ public class NiewToernooiController implements Initializable {
             public void handle(ActionEvent event) {
                 NieuwToernooiCommissieLeden selected = CommisieLeden.getSelectionModel().getSelectedItem();
                 if(selected != null) {
-                    addedCommisieLeden.add(new CommisieLidInToernooi(selected.getNaam()));
+                    //addedCommisieLeden.add(new CommisieLidInToernooi(selected.getNaam()));
                     AddedCommisieLeden.getItems().setAll(addedCommisieLeden);
                 }
                 System.out.println("hoi");

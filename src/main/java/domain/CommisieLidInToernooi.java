@@ -6,22 +6,21 @@ import javafx.beans.property.SimpleBooleanProperty;
  * Created by Peter-Paul on 21/04/2016.
  */
 public class CommisieLidInToernooi {
-    private String voornaam;
+    private int lidnr;
     private SimpleBooleanProperty leider = new SimpleBooleanProperty(false);
     private SimpleBooleanProperty contactpersoon = new SimpleBooleanProperty(false);
 
 
-    public CommisieLidInToernooi(String voornaam) {
-        this.voornaam = voornaam;
+    public CommisieLidInToernooi() {
 
     }
 
-    public String getVoornaam() {
-        return voornaam;
+    public int getLidnr() {
+        return lidnr;
     }
 
-    public void setVoornaam(String voornaam) {
-        this.voornaam = voornaam;
+    public void setLidnr(int lidnr) {
+        this.lidnr = lidnr;
     }
 
     public SimpleBooleanProperty leiderProperty(){

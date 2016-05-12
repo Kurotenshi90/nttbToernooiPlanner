@@ -18,4 +18,7 @@ public class ToernooiService {
     public ArrayList<HomePageToernooi> getHomePageToernoois(){
         return toernooiDao.getHomePageToernoois();
     }
+    public void saveToernooi(Toernooi toernooi){
+        toernooiDao.saveToernooi(toernooi);
+    }
 }
