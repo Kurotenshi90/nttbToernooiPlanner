@@ -27,6 +27,8 @@ public class NieuwToernooiController implements Initializable {
     @FXML Button CommisieLidToevoegen;
     @FXML Button CommisieLidVerwijderen;
     @FXML Button ToernooiAanmaken;
+    @FXML Button Home;
+    @FXML Button Annuleren;
 
     @FXML TableView<NieuwToernooiCommissieLeden> CommisieLeden;
     @FXML TableColumn<NieuwToernooiCommissieLeden, String> CommisieVoornaam;
@@ -91,7 +93,42 @@ public class NieuwToernooiController implements Initializable {
                 }
             }
         });
-
+        Home.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/Menu.fxml"));
+                MenuController controller = new MenuController();
+                loader.setController(controller);
+                Stage stage = (Stage) Home.getScene().getWindow();
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Scene scene = new Scene(root, 1920, 1080);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+        Annuleren.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/Home.fxml"));
+                HomeController controller = new HomeController();
+                loader.setController(controller);
+                Stage stage = (Stage) Annuleren.getScene().getWindow();
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Scene scene = new Scene(root, 1920, 1080);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
         ToernooiAanmaken.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

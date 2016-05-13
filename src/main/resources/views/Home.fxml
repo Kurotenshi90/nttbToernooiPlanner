@@ -32,5 +32,6 @@
             <Image url="@../images/TopBorder.png" />
          </image>
       </ImageView>
+       <Button fx:id="Home" layoutX="10.0" layoutY="5.0" mnemonicParsing="false" styleClass="button-home" />
    </children>
 </Pane>

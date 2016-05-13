@@ -127,5 +127,7 @@
       </TableView>
       <Button fx:id="KlasseToevoegen" layoutX="1583.0" layoutY="789.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
       <Button fx:id="CommisieLidVerwijderen" layoutX="273.0" layoutY="550.0" mnemonicParsing="false" styleClass="button-ball" text="&lt;" />
+        <Button fx:id="Home" layoutX="10.0" layoutY="5.0" mnemonicParsing="false" styleClass="button-home" />
+      <Button fx:id="Annuleren" layoutX="50.0" layoutY="940.0" mnemonicParsing="false" styleClass="button-big" text="Annuleren" />
     </children>
 </Pane>

@@ -39,6 +39,7 @@ public class HomeController implements Initializable{
     @FXML private TableColumn<HomePageToernooi, String> TableViewToernooiOverzicht_Nummer;
     @FXML private Button Button_ToernooiAanmaken;
     @FXML private Button Button_ToernooiBewerken;
+    @FXML private Button Home;
     private HomePageModel homePageModel;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -69,6 +70,25 @@ public class HomeController implements Initializable{
             }
 
 
+        });
+
+        Home.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/Menu.fxml"));
+                MenuController controller = new MenuController();
+                loader.setController(controller);
+                Stage stage = (Stage) Home.getScene().getWindow();
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Scene scene = new Scene(root, 1920, 1080);
+                stage.setScene(scene);
+                stage.show();
+            }
         });
 
         Button_ToernooiBewerken.setOnAction(new EventHandler<ActionEvent>() {
