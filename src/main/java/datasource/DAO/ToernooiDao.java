@@ -52,6 +52,7 @@ public class ToernooiDao extends DAO {
     }
 
     public Toernooi getOneToernooi(int toernooiID){
+
         Toernooi toernooi = new Toernooi();
         ArrayList<CommisieLidInToernooi> commissieLeden = new ArrayList<>();
         connect();
@@ -61,6 +62,7 @@ public class ToernooiDao extends DAO {
         try {
             toernooiResult = conn.prepareStatement("SELECT T.Toernooinr, T.Naam, T.InschrijfDatum, T.StartDatum, T.EindDatum, L.LOCATIENR, L.Woonplaats, L.Huisnr, L.Straatnaam, T.Betalingsinfo, T.Prijs FROM Locatie L RIGHT JOIN Toernooi T ON L.LOCATIENR=T.Locatienr WHERE T.Toernooinr = " + toernooiID).executeQuery();
             commissieResult = conn.prepareStatement("SELECT TC.Commissielidnr, C.Naam, TC.Rol FROM Toernooicommissie TC INNER JOIN Commissielid C ON TC.Commissielidnr=C.Commissielidnr WHERE Toernooinr = " + toernooiID).executeQuery();
+
 
             while (toernooiResult.next()){
                 toernooi.setID(toernooiResult.getInt(1));
@@ -96,18 +98,19 @@ public class ToernooiDao extends DAO {
     }
 
     public void saveToernooi(Toernooi toernooi){
-        String update = "EXEC STP_NieuwToernooiToevoegen ?, ?, ?, ?, ?, ?, ?, ?, ?";
+        String update = "EXEC STP_NieuwToernooiToevoegen ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
         connect();
         try{
             PreparedStatement preparedStatement = conn.prepareStatement(update);
-            preparedStatement.setInt(1, toernooi.getLocatie().getLocatienr());
-            preparedStatement.setString(2, toernooi.getToernooisoort());
-            preparedStatement.setDate(3, new java.sql.Date(toernooi.getBegindatum().getTime()));
-            preparedStatement.setDate(4, new java.sql.Date(toernooi.getEinddatum().getTime()));
-            preparedStatement.setDate(5, new java.sql.Date(toernooi.getInschrijfdatum().getTime()));
-            preparedStatement.setDouble(6, toernooi.getPrijs());
-            preparedStatement.setString(7, toernooi.getBetalingsinformatie());
-            preparedStatement.setString(8, toernooi.getNaam());
+            preparedStatement.setInt(1, toernooi.getID());
+            preparedStatement.setInt(2, toernooi.getLocatie().getLocatienr());
+            preparedStatement.setString(3, toernooi.getToernooisoort());
+            preparedStatement.setDate(4, new java.sql.Date(toernooi.getBegindatum().getTime()));
+            preparedStatement.setDate(5, new java.sql.Date(toernooi.getEinddatum().getTime()));
+            preparedStatement.setDate(6, new java.sql.Date(toernooi.getInschrijfdatum().getTime()));
+            preparedStatement.setDouble(7, toernooi.getPrijs());
+            preparedStatement.setString(8, toernooi.getBetalingsinformatie());
+            preparedStatement.setString(9, toernooi.getNaam());
            // SQLServerDataTable
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("[{");
@@ -131,7 +134,7 @@ public class ToernooiDao extends DAO {
             stringBuilder.append("}]");
             System.out.println(stringBuilder.toString());
 
-            preparedStatement.setString(9, stringBuilder.toString());
+            preparedStatement.setString(10, stringBuilder.toString());
             preparedStatement.executeUpdate();
         }catch (Exception e){
             e.printStackTrace();

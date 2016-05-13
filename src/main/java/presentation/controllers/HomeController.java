@@ -125,7 +125,7 @@ public class HomeController implements Initializable{
         TableViewToernooiOverzicht_Toernooileider.setCellValueFactory(new PropertyValueFactory<HomePageToernooi, String>("toernooileider"));
         TableViewToernooiOverzicht_Inschrijfdatum.setCellValueFactory( HomePageToernooi -> {
             SimpleStringProperty property = new SimpleStringProperty();
-            property.setValue(format.format(HomePageToernooi.getValue().getEinddatum()));
+            property.setValue(format.format(HomePageToernooi.getValue().getInschrijdatum()));
             return property;
         });
         TableViewToernooiOverzicht_Begindatum.setCellValueFactory( HomePageToernooi -> {
@@ -135,7 +135,7 @@ public class HomeController implements Initializable{
         });
         TableViewToernooiOverzicht_Einddatum.setCellValueFactory(HomePageToernooi -> {
             SimpleStringProperty property = new SimpleStringProperty();
-            property.setValue(format.format(HomePageToernooi.getValue().getInschrijdatum()));
+            property.setValue(format.format(HomePageToernooi.getValue().getEinddatum()));
             return property;
         });
         TableViewToernooiOverzicht_Plaats.setCellValueFactory(HomePageToernooi -> {

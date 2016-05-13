@@ -86,6 +86,7 @@ public class ToernooiModel {
     }
 
     public ArrayList<NieuwToernooiCommissieLeden> getNieuwToernooiCommissieLeden() {
+        makeCommissieledenList();
         return nieuwToernooiCommissieLedenshow;
     }
 
@@ -93,8 +94,9 @@ public class ToernooiModel {
         return locaties;
     }
 
-    public void saveToernooi(String naam, Date begindatum, Date einddatum, Date inschrijfdatum, double prijs, String betalingsinformatie, String toernooisoort){
+    public void saveToernooi(int id, String naam, Date begindatum, Date einddatum, Date inschrijfdatum, double prijs, String betalingsinformatie, String toernooisoort){
         Toernooi toernooi = new Toernooi();
+        toernooi.setID(id);
         toernooi.setLocatie(locatie);
         toernooi.setNaam(naam);
         toernooi.setBegindatum(begindatum);
@@ -110,14 +112,14 @@ public class ToernooiModel {
 
     public void getOneToernooi(int toernooiID){
         toernooi = toernooiService.getOneToernooi(toernooiID);
+        for(CommisieLidInToernooi commisieLidInToernooi: toernooi.getCommisieLidInToernooi()){
+            addedCommisieLeden.add(commisieLidInToernooi);
+        }
     }
 
     public Toernooi getToernooi() {
         return toernooi;
     }
 
-    public LocalDate getToernooiDate(Date date){
-        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-    }
 
 }
