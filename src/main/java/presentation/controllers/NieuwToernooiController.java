@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import presentation.models.ToernooiModel;
 
@@ -29,6 +30,7 @@ public class NieuwToernooiController implements Initializable {
     @FXML Button ToernooiAanmaken;
     @FXML Button Home;
     @FXML Button Annuleren;
+    @FXML Button NieuweLocatieToevoegen;
 
     @FXML TableView<NieuwToernooiCommissieLeden> CommisieLeden;
     @FXML TableColumn<NieuwToernooiCommissieLeden, String> CommisieVoornaam;
@@ -162,6 +164,27 @@ public class NieuwToernooiController implements Initializable {
             }
         });
 
+        NieuweLocatieToevoegen.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/LocatieToevoegen.fxml"));
+                LocatieToevoegenController controller = new LocatieToevoegenController(getController());
+                loader.setController(controller);
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                Stage stage = new Stage();
+                Scene scene = new Scene(root, 480, 320);
+                stage.setScene(scene);
+                stage.initOwner(NieuweLocatieToevoegen.getScene().getWindow());
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.show();
+            }
+        });
+
 
     }
 
@@ -184,5 +207,18 @@ public class NieuwToernooiController implements Initializable {
         Scene scene = new Scene(root, 1920, 1080);
         stage.setScene(scene);
         stage.show();
+    }
+
+    private NieuwToernooiController getController() {
+        return this;
+    }
+
+    public void loadLocaties(Locatie locatie) {
+        nieuwToernooiModel.loadLocaties();
+        LocatieTable.getItems().clear();
+        LocatieTable.getItems().setAll(nieuwToernooiModel.getLocaties());
+        PlaatsValue.setText(locatie.getPlaats());
+        StraatValue.setText(locatie.getStraatnaam());
+        HuisnummerValue.setText(locatie.getHuisnummer());
     }
 }

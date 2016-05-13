@@ -18,4 +18,8 @@ public class LocatieService {
     public ArrayList<Locatie> getLocaties() {
         return locatieDao.getLocaties();
     }
+
+    public void saveLocatie(Locatie locatie) {
+        locatieDao.saveLocatie(locatie);
+    }
 }

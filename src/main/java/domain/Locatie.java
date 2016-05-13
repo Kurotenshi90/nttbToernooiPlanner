@@ -8,12 +8,50 @@ public class Locatie {
     public String plaats;
     public String straatnaam;
     public String huisnummer;
+    public String naam;
+    public String postcode;
+    public int telefoonnummer;
+
+
+    public Locatie(int locatienr, String plaats, String straatnaam, String huisnummer, String naam, String postcode, int telefoonnummer) {
+        this.locatienr = locatienr;
+        this.plaats = plaats;
+        this.straatnaam = straatnaam;
+        this.huisnummer = huisnummer;
+        this.naam = naam;
+        this.postcode = postcode;
+        this.telefoonnummer = telefoonnummer;
+    }
 
     public Locatie(int locatienr, String plaats, String straatnaam, String huisnummer) {
         this.locatienr = locatienr;
         this.plaats = plaats;
         this.straatnaam = straatnaam;
         this.huisnummer = huisnummer;
+    }
+
+    public String getNaam() {
+        return naam;
+    }
+
+    public void setNaam(String naam) {
+        this.naam = naam;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
+
+    public int getTelefoonnummer() {
+        return telefoonnummer;
+    }
+
+    public void setTelefoonnummer(int telefoonnummer) {
+        this.telefoonnummer = telefoonnummer;
     }
 
     public int getLocatienr() {

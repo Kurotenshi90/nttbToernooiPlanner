@@ -38,6 +38,10 @@ public class ToernooiModel {
         toernooiService = new ToernooiService();
         nieuwToernooiCommissieLeden = commissieService.getNieuwToernooiCommissieLeden();
         nieuwToernooiCommissieLedenshow = nieuwToernooiCommissieLeden;
+        loadLocaties();
+    }
+
+    public void loadLocaties() {
         locaties = locatieService.getLocaties();
     }
 

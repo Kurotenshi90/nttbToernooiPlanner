@@ -3,6 +3,7 @@ package datasource.DAO;
 import domain.Locatie;
 import domain.NieuwToernooiCommissieLeden;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,5 +30,23 @@ public class LocatieDao extends DAO {
 
 
         return returnValue;
+    }
+
+    public void saveLocatie(Locatie locatie){
+        String update = "EXEC Stp_LocatieOpslaan ?, ?, ?, ?, ?, ?";
+        connect();
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(update);
+            preparedStatement.setString(1, locatie.getNaam());
+            preparedStatement.setString(2, locatie.getStraatnaam());
+            preparedStatement.setString(3, locatie.getHuisnummer());
+            preparedStatement.setString(4, locatie.getPostcode());
+            preparedStatement.setString(5, locatie.getPlaats());
+            preparedStatement.setInt(6, locatie.getTelefoonnummer());
+
+            preparedStatement.executeUpdate();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
