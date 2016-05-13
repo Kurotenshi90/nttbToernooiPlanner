@@ -7,10 +7,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import presentation.models.ToernooiModel;
+import sun.util.resources.cldr.ebu.CalendarData_ebu_KE;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 /**
@@ -55,9 +58,13 @@ public class UpdateToernooiController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setTextFields();
+        System.out.println(toernooiModel.getToernooi().getNaam());
+
     }
 
     private void setTextFields() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(toernooiModel.getToernooi().getBegindatum());
         toernooiModel.getOneToernooi(toernooiID);
         ToernooiNaamValue.setText(toernooiModel.getToernooi().getNaam());
         PrijsValue.setText(String.valueOf(toernooiModel.getToernooi().getPrijs()));
@@ -65,9 +72,9 @@ public class UpdateToernooiController implements Initializable {
         PlaatsValue.setText(toernooiModel.getToernooi().getLocatie().getPlaats());
         StraatValue.setText(toernooiModel.getToernooi().getLocatie().getStraatnaam());
         HuisnummerValue.setText(toernooiModel.getToernooi().getLocatie().getHuisnummer());
-        InschrijfdatumValue.setValue(LocalDateTime.ofInstant(toernooiModel.getToernooi().getInschrijfdatum().toInstant(), ZoneId.systemDefault()).toLocalDate());
-        BegindatumValue.setValue(toernooiModel.getToernooi().getBegindatum().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        EinddatumValue.setValue(toernooiModel.getToernooi().getEinddatum().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+       // InschrijfdatumValue.setValue(LocalDateTime.ofInstant();
+        BegindatumValue = new DatePicker(LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)));
+       // EinddatumValue.setValue();
 
     }
 

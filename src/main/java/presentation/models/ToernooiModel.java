@@ -9,6 +9,8 @@ import services.LocatieService;
 import services.ToernooiService;
 
 import java.lang.reflect.Array;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -113,4 +115,9 @@ public class ToernooiModel {
     public Toernooi getToernooi() {
         return toernooi;
     }
+
+    public LocalDate getToernooiDate(Date date){
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+
 }

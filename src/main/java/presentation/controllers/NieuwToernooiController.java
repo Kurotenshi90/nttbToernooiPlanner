@@ -134,7 +134,7 @@ public class NieuwToernooiController implements Initializable {
     }
 
     private void goToHome(Button button) {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/NieuwToernooi.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/Home.fxml"));
         HomeController controller = new HomeController();
         loader.setController(controller);
         Stage stage = (Stage) button.getScene().getWindow();
