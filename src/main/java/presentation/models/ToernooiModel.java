@@ -23,6 +23,7 @@ public class ToernooiModel {
     private LocatieService locatieService;
     private KlasseService klasseService;
     private ToernooitypeService toernooitypeService;
+    private SpelvormService spelvormService;
     private Locatie locatie;
     private Toernooi toernooi;
 
@@ -32,6 +33,7 @@ public class ToernooiModel {
         toernooiService = new ToernooiService();
         toernooitypeService = new ToernooitypeService();
         klasseService = new KlasseService();
+        spelvormService = new SpelvormService();
         nieuwToernooiCommissieLeden = commissieService.getNieuwToernooiCommissieLeden();
         nieuwToernooiCommissieLedenshow = nieuwToernooiCommissieLeden;
         loadLocaties();
@@ -127,5 +129,9 @@ public class ToernooiModel {
 
     public ArrayList<Klasse> getKlasses() {
         return klasseService.getKlasses();
+    }
+
+    public ArrayList<Spelvorm> getSpelvormen() {
+        return spelvormService.getSpelvormen();
     }
 }
