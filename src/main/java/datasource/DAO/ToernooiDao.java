@@ -60,7 +60,7 @@ public class ToernooiDao extends DAO {
         ResultSet commissieResult = null;
 
         try {
-            toernooiResult = conn.prepareStatement("SELECT T.Toernooinr, T.Naam, T.InschrijfDatum, T.StartDatum, T.EindDatum, L.LOCATIENR, L.Woonplaats, L.Huisnr, L.Straatnaam, T.Betalingsinfo, T.Prijs FROM Locatie L RIGHT JOIN Toernooi T ON L.LOCATIENR=T.Locatienr WHERE T.Toernooinr = " + toernooiID).executeQuery();
+            toernooiResult = conn.prepareStatement("SELECT T.Toernooinr, T.Naam, T.InschrijfDatum, T.StartDatum, T.EindDatum, L.LOCATIENR, L.Woonplaats, L.Huisnr, L.Straatnaam, T.Betalingsinfo, T.Prijs, T.ToernooiSoort FROM Locatie L RIGHT JOIN Toernooi T ON L.LOCATIENR=T.Locatienr WHERE T.Toernooinr = " + toernooiID).executeQuery();
             commissieResult = conn.prepareStatement("SELECT TC.Commissielidnr, C.Naam, TC.Rol FROM Toernooicommissie TC INNER JOIN Commissielid C ON TC.Commissielidnr=C.Commissielidnr WHERE Toernooinr = " + toernooiID).executeQuery();
 
 
@@ -73,7 +73,7 @@ public class ToernooiDao extends DAO {
                 toernooi.setLocatie(new Locatie(toernooiResult.getInt(6), toernooiResult.getString(7), toernooiResult.getString(9), toernooiResult.getString(8)));
                 toernooi.setBetalingsinformatie(toernooiResult.getString(10));
                 toernooi.setPrijs(toernooiResult.getDouble(11));
-                toernooi.setToernooisoort("Knockout");
+                toernooi.setToernooisoort(toernooiResult.getString(12));
             }
 
             while (commissieResult.next()){

@@ -3,6 +3,7 @@ package presentation.controllers;
 import domain.CommisieLidInToernooi;
 import domain.Locatie;
 import domain.NieuwToernooiCommissieLeden;
+import domain.Toernooitype;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -22,6 +23,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
@@ -58,6 +60,8 @@ public class UpdateToernooiController implements Initializable {
     @FXML DatePicker BegindatumValue;
     @FXML DatePicker EinddatumValue;
 
+    @FXML ChoiceBox<String> SysteemType;
+
     private int toernooiID;
     private ToernooiModel toernooiModel;
 
@@ -74,7 +78,17 @@ public class UpdateToernooiController implements Initializable {
         initializeTableViewCommisieLeden();
         initializeTableViewAddedCommisieLeden();
         initializeButtons();
+        initializeChoiceboxSysteemType();
 
+    }
+
+    private void initializeChoiceboxSysteemType(){
+        ArrayList<String> toernooitypes = new ArrayList<>();
+        for(Toernooitype t : toernooiModel.getToernooitypes()){
+            toernooitypes.add(t.getType());
+        }
+        SysteemType.getItems().setAll(toernooitypes);
+        SysteemType.setValue(toernooiModel.getToernooi().getToernooisoort());
     }
 
     private void initializeButtons() {
@@ -156,7 +170,7 @@ public class UpdateToernooiController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println(toernooiID);
-                toernooiModel.saveToernooi(toernooiID,ToernooiNaamValue.getText(), java.sql.Date.valueOf(BegindatumValue.getValue()), java.sql.Date.valueOf(EinddatumValue.getValue()), java.sql.Date.valueOf(InschrijfdatumValue.getValue()), Double.parseDouble(PrijsValue.getText()), BetalingsinformatieValue.getText(), "Knockout");
+                toernooiModel.saveToernooi(toernooiID,ToernooiNaamValue.getText(), java.sql.Date.valueOf(BegindatumValue.getValue()), java.sql.Date.valueOf(EinddatumValue.getValue()), java.sql.Date.valueOf(InschrijfdatumValue.getValue()), Double.parseDouble(PrijsValue.getText()), BetalingsinformatieValue.getText(), SysteemType.getValue());
                 goToHome(ToernooiAanmaken);
             }
         });

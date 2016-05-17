@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import presentation.models.ToernooiModel;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -56,6 +57,8 @@ public class NieuwToernooiController implements Initializable {
     @FXML DatePicker BegindatumValue;
     @FXML DatePicker EinddatumValue;
 
+    @FXML ChoiceBox<String> SysteemType;
+
 
 
     private ToernooiModel nieuwToernooiModel;
@@ -67,6 +70,7 @@ public class NieuwToernooiController implements Initializable {
         initializeTableViewCommisieLeden();
         initializeTableViewAddedCommisieLeden();
         initializeLocatieTable();
+        initializeChoiceboxSysteemType();
 
     }
 
@@ -75,11 +79,21 @@ public class NieuwToernooiController implements Initializable {
         Straat.setCellValueFactory(new PropertyValueFactory<Locatie, String>("straatnaam"));
         Huisnummer.setCellValueFactory(new PropertyValueFactory<Locatie, String>("huisnummer"));
         LocatieTable.getItems().setAll(nieuwToernooiModel.getLocaties());
+
+
     }
 
     private void initializeTableViewAddedCommisieLeden() {
         AddedCommisieVoornaam.setCellValueFactory(new PropertyValueFactory<CommisieLidInToernooi, String>("naam"));
         AddedCommisieLeden.getItems().setAll(nieuwToernooiModel.getAddedCommisieLeden());
+    }
+
+    private void initializeChoiceboxSysteemType(){
+        ArrayList<String> toernooitypes = new ArrayList<>();
+        for(Toernooitype t : nieuwToernooiModel.getToernooitypes()){
+            toernooitypes.add(t.getType());
+        }
+        SysteemType.getItems().setAll(toernooitypes);
     }
 
     private void initializeButtons() {
@@ -136,7 +150,7 @@ public class NieuwToernooiController implements Initializable {
         ToernooiAanmaken.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-               nieuwToernooiModel.saveToernooi(0,ToernooiNaamValue.getText(), java.sql.Date.valueOf(BegindatumValue.getValue()), java.sql.Date.valueOf(EinddatumValue.getValue()), java.sql.Date.valueOf(InschrijfdatumValue.getValue()), Double.parseDouble(PrijsValue.getText()), BetalingsinformatieValue.getText(), "Knockout");
+                nieuwToernooiModel.saveToernooi(0, ToernooiNaamValue.getText(), java.sql.Date.valueOf(BegindatumValue.getValue()), java.sql.Date.valueOf(EinddatumValue.getValue()), java.sql.Date.valueOf(InschrijfdatumValue.getValue()), Double.parseDouble(PrijsValue.getText()), BetalingsinformatieValue.getText(), SysteemType.getValue());
                 goToHome(ToernooiAanmaken);
             }
         });
@@ -144,7 +158,7 @@ public class NieuwToernooiController implements Initializable {
         LocatieTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (event.getButton() == MouseButton.PRIMARY){
+                if (event.getButton() == MouseButton.PRIMARY) {
                     Locatie locatie = LocatieTable.getSelectionModel().getSelectedItem();
                     PlaatsValue.setText(locatie.getPlaats());
                     StraatValue.setText(locatie.getStraatnaam());
@@ -158,7 +172,7 @@ public class NieuwToernooiController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 CommisieLidInToernooi selected = AddedCommisieLeden.getSelectionModel().getSelectedItem();
-                if(selected !=null) {
+                if (selected != null) {
                     nieuwToernooiModel.deleteCommissieLid(selected);
                     AddedCommisieLeden.getItems().setAll(nieuwToernooiModel.getAddedCommisieLeden());
                     CommisieLeden.getItems().setAll(nieuwToernooiModel.getNieuwToernooiCommissieLeden());
@@ -175,7 +189,7 @@ public class NieuwToernooiController implements Initializable {
                 Parent root = null;
                 try {
                     root = loader.load();
-                } catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 Stage stage = new Stage();

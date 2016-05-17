@@ -24,13 +24,13 @@
         <Label layoutX="360.0" layoutY="230.0" text="Eindatum" />
         <Label layoutX="360.0" layoutY="130.0" text="Inschrijfdatum" />
         <DatePicker fx:id="InschrijfdatumValue" layoutX="360.0" layoutY="150.0" />
-        <Label layoutX="1306.0" layoutY="156.0" text="Locatie" />
-        <Button fx:id="NieuweLocatieToevoegen" layoutX="1306.0" layoutY="397.0" mnemonicParsing="false" styleClass="button-small" text="Nieuwe locatie toevoegen" />
+        <Label layoutX="57.0" layoutY="331.0" text="Locatie" />
+        <Button fx:id="NieuweLocatieToevoegen" layoutX="50.0" layoutY="727.0" mnemonicParsing="false" styleClass="button-small" text="Nieuwe locatie toevoegen" />
         <Label layoutX="50.0" layoutY="180.0" text="Prijs" />
         <TextField fx:id="PrijsValue" layoutX="50.0" layoutY="200.0" />
         <TextArea fx:id="BetalingsinformatieValue" layoutX="50.0" layoutY="250.0" prefHeight="67.0" prefWidth="192.0" />
         <Label layoutX="50.0" layoutY="230.0" text="Betalingsinformatie" />
-        <TableView fx:id="LocatieTable" layoutX="1299.0" layoutY="181.0" prefHeight="200.0" prefWidth="500.0">
+        <TableView fx:id="LocatieTable" layoutX="50.0" layoutY="505.0" prefHeight="200.0" prefWidth="500.0">
             <columns>
                 <TableColumn fx:id="Plaats" prefWidth="75.0" text="Plaats" />
                 <TableColumn fx:id="Straat" prefWidth="98.0" text="Straat" />
@@ -46,7 +46,7 @@
         <TextField fx:id="PlaatsValue" editable="false" layoutX="600.0" layoutY="150.0" />
         <Label layoutX="600.0" layoutY="230.0" text="Huisnummer" />
         <TextField fx:id="HuisnummerValue" editable="false" layoutX="600.0" layoutY="250.0" />
-      <TableView fx:id="CommisieLeden" layoutX="50.0" layoutY="350.0" prefHeight="300.0" prefWidth="200.0">
+      <TableView fx:id="CommisieLeden" layoutX="1003.0" layoutY="184.0" prefHeight="250.0" prefWidth="200.0">
         <columns>
           <TableColumn fx:id="CommisieVoornaam" prefWidth="75.0" text="Voornaam" />
         </columns>
@@ -54,10 +54,9 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TableView fx:id="AddedCommisieLeden" editable="true" layoutX="360.0" layoutY="350.0" prefHeight="300.0" prefWidth="600.0">
+      <TableView fx:id="AddedCommisieLeden" editable="true" layoutX="1305.0" layoutY="184.0" prefHeight="250.0" prefWidth="450.0">
         <columns>
             <TableColumn fx:id="AddedCommisieVoornaam" prefWidth="75.0" text="Voornaam" />
-            <TableColumn fx:id="AddedCommisieAchternaam" prefWidth="75.0" text="Achternaam" />
             <TableColumn text="Leider">
             <cellValueFactory><PropertyValueFactory property="leider" /></cellValueFactory>
             <cellFactory><CheckBoxCellFactory /></cellFactory>
@@ -71,35 +70,21 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="CommisieLidToevoegen" layoutX="275.0" layoutY="400.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
-      <Button fx:id="ToernooiToevoegen" layoutX="1111.0" layoutY="789.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
-      <TableView fx:id="Toernooi" layoutX="934.0" layoutY="714.0" prefHeight="200.0" prefWidth="149.0">
+      <Button fx:id="CommisieLidToevoegen" layoutX="1232.0" layoutY="209.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
+      <TableView fx:id="Toernooi" layoutX="1000.0" layoutY="590.0" prefHeight="300.0" prefWidth="250.0">
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
          <columns>
-            <TableColumn prefWidth="75.0" text="Toernooi">
+            <TableColumn prefWidth="75.0" text="Deeltoernooi">
                <columns>
-                  <TableColumn fx:id="ToernooiSysteem" prefWidth="75.0" text="Systeem" />
-                  <TableColumn fx:id="ToernooiType" prefWidth="75.0" text="Type" />
+                  <TableColumn fx:id="ToernooiSysteem" prefWidth="75.0" text="Spelvorm" />
+                  <TableColumn fx:id="ToernooiType" prefWidth="75.0" text="Max Spelers" />
                </columns>
             </TableColumn>
          </columns>
       </TableView>
-      <TableView fx:id="AddedToernooi" layoutX="1196.0" layoutY="714.0" prefHeight="200.0" prefWidth="149.0">
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-         <columns>
-            <TableColumn prefWidth="75.0" text="Toernooi">
-               <columns>
-                  <TableColumn fx:id="AddedToernooiSysteem" prefWidth="75.0" text="Systeem" />
-                  <TableColumn fx:id="AddedToernooiType" prefWidth="75.0" text="Type" />
-               </columns>
-            </TableColumn>
-         </columns>
-      </TableView>
-      <TableView fx:id="AddedKlasse" layoutX="1668.0" layoutY="714.0" prefHeight="200.0" prefWidth="149.0">
+      <TableView fx:id="AddedKlasse" layoutX="1577.0" layoutY="592.0" prefHeight="300.0" prefWidth="200.0">
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
@@ -112,7 +97,7 @@
             </TableColumn>
          </columns>
       </TableView>
-      <TableView fx:id="Klasse" layoutX="1406.0" layoutY="714.0" prefHeight="200.0" prefWidth="149.0">
+      <TableView fx:id="Klasse" layoutX="1279.0" layoutY="592.0" prefHeight="300.0" prefWidth="200.0">
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
@@ -125,9 +110,16 @@
             </TableColumn>
          </columns>
       </TableView>
-      <Button fx:id="KlasseToevoegen" layoutX="1583.0" layoutY="789.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
-      <Button fx:id="CommisieLidVerwijderen" layoutX="273.0" layoutY="550.0" mnemonicParsing="false" styleClass="button-ball" text="&lt;" />
+      <Button fx:id="KlasseToevoegen" layoutX="1506.0" layoutY="717.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
+      <Button fx:id="CommisieLidVerwijderen" layoutX="1230.0" layoutY="359.0" mnemonicParsing="false" styleClass="button-ball" text="&lt;" />
         <Button fx:id="Home" layoutX="10.0" layoutY="5.0" mnemonicParsing="false" styleClass="button-home" />
       <Button fx:id="Annuleren" layoutX="50.0" layoutY="940.0" mnemonicParsing="false" styleClass="button-big" text="Annuleren" />
+      <ChoiceBox fx:id="SysteemType" layoutX="361.0" layoutY="329.0" prefWidth="150.0" />
+      <Label layoutX="366.0" layoutY="309.0" text="Systeemtype" />
+      <TextField fx:id="MaxAantalSpelers" layoutX="1000.0" layoutY="516.0" />
+      <ChoiceBox fx:id="Spelvorm" layoutX="1167.0" layoutY="516.0" prefWidth="150.0" />
+      <Label layoutX="1002.0" layoutY="488.0" text="Max aantal Spelers" />
+      <Label layoutX="1175.0" layoutY="488.0" text="Spelvorm" />
+      <Button fx:id="AddDeeltoernooi" layoutX="1000.0" layoutY="555.0" mnemonicParsing="false" styleClass="button-small" text="Add deeltoernooi" />
     </children>
 </Pane>
