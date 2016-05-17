@@ -71,15 +71,15 @@
          </columnResizePolicy>
       </TableView>
       <Button fx:id="CommisieLidToevoegen" layoutX="1232.0" layoutY="209.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
-      <TableView fx:id="Toernooi" layoutX="1000.0" layoutY="590.0" prefHeight="300.0" prefWidth="250.0">
+      <TableView fx:id="DeelToernooi" layoutX="1000.0" layoutY="590.0" prefHeight="300.0" prefWidth="250.0">
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
          <columns>
             <TableColumn prefWidth="75.0" text="Deeltoernooi">
                <columns>
-                  <TableColumn fx:id="ToernooiSysteem" prefWidth="75.0" text="Spelvorm" />
-                  <TableColumn fx:id="ToernooiType" prefWidth="75.0" text="Max Spelers" />
+                  <TableColumn fx:id="DeeltoernooiSpelvorm" prefWidth="75.0" text="Spelvorm" />
+                  <TableColumn fx:id="DeeltoernooiMaxSpelers" prefWidth="75.0" text="Max Spelers" />
                </columns>
             </TableColumn>
          </columns>
@@ -89,10 +89,10 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
          <columns>
-            <TableColumn prefWidth="75.0" text="Klasse">
+            <TableColumn fx:id="DeeltoernooiKlasse" prefWidth="75.0" text="Klasse">
                <columns>
-                  <TableColumn fx:id="AddedLeeftijd" prefWidth="75.0" text="Leeftijd" />
-                  <TableColumn fx:id="AddedLicentie" prefWidth="75.0" text="Licentie" />
+                  <TableColumn fx:id="DeeltoernooiKlasseLeeftijd" prefWidth="75.0" text="Leeftijd" />
+                  <TableColumn fx:id="DeeltoernooiKlasseLicentie" prefWidth="75.0" text="Licentie" />
                </columns>
             </TableColumn>
          </columns>
@@ -102,10 +102,10 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
          <columns>
-            <TableColumn prefWidth="75.0" text="Klasse">
+            <TableColumn fx:id="Klasse" prefWidth="75.0" text="Klasse">
                <columns>
-                  <TableColumn fx:id="Leeftijd" prefWidth="75.0" text="Leeftijd" />
-                  <TableColumn fx:id="Licentie" prefWidth="75.0" text="Licentie" />
+                  <TableColumn fx:id="KlasseLeeftijd" prefWidth="75.0" text="Leeftijd" />
+                  <TableColumn fx:id="KlasseLicentie" prefWidth="75.0" text="Licentie" />
                </columns>
             </TableColumn>
          </columns>
