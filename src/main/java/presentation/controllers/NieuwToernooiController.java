@@ -3,6 +3,7 @@ package presentation.controllers;
 import domain.CommisieLidInToernooi;
 import domain.Locatie;
 import domain.NieuwToernooiCommissieLeden;
+import domain.Toernooitype;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -66,6 +67,7 @@ public class NieuwToernooiController implements Initializable {
         initializeTableViewCommisieLeden();
         initializeTableViewAddedCommisieLeden();
         initializeLocatieTable();
+
     }
 
     private void initializeLocatieTable() {

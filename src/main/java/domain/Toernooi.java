@@ -22,25 +22,12 @@ public class Toernooi {
     public String betalingsinformatie;
     public String toernooisoort;
     private ArrayList<CommisieLidInToernooi> commisieLidInToernooi;
-    private List<ToernooiSysteemType> toernooiSysteemTypes;
 
     public Toernooi() {
         commisieLidInToernooi = new ArrayList<>();
     }
 
-    public Toernooi(String naam, Date begindatum, Date einddatum, Date inschrijfdatum, Locatie locatie, double prijs, String betalingsinformatie, String toernooisoort,
-                    ArrayList<CommisieLidInToernooi> commisieLidInToernooi, List<ToernooiSysteemType> toernooiSysteemTypes) {
-        this.naam = naam;
-        this.begindatum = begindatum;
-        this.einddatum = einddatum;
-        this.inschrijfdatum = inschrijfdatum;
-        this.locatie = locatie;
-        this.prijs = prijs;
-        this.betalingsinformatie = betalingsinformatie;
-        this.toernooisoort = toernooisoort;
-        this.commisieLidInToernooi = commisieLidInToernooi;
-        this.toernooiSysteemTypes = toernooiSysteemTypes;
-    }
+
 
     public ArrayList<CommisieLidInToernooi> getCommisieLidInToernooi() {
         return commisieLidInToernooi;
@@ -50,13 +37,6 @@ public class Toernooi {
         this.commisieLidInToernooi = commisieLidInToernooi;
     }
 
-    public List<ToernooiSysteemType> getToernooiSysteemTypes() {
-        return toernooiSysteemTypes;
-    }
-
-    public void setToernooiSysteemTypes(List<ToernooiSysteemType> toernooiSysteemTypes) {
-        this.toernooiSysteemTypes = toernooiSysteemTypes;
-    }
 
     public String getToernooisoort() {
         return toernooisoort;

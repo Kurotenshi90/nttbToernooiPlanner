@@ -34,8 +34,8 @@ public class Database {
         arrayList.add(commisieLidInToernooi);
         arrayList.add(commisieLidInToernooi);
 
-        Toernooi toernooi = new Toernooi("yolo", new Date(), new Date(), new Date(), new Locatie(2,"","",""),5,"hoi","Knockout", arrayList,null);
-        da.saveToernooi(toernooi);
+        //Toernooi toernooi = new Toernooi("yolo", new Date(), new Date(), new Date(), new Locatie(2,"","",""),5,"hoi","Knockout", arrayList,null);
+        //da.saveToernooi(toernooi);
         da.disconnect();
     }
 }
