@@ -71,7 +71,7 @@
          </columnResizePolicy>
       </TableView>
       <Button fx:id="CommisieLidToevoegen" layoutX="1232.0" layoutY="209.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
-      <TableView fx:id="DeelToernooi" layoutX="1000.0" layoutY="590.0" prefHeight="300.0" prefWidth="250.0">
+      <TableView fx:id="Deeltoernooi" layoutX="1000.0" layoutY="590.0" prefHeight="300.0" prefWidth="250.0">
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
