@@ -22,6 +22,7 @@ public class Toernooi {
     public String betalingsinformatie;
     public String toernooisoort;
     private ArrayList<CommisieLidInToernooi> commisieLidInToernooi;
+    private ArrayList<Deeltoernooi> deeltoernoois;
 
     public Toernooi() {
         commisieLidInToernooi = new ArrayList<>();
@@ -37,6 +38,13 @@ public class Toernooi {
         this.commisieLidInToernooi = commisieLidInToernooi;
     }
 
+    public ArrayList<Deeltoernooi> getDeeltoernoois() {
+        return deeltoernoois;
+    }
+
+    public void setDeeltoernoois(ArrayList<Deeltoernooi> deeltoernoois) {
+        this.deeltoernoois = deeltoernoois;
+    }
 
     public String getToernooisoort() {
         return toernooisoort;
@@ -53,18 +61,6 @@ public class Toernooi {
     public void setNaam(String naam) {
         this.naam = naam;
     }
-
-//    public String getLeider() {
-//        String leider= "";
-//        for(CommisieLidInToernooi item: commisieLidInToernooi) {
-//            if (item.getLeider()) {
-//                leider = item.getVoornaam();
-//
-//            }
-//        }
-//        return leider;
-//    }
-
 
     public Date getBegindatum() {
         return begindatum;

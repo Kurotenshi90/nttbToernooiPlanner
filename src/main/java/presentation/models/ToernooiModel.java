@@ -17,7 +17,12 @@ public class ToernooiModel {
     private ArrayList<NieuwToernooiCommissieLeden> nieuwToernooiCommissieLeden;
     private ArrayList<NieuwToernooiCommissieLeden> nieuwToernooiCommissieLedenshow;
     private ArrayList<CommisieLidInToernooi> addedCommisieLeden = new ArrayList<>();
+
+    private ArrayList<Deeltoernooi> deeltoernoois = new ArrayList<>();
     private ArrayList<Locatie> locaties = new ArrayList<>();
+
+    private ArrayList<Klasse> KlasseAll;
+
     private CommissieService commissieService;
     private ToernooiService toernooiService;
     private LocatieService locatieService;
@@ -36,7 +41,14 @@ public class ToernooiModel {
         spelvormService = new SpelvormService();
         nieuwToernooiCommissieLeden = commissieService.getNieuwToernooiCommissieLeden();
         nieuwToernooiCommissieLedenshow = nieuwToernooiCommissieLeden;
+        KlasseAll = klasseService.getKlasses();
         loadLocaties();
+    }
+    public void addDeeltoernooi(Deeltoernooi deeltoernooi){
+        deeltoernoois.add(deeltoernooi);
+    }
+    public ArrayList<Deeltoernooi> getDeeltoernoois(){
+        return deeltoernoois;
     }
 
     public void loadLocaties() {
@@ -75,15 +87,31 @@ public class ToernooiModel {
         }
     }
 
+    public ArrayList<Klasse> getKlasses(ArrayList<Klasse> klasses) {
+        return makeKlasseList(klasses);
+    }
+    private ArrayList<Klasse> makeKlasseList(ArrayList<Klasse> klasses) {
+        ArrayList<Klasse> klasseShow = new ArrayList<>();
+        for (Klasse ntc: KlasseAll) {
+            boolean bestaat = false;
+            for(Klasse ct: klasses){
+                if(ntc.getKlassenaam().equals(ct.getKlassenaam()) && ntc.getLicentietype().equals(ct.getLicentietype())) {
+                    bestaat = true;
+                }
+            }
+            if(bestaat == false){
+                klasseShow.add(ntc);
+            }
+        }
+        return klasseShow;
+    }
+
     public void deleteCommissieLid(CommisieLidInToernooi deletedCommissielid){
         for(int i= addedCommisieLeden.size()-1; i>=0; i--){
             if(deletedCommissielid.getLidnr() == addedCommisieLeden.get(i).getLidnr()){
                 addedCommisieLeden.remove(i);
-                System.out.println("hallo");
             }
-            System.out.println("hoi");
         }
-        System.out.println("doei");
         makeCommissieledenList();
     }
 
@@ -108,6 +136,7 @@ public class ToernooiModel {
         toernooi.setInschrijfdatum(inschrijfdatum);
         toernooi.setPrijs(prijs);
         toernooi.setToernooisoort(toernooisoort);
+        toernooi.setDeeltoernoois(deeltoernoois);
 
         toernooiService.saveToernooi(toernooi);
     }
@@ -127,9 +156,7 @@ public class ToernooiModel {
         return toernooitypeService.getToernooitypes();
     }
 
-    public ArrayList<Klasse> getKlasses() {
-        return klasseService.getKlasses();
-    }
+
 
     public ArrayList<Spelvorm> getSpelvormen() {
         return spelvormService.getSpelvormen();

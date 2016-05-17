@@ -5,12 +5,12 @@ package domain;
  */
 public class Klasse {
     private String licentietype;
-    private String klassennaam;
+    private String klassenaam;
 
 
     public Klasse(String licentietype, String klassennaam) {
         this.licentietype = licentietype;
-        this.klassennaam = klassennaam;
+        this.klassenaam = klassennaam;
     }
 
     public String getLicentietype() {
@@ -21,11 +21,11 @@ public class Klasse {
         this.licentietype = licentietype;
     }
 
-    public String getKlassennaam() {
-        return klassennaam;
+    public String getKlassenaam() {
+        return klassenaam;
     }
 
-    public void setKlassennaam(String klassennaam) {
-        this.klassennaam = klassennaam;
+    public void setKlassenaam(String klassennaam) {
+        this.klassenaam = klassennaam;
     }
 }

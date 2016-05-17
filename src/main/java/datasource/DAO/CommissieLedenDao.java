@@ -17,7 +17,7 @@ public class CommissieLedenDao extends DAO {
         connect();
 
         try {
-        ResultSet resultSet = conn.prepareStatement("SELECT naam, Commissielidnr FROM CommissieLid").executeQuery();
+        ResultSet resultSet = conn.prepareStatement("SELECT naam, lidnr FROM Lid").executeQuery();
             while (resultSet.next()){
                 NieuwToernooiCommissieLeden nieuwToernooiCommissieLeden = new NieuwToernooiCommissieLeden();
 

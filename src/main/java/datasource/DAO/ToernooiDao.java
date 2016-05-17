@@ -8,6 +8,7 @@ import domain.Toernooi;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class ToernooiDao extends DAO {
 
         try {
             resultSet = conn.prepareStatement("SELECT T.Toernooinr, T.Naam, T.InschrijfDatum, T.StartDatum, T.EindDatum, C.Naam, L.Woonplaats, L.Huisnr, L.Straatnaam\n" +
-                    "FROM Locatie L RIGHT JOIN Toernooi T ON L.LOCATIENR=T.Locatienr LEFT JOIN ToernooiCommissie TC ON T.Toernooinr=TC.Toernooinr LEFT JOIN CommissieLid C ON TC.Commissielidnr = C.Commissielidnr\n" +
+                    "FROM Locatie L RIGHT JOIN Toernooi T ON L.LOCATIENR=T.Locatienr LEFT JOIN ToernooiCommissie TC ON T.Toernooinr=TC.Toernooinr LEFT JOIN Lid C ON TC.lidnr = C.lidnr\n" +
                     "WHERE Rol = 'Leider' AND T.einddatum > GETDATE()").executeQuery();
 
             while (resultSet.next()){
@@ -61,7 +62,7 @@ public class ToernooiDao extends DAO {
 
         try {
             toernooiResult = conn.prepareStatement("SELECT T.Toernooinr, T.Naam, T.InschrijfDatum, T.StartDatum, T.EindDatum, L.LOCATIENR, L.Woonplaats, L.Huisnr, L.Straatnaam, T.Betalingsinfo, T.Prijs, T.ToernooiSoort FROM Locatie L RIGHT JOIN Toernooi T ON L.LOCATIENR=T.Locatienr WHERE T.Toernooinr = " + toernooiID).executeQuery();
-            commissieResult = conn.prepareStatement("SELECT TC.Commissielidnr, C.Naam, TC.Rol FROM Toernooicommissie TC INNER JOIN Commissielid C ON TC.Commissielidnr=C.Commissielidnr WHERE Toernooinr = " + toernooiID).executeQuery();
+            commissieResult = conn.prepareStatement("SELECT TC.lidnr, C.Naam, TC.Rol FROM Toernooicommissie TC INNER JOIN lid C ON TC.lidnr=C.lidnr WHERE Toernooinr = " + toernooiID).executeQuery();
 
 
             while (toernooiResult.next()){
@@ -99,9 +100,14 @@ public class ToernooiDao extends DAO {
 
     public void saveToernooi(Toernooi toernooi){
         String update = "EXEC STP_NieuwToernooiToevoegen ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
+//        String getToernooiId = "SELECT Toernooinr FROM Toernooi WHERE LOCATIENR = ? AND ToernooiSoort = ? AND StartDatum = ? AND EindDatum = ? AND InschrijfDatum = ? AND Prijs = ? AND Betalingsinfo = ? AND Naam = ?)";
+//        String insertDeeltoernooi = "EXEC STP_InsertDeeltoernooi ?,?,?,?,?";
+//        String insertKlasse ="";
+//        String getlastDeeltoernooi = "";
         connect();
         try{
-            PreparedStatement preparedStatement = conn.prepareStatement(update);
+
+            PreparedStatement preparedStatement = conn.prepareStatement(update, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, toernooi.getID());
             preparedStatement.setInt(2, toernooi.getLocatie().getLocatienr());
             preparedStatement.setString(3, toernooi.getToernooisoort());
@@ -136,6 +142,34 @@ public class ToernooiDao extends DAO {
 
             preparedStatement.setString(10, stringBuilder.toString());
             preparedStatement.executeUpdate();
+
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+
+            while(rs.next()){
+                System.out.println(rs);
+            }
+
+
+
+
+//            if(toernooi.getID() != 0){
+//                PreparedStatement getId = conn.prepareStatement(getToernooiId);
+//                getId.setInt(1, toernooi.getLocatie().getLocatienr());
+//                getId.setString(2, toernooi.getToernooisoort());
+//                getId.setDate(3, new java.sql.Date(toernooi.getBegindatum().getTime()));
+//                getId.setDate(4, new java.sql.Date(toernooi.getEinddatum().getTime()));
+//                getId.setDate(5, new java.sql.Date(toernooi.getInschrijfdatum().getTime()));
+//                getId.setDouble(6, toernooi.getPrijs());
+//                getId.setString(7, toernooi.getBetalingsinformatie());
+//                getId.setString(8, toernooi.getNaam());
+//
+//            }
+//
+//            PreparedStatement addDeeltoernooi = conn.prepareStatement(insertDeeltoernooi);
+//            addDeeltoernooi.setInt(1,0);
+//            addDeeltoernooi.setString(2, toernooi.getToernooisoort());
+//            addDeeltoernooi.setInt(3,);
+
         }catch (Exception e){
             e.printStackTrace();
         }
