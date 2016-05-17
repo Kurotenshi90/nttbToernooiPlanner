@@ -16,7 +16,7 @@ public class SpelvormDao extends DAO {
         connect();
 
         try {
-            ResultSet resultSet = conn.prepareStatement("SELECT Spelvorm FROM Spelvorm").executeQuery();
+            ResultSet resultSet = conn.prepareStatement("SELECT SpelType FROM Spelvorm").executeQuery();
 
             while(resultSet.next()){
                 spelvormen.add(new Spelvorm(resultSet.getString(1)));
