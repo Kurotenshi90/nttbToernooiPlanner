@@ -1,10 +1,7 @@
 package presentation.models;
 
 import domain.*;
-import services.CommissieService;
-import services.LocatieService;
-import services.ToernooiService;
-import services.ToernooitypeService;
+import services.*;
 
 import java.lang.reflect.Array;
 import java.time.LocalDate;
@@ -24,6 +21,7 @@ public class ToernooiModel {
     private CommissieService commissieService;
     private ToernooiService toernooiService;
     private LocatieService locatieService;
+    private KlasseService klasseService;
     private ToernooitypeService toernooitypeService;
     private Locatie locatie;
     private Toernooi toernooi;
@@ -33,6 +31,7 @@ public class ToernooiModel {
         locatieService = new LocatieService();
         toernooiService = new ToernooiService();
         toernooitypeService = new ToernooitypeService();
+        klasseService = new KlasseService();
         nieuwToernooiCommissieLeden = commissieService.getNieuwToernooiCommissieLeden();
         nieuwToernooiCommissieLedenshow = nieuwToernooiCommissieLeden;
         loadLocaties();
@@ -124,5 +123,9 @@ public class ToernooiModel {
 
     public ArrayList<Toernooitype> getToernooitypes() {
         return toernooitypeService.getToernooitypes();
+    }
+
+    public ArrayList<Klasse> getKlasses() {
+        return klasseService.getKlasses();
     }
 }
