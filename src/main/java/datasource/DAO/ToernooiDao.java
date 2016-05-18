@@ -154,30 +154,31 @@ public class ToernooiDao extends DAO {
                 checkPastFirstRound = true;
             }
             stringBuilderDeeltoernooi.append("}]");
-            System.out.println(stringBuilderDeeltoernooi.toString());
-            System.out.println(stringBuilder.toString());
+
             preparedStatement.setString(11, stringBuilderDeeltoernooi.toString());
 
             StringBuilder stringBuilderDeeltoernooiKlasse = new StringBuilder();
             stringBuilderDeeltoernooiKlasse.append("[{");
             checkPastFirstRound= false;
             for(int i = 0 ; i < toernooi.getDeeltoernoois().size(); i++){
-                for(int j = 0; i < toernooi.getDeeltoernoois().get(i).getKlasses().size(); j++){
+                for(int j = 0; j < toernooi.getDeeltoernoois().get(i).getKlasses().size(); j++){
                     if(checkPastFirstRound){
-                        stringBuilderDeeltoernooi.append("},{");
+                        stringBuilderDeeltoernooiKlasse.append("},{");
                     }
-                    stringBuilderDeeltoernooi.append("\"Referentienr\":"+i+",");
-                    stringBuilderDeeltoernooi.append("\"LicentieType\":\""+toernooi.getDeeltoernoois().get(i).getSpelvorm()+"\",");
-                    stringBuilderDeeltoernooi.append("\"Klassenaam\":\""+toernooi.getDeeltoernoois().get(i).getSpelvorm()+"\",");
+                    System.out.println(toernooi.getDeeltoernoois().get(i).getKlasses().size());
+                    stringBuilderDeeltoernooiKlasse.append("\"Referentienr\":"+i+",");
+                    stringBuilderDeeltoernooiKlasse.append("\"LicentieType\":\""+toernooi.getDeeltoernoois().get(i).getKlasses().get(j).getLicentietype()+"\",");
+                    stringBuilderDeeltoernooiKlasse.append("\"Klassenaam\":\""+toernooi.getDeeltoernoois().get(i).getKlasses().get(j).getKlassenaam()+"\"");
 
                     checkPastFirstRound = true;
                 }
             }
             stringBuilderDeeltoernooiKlasse.append("}]");
-            preparedStatement.setString(11, stringBuilderDeeltoernooiKlasse.toString());
+            preparedStatement.setString(12, stringBuilderDeeltoernooiKlasse.toString());
 
             System.out.println(stringBuilderDeeltoernooiKlasse.toString());
-
+            System.out.println(stringBuilderDeeltoernooi.toString());
+            System.out.println(stringBuilder.toString());
             preparedStatement.executeUpdate();
 
         }catch (Exception e){

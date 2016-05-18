@@ -90,6 +90,7 @@ public class ToernooiModel {
     public ArrayList<Klasse> getKlasses(ArrayList<Klasse> klasses) {
         return makeKlasseList(klasses);
     }
+
     private ArrayList<Klasse> makeKlasseList(ArrayList<Klasse> klasses) {
         ArrayList<Klasse> klasseShow = new ArrayList<>();
         for (Klasse ntc: KlasseAll) {

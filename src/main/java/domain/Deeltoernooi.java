@@ -13,6 +13,7 @@ public class Deeltoernooi {
     private ArrayList<Klasse> klasses;
 
     public Deeltoernooi(boolean gesloten, int deeltoernooinr, int maxAantalSpelers, String spelvorm) {
+        klasses = new ArrayList<>();
         this.gesloten = gesloten;
         this.deeltoernooinr = deeltoernooinr;
         this.maxAantalSpelers = maxAantalSpelers;
@@ -20,6 +21,7 @@ public class Deeltoernooi {
     }
 
     public Deeltoernooi(int deeltoernooinr, int maxAantalSpelers, String spelvorm, boolean gesloten, ArrayList<Klasse> klasses) {
+        klasses = new ArrayList<>();
         this.deeltoernooinr = deeltoernooinr;
         this.maxAantalSpelers = maxAantalSpelers;
         this.spelvorm = spelvorm;
