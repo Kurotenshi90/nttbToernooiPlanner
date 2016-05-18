@@ -154,7 +154,7 @@ public class NieuwToernooiController implements Initializable {
         AddDeeltoernooi.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                nieuwToernooiModel.addDeeltoernooi(new Deeltoernooi(Spelvorm.getValue().toString(),Integer.parseInt(MaxAantalSpelers.getText())));
+                nieuwToernooiModel.addDeeltoernooi(new Deeltoernooi(false,0,Integer.parseInt(MaxAantalSpelers.getText()),Spelvorm.getValue().toString()));
                 Deeltoernooi.getItems().setAll(nieuwToernooiModel.getDeeltoernoois());
             }
         });

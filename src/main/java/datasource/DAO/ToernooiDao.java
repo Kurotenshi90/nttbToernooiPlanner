@@ -1,9 +1,6 @@
 package datasource.DAO;
 
-import domain.CommisieLidInToernooi;
-import domain.HomePageToernooi;
-import domain.Locatie;
-import domain.Toernooi;
+import domain.*;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -99,15 +96,11 @@ public class ToernooiDao extends DAO {
     }
 
     public void saveToernooi(Toernooi toernooi){
-        String update = "EXEC STP_NieuwToernooiToevoegen ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
-//        String getToernooiId = "SELECT Toernooinr FROM Toernooi WHERE LOCATIENR = ? AND ToernooiSoort = ? AND StartDatum = ? AND EindDatum = ? AND InschrijfDatum = ? AND Prijs = ? AND Betalingsinfo = ? AND Naam = ?)";
-//        String insertDeeltoernooi = "EXEC STP_InsertDeeltoernooi ?,?,?,?,?";
-//        String insertKlasse ="";
-//        String getlastDeeltoernooi = "";
+        String update = "EXEC STP_NieuwToernooiToevoegen ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
         connect();
         try{
 
-            PreparedStatement preparedStatement = conn.prepareStatement(update, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement preparedStatement = conn.prepareStatement(update);
             preparedStatement.setInt(1, toernooi.getID());
             preparedStatement.setInt(2, toernooi.getLocatie().getLocatienr());
             preparedStatement.setString(3, toernooi.getToernooisoort());
@@ -117,7 +110,7 @@ public class ToernooiDao extends DAO {
             preparedStatement.setDouble(7, toernooi.getPrijs());
             preparedStatement.setString(8, toernooi.getBetalingsinformatie());
             preparedStatement.setString(9, toernooi.getNaam());
-           // SQLServerDataTable
+
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("[{");
             boolean checkPastFirstRound= false;
@@ -138,37 +131,54 @@ public class ToernooiDao extends DAO {
                 checkPastFirstRound = true;
             }
             stringBuilder.append("}]");
-            System.out.println(stringBuilder.toString());
-
             preparedStatement.setString(10, stringBuilder.toString());
-            preparedStatement.executeUpdate();
+            StringBuilder stringBuilderDeeltoernooi = new StringBuilder();
+            stringBuilderDeeltoernooi.append("[{");
+            checkPastFirstRound= false;
 
-            ResultSet rs = preparedStatement.getGeneratedKeys();
 
-            while(rs.next()){
-                System.out.println(rs);
+            for(int i = 0 ; i < toernooi.getDeeltoernoois().size(); i++){
+                if(checkPastFirstRound){
+                    stringBuilderDeeltoernooi.append("},{");
+                }
+                stringBuilderDeeltoernooi.append("\"Deeltoernooinr\":"+toernooi.getDeeltoernoois().get(i).getDeeltoernooinr()+",");
+                stringBuilderDeeltoernooi.append("\"Referentienr\":"+i+",");
+                stringBuilderDeeltoernooi.append("\"SpelType\":\""+toernooi.getDeeltoernoois().get(i).getSpelvorm()+"\",");
+                stringBuilderDeeltoernooi.append("\"MaxAantalMensen\":"+toernooi.getDeeltoernoois().get(i).getMaxAantalSpelers()+",");
+                String trueOrFalse = "0";
+                if(toernooi.getDeeltoernoois().get(i).getGesloten()) {
+                    trueOrFalse = "1";
+                }
+                stringBuilderDeeltoernooi.append("\"Gesloten\":"+trueOrFalse+"");
+
+                checkPastFirstRound = true;
             }
+            stringBuilderDeeltoernooi.append("}]");
+            System.out.println(stringBuilderDeeltoernooi.toString());
+            System.out.println(stringBuilder.toString());
+            preparedStatement.setString(11, stringBuilderDeeltoernooi.toString());
 
+            StringBuilder stringBuilderDeeltoernooiKlasse = new StringBuilder();
+            stringBuilderDeeltoernooiKlasse.append("[{");
+            checkPastFirstRound= false;
+            for(int i = 0 ; i < toernooi.getDeeltoernoois().size(); i++){
+                for(int j = 0; i < toernooi.getDeeltoernoois().get(i).getKlasses().size(); j++){
+                    if(checkPastFirstRound){
+                        stringBuilderDeeltoernooi.append("},{");
+                    }
+                    stringBuilderDeeltoernooi.append("\"Referentienr\":"+i+",");
+                    stringBuilderDeeltoernooi.append("\"LicentieType\":\""+toernooi.getDeeltoernoois().get(i).getSpelvorm()+"\",");
+                    stringBuilderDeeltoernooi.append("\"Klassenaam\":\""+toernooi.getDeeltoernoois().get(i).getSpelvorm()+"\",");
 
+                    checkPastFirstRound = true;
+                }
+            }
+            stringBuilderDeeltoernooiKlasse.append("}]");
+            preparedStatement.setString(11, stringBuilderDeeltoernooiKlasse.toString());
 
+            System.out.println(stringBuilderDeeltoernooiKlasse.toString());
 
-//            if(toernooi.getID() != 0){
-//                PreparedStatement getId = conn.prepareStatement(getToernooiId);
-//                getId.setInt(1, toernooi.getLocatie().getLocatienr());
-//                getId.setString(2, toernooi.getToernooisoort());
-//                getId.setDate(3, new java.sql.Date(toernooi.getBegindatum().getTime()));
-//                getId.setDate(4, new java.sql.Date(toernooi.getEinddatum().getTime()));
-//                getId.setDate(5, new java.sql.Date(toernooi.getInschrijfdatum().getTime()));
-//                getId.setDouble(6, toernooi.getPrijs());
-//                getId.setString(7, toernooi.getBetalingsinformatie());
-//                getId.setString(8, toernooi.getNaam());
-//
-//            }
-//
-//            PreparedStatement addDeeltoernooi = conn.prepareStatement(insertDeeltoernooi);
-//            addDeeltoernooi.setInt(1,0);
-//            addDeeltoernooi.setString(2, toernooi.getToernooisoort());
-//            addDeeltoernooi.setInt(3,);
+            preparedStatement.executeUpdate();
 
         }catch (Exception e){
             e.printStackTrace();
