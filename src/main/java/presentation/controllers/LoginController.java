@@ -1,5 +1,6 @@
 package presentation.controllers;
 
+import datasource.DAO.GetRoleDatabase;
 import domain.Locatie;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,9 +27,11 @@ public class LoginController implements Initializable {
     @FXML Button Login;
 
     private MenuController MenuController;
+    private GetRoleDatabase getRoleDatabase;
 
     public LoginController(MenuController menuController){
         this.MenuController = menuController;
+        this.getRoleDatabase = new GetRoleDatabase();
     }
 
 
@@ -48,6 +51,7 @@ public class LoginController implements Initializable {
                     FileOutputStream out = new FileOutputStream(file);
                     props.setProperty("username", Username.getText());
                     props.setProperty("password", Password.getText());
+                    props.setProperty("role", getRoleDatabase.getRole(Username.getText()));
                     props.store(out, null);
                     out.close();
                 }

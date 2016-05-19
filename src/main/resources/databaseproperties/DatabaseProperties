@@ -2,3 +2,4 @@ url=jdbc:sqlserver://groep4.ise.icaprojecten.nl;DatabaseName=TafeltennisDB
 username=toernooimanager
 password=TM123mt!
 driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
+role=db_owner
