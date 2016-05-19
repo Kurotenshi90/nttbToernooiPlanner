@@ -39,6 +39,7 @@ public class HomeController implements Initializable{
     @FXML private TableColumn<HomePageToernooi, String> TableViewToernooiOverzicht_Nummer;
     @FXML private Button Button_ToernooiAanmaken;
     @FXML private Button Button_ToernooiBewerken;
+    @FXML private Button Button_ToernooiBekijken;
     @FXML private Button Home;
     private HomePageModel homePageModel;
     @Override
@@ -67,6 +68,31 @@ public class HomeController implements Initializable{
                 Scene scene = new Scene(root, 1920, 1080);
                 stage.setScene(scene);
                 stage.show();
+            }
+
+
+        });
+
+        Button_ToernooiBekijken.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                HomePageToernooi toernooi = TableViewToernooiOverzicht.getSelectionModel().getSelectedItem();
+                if(toernooi != null) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/NieuwToernooi.fxml"));
+                    BekijkToernooiController controller = new BekijkToernooiController(toernooi.getId());
+
+                    loader.setController(controller);
+                    Stage stage = (Stage) Button_ToernooiBekijken.getScene().getWindow();
+                    Parent root = null;
+                    try {
+                        root = loader.load();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Scene scene = new Scene(root, 1920, 1080);
+                    stage.setScene(scene);
+                    stage.show();
+                }
             }
 
 

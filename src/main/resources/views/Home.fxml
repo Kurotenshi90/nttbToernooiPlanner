@@ -24,7 +24,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button layoutX="1550.0" layoutY="450.0" mnemonicParsing="false" styleClass="button-big" text="Toernooi bekijken" />
+      <Button fx:id="Button_ToernooiBekijken" layoutX="1550.0" layoutY="450.0" mnemonicParsing="false" styleClass="button-big" text="Toernooi bekijken" />
       <Button fx:id="Button_ToernooiBewerken" layoutX="1550.0" layoutY="350.0" mnemonicParsing="false" styleClass="button-big" text="Toernooi bewerken" />
       <Button fx:id="Button_ToernooiAanmaken" layoutX="1550.0" layoutY="250.0" mnemonicParsing="false" styleClass="button-big" text="Toernooi aanmaken" />
       <ImageView fitHeight="200.0" fitWidth="1920.0">
