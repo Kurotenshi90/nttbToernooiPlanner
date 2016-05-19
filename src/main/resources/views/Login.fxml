@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="480.0" stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="100.0" fitWidth="480.0">
+         <image>
+            <Image url="@../images/TopBorderSmall.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="50.0" layoutY="265.0" mnemonicParsing="false" styleClass="button-small" text="annuleren" />
+      <Button layoutX="280.0" layoutY="265.0" mnemonicParsing="false" styleClass="button-small" text="Login" />
+      <TextField layoutX="50.0" layoutY="150.0" />
+      <TextField layoutX="280.0" layoutY="150.0" />
+      <Label layoutX="50.0" layoutY="130.0" text="Username" />
+      <Label layoutX="280.0" layoutY="130.0" text="Password" />
+   </children>
+</Pane>
