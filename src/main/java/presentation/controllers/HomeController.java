@@ -19,9 +19,11 @@ import javafx.stage.Stage;
 import main.Main;
 import presentation.models.HomePageModel;
 
+import java.io.FileInputStream;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 /**
@@ -45,10 +47,31 @@ public class HomeController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         homePageModel = new HomePageModel();
+        getRoleTurnOffbuttons();
 
         initializeTableViewToernooiOverzicht();
         initializeButtons();
 
+    }
+
+    private void getRoleTurnOffbuttons(){
+        try {
+            String file = getClass().getClassLoader().getResource("databaseproperties/DatabaseProperties").getFile();
+
+            FileInputStream in = new FileInputStream(file);
+            Properties props = new Properties();
+            props.load(in);
+            in.close();
+            String role = props.getProperty("role");
+
+            if(role.equals("Voorzitter")){
+                Button_ToernooiAanmaken.setVisible(false);
+                Button_ToernooiBewerken.setVisible(false);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void initializeButtons() {
