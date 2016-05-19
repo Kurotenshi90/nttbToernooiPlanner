@@ -1,9 +1,6 @@
 package presentation.controllers;
 
-import domain.CommisieLidInToernooi;
-import domain.Locatie;
-import domain.NieuwToernooiCommissieLeden;
-import domain.Toernooitype;
+import domain.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -62,6 +59,23 @@ public class UpdateToernooiController implements Initializable {
 
     @FXML ChoiceBox<String> SysteemType;
 
+    @FXML TableView<domain.Deeltoernooi> Deeltoernooi;
+    @FXML TableColumn<Deeltoernooi,String> DeeltoernooiSpelvorm;
+    @FXML TableColumn<Deeltoernooi, String> DeeltoernooiMaxSpelers;
+    @FXML TableView<Klasse> Klasse;
+    @FXML TableColumn<Klasse, String> KlasseLeeftijd;
+    @FXML TableColumn<Klasse, String> KlasseLicentie;
+    @FXML TableView<Klasse> DeeltoernooiKlasse;
+    @FXML TableColumn<Klasse, String> DeeltoernooiKlasseLeeftijd;
+    @FXML TableColumn<Klasse, String> DeeltoernooiKlasseLicentie;
+    @FXML ChoiceBox Spelvorm;
+    @FXML TextField MaxAantalSpelers;
+
+    @FXML Button AddDeeltoernooi;
+    @FXML Button KlasseToevoegen;
+    @FXML Button KlasseVerwijderen;
+    @FXML Button DeleteDeeltoernooi;
+
     private int toernooiID;
     private ToernooiModel toernooiModel;
 
@@ -79,7 +93,35 @@ public class UpdateToernooiController implements Initializable {
         initializeTableViewAddedCommisieLeden();
         initializeButtons();
         initializeChoiceboxSysteemType();
+        initializeTableViewKlasse();
+        initializeChoiceBoxSpelvorm();
+        initializeTableViewDeeltoernooi();
+        initializeTableViewDeeltoernooiKlasse();
 
+    }
+    private void initializeTableViewDeeltoernooiKlasse(){
+        DeeltoernooiKlasseLeeftijd.setCellValueFactory(new PropertyValueFactory<Klasse, String>("klassenaam"));
+        DeeltoernooiKlasseLicentie.setCellValueFactory(new PropertyValueFactory<domain.Klasse, String>("licentietype"));
+    }
+
+
+    private  void initializeTableViewDeeltoernooi(){
+        DeeltoernooiSpelvorm.setCellValueFactory(new PropertyValueFactory<Deeltoernooi, String>("spelvorm"));
+        DeeltoernooiMaxSpelers.setCellValueFactory(new PropertyValueFactory<Deeltoernooi, String>("maxAantalSpelers"));
+        Deeltoernooi.getItems().setAll(toernooiModel.getDeeltoernoois());
+    }
+
+    private void initializeChoiceBoxSpelvorm(){
+        ArrayList<String> spelvormen = new ArrayList<>();
+        for(Spelvorm t : toernooiModel.getSpelvormen()){
+            spelvormen.add(t.getSpelvorm());
+        }
+        Spelvorm.getItems().setAll(spelvormen);
+    }
+
+    private void initializeTableViewKlasse(){
+        KlasseLeeftijd.setCellValueFactory(new PropertyValueFactory<Klasse, String>("klassenaam"));
+        KlasseLicentie.setCellValueFactory(new PropertyValueFactory<Klasse, String>("licentietype"));
     }
 
     private void initializeChoiceboxSysteemType(){
@@ -92,6 +134,51 @@ public class UpdateToernooiController implements Initializable {
     }
 
     private void initializeButtons() {
+        KlasseVerwijderen.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Deeltoernooi deeltoernooi = Deeltoernooi.getSelectionModel().getSelectedItem();
+                deeltoernooi.getKlasses().remove(DeeltoernooiKlasse.getSelectionModel().getSelectedItem());
+                DeeltoernooiKlasse.getItems().setAll(Deeltoernooi.getSelectionModel().getSelectedItem().getKlasses());
+                Klasse.getItems().setAll(toernooiModel.getKlasses(deeltoernooi.getKlasses()));
+            }
+        });
+
+        AddDeeltoernooi.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                toernooiModel.addDeeltoernooi(new Deeltoernooi(false,0,Integer.parseInt(MaxAantalSpelers.getText()),Spelvorm.getValue().toString()));
+                Deeltoernooi.getItems().setAll(toernooiModel.getDeeltoernoois());
+            }
+        });
+        KlasseToevoegen.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Deeltoernooi deeltoernooi = Deeltoernooi.getSelectionModel().getSelectedItem();
+                deeltoernooi.addKlasse(Klasse.getSelectionModel().getSelectedItem());
+                DeeltoernooiKlasse.getItems().setAll(deeltoernooi.getKlasses());
+                Klasse.getItems().setAll(toernooiModel.getKlasses(deeltoernooi.getKlasses()));
+            }
+        });
+        Deeltoernooi.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    Deeltoernooi deeltoernooi = Deeltoernooi.getSelectionModel().getSelectedItem();
+                    DeeltoernooiKlasse.getItems().setAll(deeltoernooi.getKlasses());
+                    Klasse.getItems().setAll(toernooiModel.getKlasses(deeltoernooi.getKlasses()));
+                }
+            }
+        });
+        DeleteDeeltoernooi.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ArrayList<Deeltoernooi> deeltoernooi = toernooiModel.getDeeltoernoois();
+                deeltoernooi.remove(Deeltoernooi.getSelectionModel().getSelectedItem());
+                Deeltoernooi.getItems().setAll(toernooiModel.getDeeltoernoois());
+                DeeltoernooiKlasse.getItems().clear();
+            }
+        });
         Home.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
