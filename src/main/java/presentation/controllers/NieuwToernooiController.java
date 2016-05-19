@@ -110,7 +110,6 @@ public class NieuwToernooiController implements Initializable {
     private void initializeTableViewKlasse(){
         KlasseLeeftijd.setCellValueFactory(new PropertyValueFactory<Klasse, String>("klassenaam"));
         KlasseLicentie.setCellValueFactory(new PropertyValueFactory<Klasse, String>("licentietype"));
-//        Klasse.getItems().setAll(nieuwToernooiModel.getKlasses());
     }
 
     private void initializeTableViewAddedCommisieLeden() {
@@ -145,9 +144,10 @@ public class NieuwToernooiController implements Initializable {
         KlasseVerwijderen.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                ArrayList<Klasse> klasses = Deeltoernooi.getSelectionModel().getSelectedItem().getKlasses();
-                klasses.remove(DeeltoernooiKlasse.getSelectionModel().getSelectedItem());
+                Deeltoernooi deeltoernooi = Deeltoernooi.getSelectionModel().getSelectedItem();
+                deeltoernooi.getKlasses().remove(DeeltoernooiKlasse.getSelectionModel().getSelectedItem());
                 DeeltoernooiKlasse.getItems().setAll(Deeltoernooi.getSelectionModel().getSelectedItem().getKlasses());
+                Klasse.getItems().setAll(nieuwToernooiModel.getKlasses(deeltoernooi.getKlasses()));
             }
         });
 

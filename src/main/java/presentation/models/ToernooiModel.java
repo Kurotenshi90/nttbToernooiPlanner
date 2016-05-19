@@ -144,6 +144,7 @@ public class ToernooiModel {
 
     public void getOneToernooi(int toernooiID){
         toernooi = toernooiService.getOneToernooi(toernooiID);
+        deeltoernoois = toernooi.getDeeltoernoois();
         for(CommisieLidInToernooi commisieLidInToernooi: toernooi.getCommisieLidInToernooi()){
             addedCommisieLeden.add(commisieLidInToernooi);
         }

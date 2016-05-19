@@ -56,11 +56,13 @@ public class ToernooiDao extends DAO {
         connect();
         ResultSet toernooiResult = null;
         ResultSet commissieResult = null;
+        ResultSet deeltoernooiResult = null;
+        ResultSet deeltoernooiklassesResult = null;
 
         try {
             toernooiResult = conn.prepareStatement("SELECT T.Toernooinr, T.Naam, T.InschrijfDatum, T.StartDatum, T.EindDatum, L.LOCATIENR, L.Woonplaats, L.Huisnr, L.Straatnaam, T.Betalingsinfo, T.Prijs, T.ToernooiSoort FROM Locatie L RIGHT JOIN Toernooi T ON L.LOCATIENR=T.Locatienr WHERE T.Toernooinr = " + toernooiID).executeQuery();
             commissieResult = conn.prepareStatement("SELECT TC.lidnr, C.Naam, TC.Rol FROM Toernooicommissie TC INNER JOIN lid C ON TC.lidnr=C.lidnr WHERE Toernooinr = " + toernooiID).executeQuery();
-
+            deeltoernooiResult = conn.prepareStatement("SELECT  DeelToernooinr, SpelType, MaxAantalMensen, Gesloten  FROM DeelToernooi WHERE Toernooinr = "+ toernooiID).executeQuery();
 
             while (toernooiResult.next()){
                 toernooi.setID(toernooiResult.getInt(1));
@@ -87,6 +89,21 @@ public class ToernooiDao extends DAO {
                 commissieLeden.add(commissieLid);
             }
             toernooi.setCommisieLidInToernooi(commissieLeden);
+
+            ArrayList<Deeltoernooi> deeltoernoois = new ArrayList<>();
+            while (deeltoernooiResult.next()){
+                Deeltoernooi deeltoernooi = new Deeltoernooi(deeltoernooiResult.getBoolean(4),deeltoernooiResult.getInt(1), deeltoernooiResult.getInt(3), deeltoernooiResult.getString(2));
+                deeltoernooiklassesResult = conn.prepareStatement("SELECT LicentieType, KlasseNaam FROM KlasseInToernooi WHERE DeelToernooinr = "+ deeltoernooi.getDeeltoernooinr()).executeQuery();
+                ArrayList<Klasse> klasses = new ArrayList<>();
+                while(deeltoernooiklassesResult.next()) {
+                    Klasse klasse = new Klasse(deeltoernooiklassesResult.getString(1), deeltoernooiklassesResult.getString(2));
+                    klasses.add(klasse);
+                }
+                deeltoernooi.setKlasses(klasses);
+                deeltoernoois.add(deeltoernooi);
+            }
+            toernooi.setDeeltoernoois(deeltoernoois);
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -175,7 +192,9 @@ public class ToernooiDao extends DAO {
             }
             stringBuilderDeeltoernooiKlasse.append("}]");
             preparedStatement.setString(12, stringBuilderDeeltoernooiKlasse.toString());
-            preparedStatement.executeUpdate();
+
+            int i = preparedStatement.executeUpdate();
+            System.out.println(i);
 
         }catch (Exception e){
             e.printStackTrace();
