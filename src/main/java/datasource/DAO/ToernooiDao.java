@@ -193,8 +193,7 @@ public class ToernooiDao extends DAO {
             stringBuilderDeeltoernooiKlasse.append("}]");
             preparedStatement.setString(12, stringBuilderDeeltoernooiKlasse.toString());
 
-            int i = preparedStatement.executeUpdate();
-            System.out.println(i);
+            preparedStatement.executeUpdate();
 
         }catch (Exception e){
             e.printStackTrace();

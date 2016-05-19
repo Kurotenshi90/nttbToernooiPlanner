@@ -18,7 +18,7 @@
         <DatePicker fx:id="BegindatumValue" layoutX="360.0" layoutY="200.0" />
         <DatePicker fx:id="EinddatumValue" layoutX="360.0" layoutY="250.0" />
         <TextField fx:id="ToernooiNaamValue" layoutX="50.0" layoutY="150.0" />
-        <Button fx:id="ToernooiAanmaken" layoutX="1577.0" layoutY="940.0" mnemonicParsing="false" styleClass="button-big" text="Toernooi Aanmaken" />
+        <Button fx:id="ToernooiAanmaken" layoutX="1577.0" layoutY="940.0" mnemonicParsing="false" styleClass="button-big" text="Opslaan" />
         <Label layoutX="50.0" layoutY="130.0" text="Toernooinaam" />
         <Label layoutX="360.0" layoutY="180.0" text="Begindatum" />
         <Label layoutX="360.0" layoutY="230.0" text="Eindatum" />
@@ -122,6 +122,6 @@
       <Label layoutX="1175.0" layoutY="488.0" text="Spelvorm" />
       <Button fx:id="AddDeeltoernooi" layoutX="1000.0" layoutY="555.0" mnemonicParsing="false" styleClass="button-small" text="Add deeltoernooi" />
       <Button fx:id="KlasseVerwijderen" layoutX="1506.0" layoutY="810.0" mnemonicParsing="false" styleClass="button-ball" text="&lt;" />
-      <Button fx:id="DeleteDeeltoernooi" layoutX="1000.0" layoutY="901.0" mnemonicParsing="false" styleClass="button-small" text="Verijwder deeltoernooi" />
+      <Button fx:id="DeleteDeeltoernooi" layoutX="1000.0" layoutY="901.0" mnemonicParsing="false" styleClass="button-small" text="Verwijder deeltoernooi" />
     </children>
 </Pane>
