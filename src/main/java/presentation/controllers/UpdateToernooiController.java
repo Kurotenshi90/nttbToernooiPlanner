@@ -13,6 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import jfxtras.scene.control.CalendarTimeTextField;
+import jfxtras.scene.control.LocalDateTimeTextField;
 import presentation.models.ToernooiModel;
 import sun.util.resources.cldr.ebu.CalendarData_ebu_KE;
 
@@ -62,6 +64,8 @@ public class UpdateToernooiController implements Initializable {
     @FXML TableView<domain.Deeltoernooi> Deeltoernooi;
     @FXML TableColumn<Deeltoernooi,String> DeeltoernooiSpelvorm;
     @FXML TableColumn<Deeltoernooi, String> DeeltoernooiMaxSpelers;
+    @FXML TableColumn<Deeltoernooi, String> DeeltoernooiPrijs;
+    @FXML TableColumn<Deeltoernooi, String> DeeltoernooiTijd;
     @FXML TableView<Klasse> Klasse;
     @FXML TableColumn<Klasse, String> KlasseLeeftijd;
     @FXML TableColumn<Klasse, String> KlasseLicentie;
@@ -75,6 +79,9 @@ public class UpdateToernooiController implements Initializable {
     @FXML Button KlasseToevoegen;
     @FXML Button KlasseVerwijderen;
     @FXML Button DeleteDeeltoernooi;
+
+    @FXML
+    LocalDateTimeTextField DatetimeDeeltoernooi;
 
     private int toernooiID;
     private ToernooiModel toernooiModel;
@@ -108,6 +115,8 @@ public class UpdateToernooiController implements Initializable {
     private  void initializeTableViewDeeltoernooi(){
         DeeltoernooiSpelvorm.setCellValueFactory(new PropertyValueFactory<Deeltoernooi, String>("spelvorm"));
         DeeltoernooiMaxSpelers.setCellValueFactory(new PropertyValueFactory<Deeltoernooi, String>("maxAantalSpelers"));
+        DeeltoernooiPrijs.setCellValueFactory(new PropertyValueFactory<Deeltoernooi, String>("prijs"));
+        DeeltoernooiTijd.setCellValueFactory(new PropertyValueFactory<Deeltoernooi, String>("beginTijd"));
         Deeltoernooi.getItems().setAll(toernooiModel.getDeeltoernoois());
     }
 
@@ -147,7 +156,7 @@ public class UpdateToernooiController implements Initializable {
         AddDeeltoernooi.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                toernooiModel.addDeeltoernooi(new Deeltoernooi(false,0,Integer.parseInt(MaxAantalSpelers.getText()),Spelvorm.getValue().toString()));
+                toernooiModel.addDeeltoernooi(new Deeltoernooi(Integer.parseInt(MaxAantalSpelers.getText()),0, DatetimeDeeltoernooi.getDisplayedLocalDateTime(), Double.parseDouble(PrijsValue.getText()),Spelvorm.getValue().toString(), false));
                 Deeltoernooi.getItems().setAll(toernooiModel.getDeeltoernoois());
             }
         });

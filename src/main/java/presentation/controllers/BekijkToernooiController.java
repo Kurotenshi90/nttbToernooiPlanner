@@ -196,7 +196,6 @@ public class BekijkToernooiController implements Initializable{
         EinddatumValue.setValue(LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH)));
 
         ToernooiNaamValue.setText(toernooiModel.getToernooi().getNaam());
-        PrijsValue.setText(String.valueOf(toernooiModel.getToernooi().getPrijs()));
         BetalingsinformatieValue.setText(toernooiModel.getToernooi().getBetalingsinformatie());
         PlaatsValue.setText(toernooiModel.getToernooi().getLocatie().getPlaats());
         StraatValue.setText(toernooiModel.getToernooi().getLocatie().getStraatnaam());

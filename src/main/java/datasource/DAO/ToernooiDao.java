@@ -6,7 +6,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -91,15 +93,13 @@ public class ToernooiDao extends DAO {
 
             ArrayList<Deeltoernooi> deeltoernoois = new ArrayList<>();
             while (deeltoernooiResult.next()){
-                Deeltoernooi deeltoernooi = new Deeltoernooi(deeltoernooiResult.getBoolean(4),deeltoernooiResult.getInt(1), deeltoernooiResult.getInt(3), deeltoernooiResult.getString(2));
+                Deeltoernooi deeltoernooi = new Deeltoernooi(deeltoernooiResult.getInt(3),deeltoernooiResult.getInt(1), deeltoernooiResult.getTimestamp(6).toLocalDateTime(), deeltoernooiResult.getDouble(5), deeltoernooiResult.getString(2), deeltoernooiResult.getBoolean(4));
                 deeltoernooiklassesResult = conn.prepareStatement("SELECT LicentieType, KlasseNaam FROM KlasseInToernooi WHERE DeelToernooinr = "+ deeltoernooi.getDeeltoernooinr()).executeQuery();
                 ArrayList<Klasse> klasses = new ArrayList<>();
                 while(deeltoernooiklassesResult.next()) {
                     Klasse klasse = new Klasse(deeltoernooiklassesResult.getString(1), deeltoernooiklassesResult.getString(2));
                     klasses.add(klasse);
                 }
-                deeltoernooi.setPrijs(deeltoernooiResult.getDouble(5));
-                deeltoernooi.setBeginTijd(deeltoernooiResult.getTimestamp(6).toLocalDateTime().toLocalDate());
                 deeltoernooi.setKlasses(klasses);
                 deeltoernoois.add(deeltoernooi);
             }
@@ -153,7 +153,7 @@ public class ToernooiDao extends DAO {
             stringBuilderDeeltoernooi.append("[{");
             checkPastFirstRound= false;
 
-
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             for(int i = 0 ; i < toernooi.getDeeltoernoois().size(); i++){
                 if(checkPastFirstRound){
                     stringBuilderDeeltoernooi.append("},{");
@@ -166,9 +166,10 @@ public class ToernooiDao extends DAO {
                 if(toernooi.getDeeltoernoois().get(i).getGesloten()) {
                     trueOrFalse = "1";
                 }
-                stringBuilderDeeltoernooi.append("\"Gesloten\":"+trueOrFalse+"");
-                stringBuilderDeeltoernooi.append("\"Prijs\":"+toernooi.getDeeltoernoois().get(i).getPrijs());
-                stringBuilderDeeltoernooi.append("\"StartDatum\":"+toernooi.getDeeltoernoois().get(i).getBeginTijd());
+                stringBuilderDeeltoernooi.append("\"Gesloten\":"+trueOrFalse+",");
+                stringBuilderDeeltoernooi.append("\"Prijs\":\""+toernooi.getDeeltoernoois().get(i).getPrijs()+"\",");
+                stringBuilderDeeltoernooi.append("\"StartDatum\":\""+toernooi.getDeeltoernoois().get(i).getBeginTijd().format(dateTimeFormatter)+"\"");
+                System.out.println(toernooi.getDeeltoernoois().get(i).getBeginTijd().format(dateTimeFormatter));
 
                 checkPastFirstRound = true;
             }

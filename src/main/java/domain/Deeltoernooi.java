@@ -1,7 +1,9 @@
 package domain;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by Peter-Paul on 17/05/2016.
@@ -13,9 +15,10 @@ public class Deeltoernooi {
     private boolean gesloten;
     private ArrayList<Klasse> klasses;
     private double prijs;
-    private LocalDate beginTijd;
+    private LocalDateTime beginTijd;
 
-    public Deeltoernooi(int maxAantalSpelers, int deeltoernooinr, LocalDate beginTijd, double prijs, String spelvorm, boolean gesloten) {
+    public Deeltoernooi(int maxAantalSpelers, int deeltoernooinr, LocalDateTime beginTijd, double prijs, String spelvorm, boolean gesloten) {
+        klasses = new ArrayList<>();
         this.maxAantalSpelers = maxAantalSpelers;
         this.deeltoernooinr = deeltoernooinr;
         this.beginTijd = beginTijd;
@@ -24,20 +27,22 @@ public class Deeltoernooi {
         this.gesloten = gesloten;
     }
 
-    public Deeltoernooi(int deeltoernooinr, int maxAantalSpelers, String spelvorm, boolean gesloten, ArrayList<Klasse> klasses) {
+    public Deeltoernooi(int deeltoernooinr, int maxAantalSpelers, String spelvorm, boolean gesloten, ArrayList<Klasse> klasses, double prijs, LocalDateTime beginTijd) {
         klasses = new ArrayList<>();
         this.deeltoernooinr = deeltoernooinr;
         this.maxAantalSpelers = maxAantalSpelers;
         this.spelvorm = spelvorm;
         this.gesloten = gesloten;
         this.klasses = klasses;
+        this.prijs = prijs;
+        this.beginTijd = beginTijd;
     }
 
-    public LocalDate getBeginTijd() {
+    public LocalDateTime getBeginTijd() {
         return beginTijd;
     }
 
-    public void setBeginTijd(LocalDate beginTijd) {
+    public void setBeginTijd(LocalDateTime beginTijd) {
         this.beginTijd = beginTijd;
     }
 

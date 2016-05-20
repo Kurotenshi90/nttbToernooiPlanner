@@ -14,10 +14,17 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import jfxtras.scene.control.CalendarTimeTextField;
+import jfxtras.scene.control.LocalDateTimeTextField;
+import jfxtras.scene.control.LocalTimeTextField;
 import presentation.models.ToernooiModel;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 /**
@@ -58,6 +65,8 @@ public class NieuwToernooiController implements Initializable {
     @FXML TableView<Deeltoernooi> Deeltoernooi;
     @FXML TableColumn<Deeltoernooi,String> DeeltoernooiSpelvorm;
     @FXML TableColumn<Deeltoernooi, String> DeeltoernooiMaxSpelers;
+    @FXML TableColumn<Deeltoernooi, String> DeeltoernooiPrijs;
+    @FXML TableColumn<Deeltoernooi, String> DeeltoernooiTijd;
     @FXML TableView<Klasse> Klasse;
     @FXML TableColumn<Klasse, String> KlasseLeeftijd;
     @FXML TableColumn<Klasse, String> KlasseLicentie;
@@ -72,11 +81,17 @@ public class NieuwToernooiController implements Initializable {
     @FXML Button KlasseVerwijderen;
     @FXML Button DeleteDeeltoernooi;
 
+    @FXML
+    LocalDateTimeTextField DatetimeDeeltoernooi;
+
     private ToernooiModel nieuwToernooiModel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         nieuwToernooiModel = new ToernooiModel();
+        Calendar calendar = Calendar.getInstance();
+
+
         initializeButtons();
         initializeTableViewCommisieLeden();
         initializeTableViewAddedCommisieLeden();
@@ -119,6 +134,8 @@ public class NieuwToernooiController implements Initializable {
     private  void initializeTableViewDeeltoernooi(){
         DeeltoernooiSpelvorm.setCellValueFactory(new PropertyValueFactory<Deeltoernooi, String>("spelvorm"));
         DeeltoernooiMaxSpelers.setCellValueFactory(new PropertyValueFactory<Deeltoernooi, String>("maxAantalSpelers"));
+        DeeltoernooiPrijs.setCellValueFactory(new PropertyValueFactory<Deeltoernooi, String>("prijs"));
+        DeeltoernooiTijd.setCellValueFactory(new PropertyValueFactory<Deeltoernooi, String>("beginTijd"));
         Deeltoernooi.getItems().setAll(nieuwToernooiModel.getDeeltoernoois());
     }
 
@@ -154,7 +171,10 @@ public class NieuwToernooiController implements Initializable {
         AddDeeltoernooi.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                nieuwToernooiModel.addDeeltoernooi(new Deeltoernooi(false,0,Integer.parseInt(MaxAantalSpelers.getText()),Spelvorm.getValue().toString(),));
+                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                String string = DatetimeDeeltoernooi.getDisplayedLocalDateTime().format(dateTimeFormatter);
+                LocalDateTime localDateTime = LocalDateTime.parse(string, dateTimeFormatter);
+                nieuwToernooiModel.addDeeltoernooi(new Deeltoernooi(Integer.parseInt(MaxAantalSpelers.getText()),0, localDateTime, Double.parseDouble(PrijsValue.getText()),Spelvorm.getValue().toString(), false));
                 Deeltoernooi.getItems().setAll(nieuwToernooiModel.getDeeltoernoois());
             }
         });
