@@ -125,7 +125,7 @@ public class ToernooiModel {
         return locaties;
     }
 
-    public void saveToernooi(int id, String naam, Date begindatum, Date einddatum, Date inschrijfdatum, double prijs, String betalingsinformatie, String toernooisoort){
+    public void saveToernooi(int id, String naam, Date begindatum, Date einddatum, Date inschrijfdatum, String betalingsinformatie, String toernooisoort){
         Toernooi toernooi = new Toernooi();
         toernooi.setID(id);
         toernooi.setLocatie(locatie);
@@ -135,7 +135,6 @@ public class ToernooiModel {
         toernooi.setCommisieLidInToernooi(addedCommisieLeden);
         toernooi.setEinddatum(einddatum);
         toernooi.setInschrijfdatum(inschrijfdatum);
-        toernooi.setPrijs(prijs);
         toernooi.setToernooisoort(toernooisoort);
         toernooi.setDeeltoernoois(deeltoernoois);
 

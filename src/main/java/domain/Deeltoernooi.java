@@ -1,5 +1,6 @@
 package domain;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -11,13 +12,16 @@ public class Deeltoernooi {
     private String spelvorm;
     private boolean gesloten;
     private ArrayList<Klasse> klasses;
+    private double prijs;
+    private LocalDate beginTijd;
 
-    public Deeltoernooi(boolean gesloten, int deeltoernooinr, int maxAantalSpelers, String spelvorm) {
-        klasses = new ArrayList<>();
-        this.gesloten = gesloten;
-        this.deeltoernooinr = deeltoernooinr;
+    public Deeltoernooi(int maxAantalSpelers, int deeltoernooinr, LocalDate beginTijd, double prijs, String spelvorm, boolean gesloten) {
         this.maxAantalSpelers = maxAantalSpelers;
+        this.deeltoernooinr = deeltoernooinr;
+        this.beginTijd = beginTijd;
+        this.prijs = prijs;
         this.spelvorm = spelvorm;
+        this.gesloten = gesloten;
     }
 
     public Deeltoernooi(int deeltoernooinr, int maxAantalSpelers, String spelvorm, boolean gesloten, ArrayList<Klasse> klasses) {
@@ -27,6 +31,22 @@ public class Deeltoernooi {
         this.spelvorm = spelvorm;
         this.gesloten = gesloten;
         this.klasses = klasses;
+    }
+
+    public LocalDate getBeginTijd() {
+        return beginTijd;
+    }
+
+    public void setBeginTijd(LocalDate beginTijd) {
+        this.beginTijd = beginTijd;
+    }
+
+    public double getPrijs() {
+        return prijs;
+    }
+
+    public void setPrijs(double prijs) {
+        this.prijs = prijs;
     }
 
     public boolean getGesloten() {

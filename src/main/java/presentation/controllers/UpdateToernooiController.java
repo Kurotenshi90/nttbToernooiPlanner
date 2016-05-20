@@ -257,7 +257,7 @@ public class UpdateToernooiController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println(toernooiID);
-                toernooiModel.saveToernooi(toernooiID,ToernooiNaamValue.getText(), java.sql.Date.valueOf(BegindatumValue.getValue()), java.sql.Date.valueOf(EinddatumValue.getValue()), java.sql.Date.valueOf(InschrijfdatumValue.getValue()), Double.parseDouble(PrijsValue.getText()), BetalingsinformatieValue.getText(), SysteemType.getValue());
+                toernooiModel.saveToernooi(toernooiID,ToernooiNaamValue.getText(), java.sql.Date.valueOf(BegindatumValue.getValue()), java.sql.Date.valueOf(EinddatumValue.getValue()), java.sql.Date.valueOf(InschrijfdatumValue.getValue()), BetalingsinformatieValue.getText(), SysteemType.getValue());
                 goToHome(ToernooiAanmaken);
             }
         });
@@ -273,7 +273,6 @@ public class UpdateToernooiController implements Initializable {
         EinddatumValue.setValue(LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH)));
 
         ToernooiNaamValue.setText(toernooiModel.getToernooi().getNaam());
-        PrijsValue.setText(String.valueOf(toernooiModel.getToernooi().getPrijs()));
         BetalingsinformatieValue.setText(toernooiModel.getToernooi().getBetalingsinformatie());
         PlaatsValue.setText(toernooiModel.getToernooi().getLocatie().getPlaats());
         StraatValue.setText(toernooiModel.getToernooi().getLocatie().getStraatnaam());

@@ -60,9 +60,9 @@ public class ToernooiDao extends DAO {
         ResultSet deeltoernooiklassesResult = null;
 
         try {
-            toernooiResult = conn.prepareStatement("SELECT T.Toernooinr, T.Naam, T.InschrijfDatum, T.StartDatum, T.EindDatum, L.LOCATIENR, L.Woonplaats, L.Huisnr, L.Straatnaam, T.Betalingsinfo, T.Prijs, T.ToernooiSoort FROM Locatie L RIGHT JOIN Toernooi T ON L.LOCATIENR=T.Locatienr WHERE T.Toernooinr = " + toernooiID).executeQuery();
+            toernooiResult = conn.prepareStatement("SELECT T.Toernooinr, T.Naam, T.InschrijfDatum, T.StartDatum, T.EindDatum, L.LOCATIENR, L.Woonplaats, L.Huisnr, L.Straatnaam, T.Betalingsinfo, T.ToernooiSoort FROM Locatie L RIGHT JOIN Toernooi T ON L.LOCATIENR=T.Locatienr WHERE T.Toernooinr = " + toernooiID).executeQuery();
             commissieResult = conn.prepareStatement("SELECT TC.lidnr, C.Naam, TC.Rol FROM Toernooicommissie TC INNER JOIN lid C ON TC.lidnr=C.lidnr WHERE Toernooinr = " + toernooiID).executeQuery();
-            deeltoernooiResult = conn.prepareStatement("SELECT  DeelToernooinr, SpelType, MaxAantalMensen, Gesloten  FROM DeelToernooi WHERE Toernooinr = "+ toernooiID).executeQuery();
+            deeltoernooiResult = conn.prepareStatement("SELECT  DeelToernooinr, SpelType, MaxAantalMensen, Gesloten, Prijs, Startdatum  FROM DeelToernooi WHERE Toernooinr = "+ toernooiID).executeQuery();
 
             while (toernooiResult.next()){
                 toernooi.setID(toernooiResult.getInt(1));
@@ -72,8 +72,7 @@ public class ToernooiDao extends DAO {
                 toernooi.setEinddatum(toernooiResult.getDate(5));
                 toernooi.setLocatie(new Locatie(toernooiResult.getInt(6), toernooiResult.getString(7), toernooiResult.getString(9), toernooiResult.getString(8)));
                 toernooi.setBetalingsinformatie(toernooiResult.getString(10));
-                toernooi.setPrijs(toernooiResult.getDouble(11));
-                toernooi.setToernooisoort(toernooiResult.getString(12));
+                toernooi.setToernooisoort(toernooiResult.getString(11));
             }
 
             while (commissieResult.next()){
@@ -99,6 +98,8 @@ public class ToernooiDao extends DAO {
                     Klasse klasse = new Klasse(deeltoernooiklassesResult.getString(1), deeltoernooiklassesResult.getString(2));
                     klasses.add(klasse);
                 }
+                deeltoernooi.setPrijs(deeltoernooiResult.getDouble(5));
+                deeltoernooi.setBeginTijd(deeltoernooiResult.getTimestamp(6).toLocalDateTime().toLocalDate());
                 deeltoernooi.setKlasses(klasses);
                 deeltoernoois.add(deeltoernooi);
             }
@@ -113,7 +114,7 @@ public class ToernooiDao extends DAO {
     }
 
     public void saveToernooi(Toernooi toernooi){
-        String update = "EXEC STP_NieuwToernooiToevoegen ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
+        String update = "EXEC STP_NieuwToernooiToevoegen ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
         connect();
         try{
 
@@ -124,9 +125,8 @@ public class ToernooiDao extends DAO {
             preparedStatement.setDate(4, new java.sql.Date(toernooi.getBegindatum().getTime()));
             preparedStatement.setDate(5, new java.sql.Date(toernooi.getEinddatum().getTime()));
             preparedStatement.setDate(6, new java.sql.Date(toernooi.getInschrijfdatum().getTime()));
-            preparedStatement.setDouble(7, toernooi.getPrijs());
-            preparedStatement.setString(8, toernooi.getBetalingsinformatie());
-            preparedStatement.setString(9, toernooi.getNaam());
+            preparedStatement.setString(7, toernooi.getBetalingsinformatie());
+            preparedStatement.setString(8, toernooi.getNaam());
 
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("[{");
@@ -148,7 +148,7 @@ public class ToernooiDao extends DAO {
                 checkPastFirstRound = true;
             }
             stringBuilder.append("}]");
-            preparedStatement.setString(10, stringBuilder.toString());
+            preparedStatement.setString(9, stringBuilder.toString());
             StringBuilder stringBuilderDeeltoernooi = new StringBuilder();
             stringBuilderDeeltoernooi.append("[{");
             checkPastFirstRound= false;
@@ -167,12 +167,14 @@ public class ToernooiDao extends DAO {
                     trueOrFalse = "1";
                 }
                 stringBuilderDeeltoernooi.append("\"Gesloten\":"+trueOrFalse+"");
+                stringBuilderDeeltoernooi.append("\"Prijs\":"+toernooi.getDeeltoernoois().get(i).getPrijs());
+                stringBuilderDeeltoernooi.append("\"StartDatum\":"+toernooi.getDeeltoernoois().get(i).getBeginTijd());
 
                 checkPastFirstRound = true;
             }
             stringBuilderDeeltoernooi.append("}]");
 
-            preparedStatement.setString(11, stringBuilderDeeltoernooi.toString());
+            preparedStatement.setString(10, stringBuilderDeeltoernooi.toString());
 
             StringBuilder stringBuilderDeeltoernooiKlasse = new StringBuilder();
             stringBuilderDeeltoernooiKlasse.append("[{");
@@ -191,7 +193,7 @@ public class ToernooiDao extends DAO {
                 }
             }
             stringBuilderDeeltoernooiKlasse.append("}]");
-            preparedStatement.setString(12, stringBuilderDeeltoernooiKlasse.toString());
+            preparedStatement.setString(11, stringBuilderDeeltoernooiKlasse.toString());
 
             preparedStatement.executeUpdate();
 

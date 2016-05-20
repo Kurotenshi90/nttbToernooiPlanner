@@ -154,7 +154,7 @@ public class NieuwToernooiController implements Initializable {
         AddDeeltoernooi.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                nieuwToernooiModel.addDeeltoernooi(new Deeltoernooi(false,0,Integer.parseInt(MaxAantalSpelers.getText()),Spelvorm.getValue().toString()));
+                nieuwToernooiModel.addDeeltoernooi(new Deeltoernooi(false,0,Integer.parseInt(MaxAantalSpelers.getText()),Spelvorm.getValue().toString(),));
                 Deeltoernooi.getItems().setAll(nieuwToernooiModel.getDeeltoernoois());
             }
         });
@@ -212,7 +212,7 @@ public class NieuwToernooiController implements Initializable {
         ToernooiAanmaken.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                nieuwToernooiModel.saveToernooi(0, ToernooiNaamValue.getText(), java.sql.Date.valueOf(BegindatumValue.getValue()), java.sql.Date.valueOf(EinddatumValue.getValue()), java.sql.Date.valueOf(InschrijfdatumValue.getValue()), Double.parseDouble(PrijsValue.getText()), BetalingsinformatieValue.getText(), SysteemType.getValue());
+                nieuwToernooiModel.saveToernooi(0, ToernooiNaamValue.getText(), java.sql.Date.valueOf(BegindatumValue.getValue()), java.sql.Date.valueOf(EinddatumValue.getValue()), java.sql.Date.valueOf(InschrijfdatumValue.getValue()), BetalingsinformatieValue.getText(), SysteemType.getValue());
                 goToHome(ToernooiAanmaken);
             }
         });

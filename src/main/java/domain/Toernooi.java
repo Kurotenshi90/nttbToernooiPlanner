@@ -18,7 +18,6 @@ public class Toernooi {
     public Date einddatum;
     public Date inschrijfdatum;
     public Locatie locatie;
-    public double prijs;
     public String betalingsinformatie;
     public String toernooisoort;
     private ArrayList<CommisieLidInToernooi> commisieLidInToernooi;
@@ -92,14 +91,6 @@ public class Toernooi {
 
     public void setLocatie(Locatie locatie) {
         this.locatie = locatie;
-    }
-
-    public double getPrijs() {
-        return prijs;
-    }
-
-    public void setPrijs(double prijs) {
-        this.prijs = prijs;
     }
 
     public String getBetalingsinformatie() {
