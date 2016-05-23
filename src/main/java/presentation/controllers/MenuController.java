@@ -26,13 +26,10 @@ public class MenuController implements Initializable {
     @FXML Button Home;
 
 
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeButtons();
     }
-
 
     private void initializeButtons() {
         ToernooiBeheren.setOnAction(new EventHandler<ActionEvent>() {
@@ -42,6 +39,24 @@ public class MenuController implements Initializable {
                 HomeController controller = new HomeController();
                 loader.setController(controller);
                 Stage stage = (Stage) ToernooiBeheren.getScene().getWindow();
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Scene scene = new Scene(root, 1920, 1080);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+        InschrijvenToernooi.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/InschrijfToernooi.fxml"));
+                ToernooiOverzichtDeelnemerToevoegenController controller = new ToernooiOverzichtDeelnemerToevoegenController();
+                loader.setController(controller);
+                Stage stage = (Stage) InschrijvenToernooi.getScene().getWindow();
                 Parent root = null;
                 try {
                     root = loader.load();
@@ -101,9 +116,9 @@ public class MenuController implements Initializable {
                 stage.show();
             }
         });
+
     }
     private MenuController getController() {
         return this;
     }
-
 }
