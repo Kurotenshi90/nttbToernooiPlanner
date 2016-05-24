@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="480.0" stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField fx:id="VerenigingNaam" layoutX="28.0" layoutY="53.0" />
+      <TextField fx:id="VerenigingStraat" layoutX="28.0" layoutY="103.0" />
+      <TextField fx:id="VerenigingHuisnummer" layoutX="28.0" layoutY="153.0" />
+      <TextField fx:id="VerenigingWoonplaats" layoutX="270.0" layoutY="100.0" />
+      <TextField fx:id="VerenigingPostcode" layoutX="270.0" layoutY="150.0" />
+      <TextField fx:id="VerenigingTelefoonnummer" layoutX="270.0" layoutY="200.0" />
+      <Button fx:id="VerenigingOpslaan" layoutX="285.0" layoutY="270.0" mnemonicParsing="false" styleClass="button-small" text="Opslaan" />
+      <Button fx:id="VerenigingAnnuleren" layoutX="28.0" layoutY="270.0" mnemonicParsing="false" styleClass="button-small" text="Annuleren" />
+      <Label layoutX="28.0" layoutY="33.0" text="Naam" />
+      <Label layoutX="28.0" layoutY="83.0" text="Straat" />
+      <Label layoutX="28.0" layoutY="133.0" text="Huisnummer" />
+      <Label layoutX="270.0" layoutY="80.0" text="Woonplaats" />
+      <Label layoutX="270.0" layoutY="130.0" text="Postcode" />
+      <Label layoutX="270.0" layoutY="180.0" text="Telefoonnummer" />
+      <ImageView fitHeight="120.0" fitWidth="480.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/TopBorderSmall.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="28.0" layoutY="180.0" text="Emailadres" />
+      <TextField fx:id="VerenigingEmailAdres" layoutX="28.0" layoutY="200.0" />
+   </children>
+</Pane>

@@ -15,8 +15,8 @@
       <Button fx:id="LoginAnnuleren" layoutX="50.0" layoutY="265.0" mnemonicParsing="false" styleClass="button-small" text="annuleren" />
       <Button fx:id="Login" layoutX="280.0" layoutY="265.0" mnemonicParsing="false" styleClass="button-small" text="Login" />
       <TextField fx:id="Username" layoutX="50.0" layoutY="150.0" />
-      <TextField fx:id="Password" layoutX="280.0" layoutY="150.0" />
       <Label layoutX="50.0" layoutY="130.0" text="Username" />
       <Label layoutX="280.0" layoutY="130.0" text="Password" />
+      <PasswordField fx:id="Password" layoutX="280.0" layoutY="150.0" />
    </children>
 </Pane>
