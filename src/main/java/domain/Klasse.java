@@ -28,4 +28,8 @@ public class Klasse {
     public void setKlassenaam(String klassennaam) {
         this.klassenaam = klassennaam;
     }
+
+    public String toString() {
+        return "Klasse: " + klassenaam + " " + licentietype;
+    }
 }

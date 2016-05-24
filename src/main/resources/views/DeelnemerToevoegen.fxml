@@ -5,7 +5,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TableView fx:id="Deelnemers" layoutX="200.0" layoutY="440.0" prefHeight="400.0" prefWidth="1520.0">
@@ -13,7 +12,7 @@
           <TableColumn fx:id="VoornaamDeelnemer" prefWidth="75.0" text="voornaam" />
           <TableColumn fx:id="AchternaamDeelnemer" prefWidth="75.0" text="achternaam" />
             <TableColumn fx:id="BondsnummerDeelnemer" prefWidth="75.0" text="bondsnummer" />
-            <TableColumn fx:id="geslachtDeelnemer" prefWidth="75.0" text="geslacht" />
+            <TableColumn fx:id="GeslachtDeelnemer" prefWidth="75.0" text="geslacht" />
             <TableColumn fx:id="DeeltoernooiDeelnemer" prefWidth="75.0" text="Deeltoernooi" />
             <TableColumn fx:id="LicentieDeelnemer" prefWidth="75.0" text="licentie" />
             <TableColumn fx:id="BondsnummerPartnerDeelnemer" prefWidth="75.0" text="Bondsnummer partner" />
@@ -30,7 +29,7 @@
       <TextField fx:id="Bondsnummer" layoutX="607.0" layoutY="291.0" />
       <ChoiceBox fx:id="Geslacht" layoutX="773.0" layoutY="291.0" prefWidth="150.0" />
       <Label layoutX="773.0" layoutY="274.0" text="Geslacht" />
-      <ChoiceBox fx:id="Deeltoernooi" layoutX="954.0" layoutY="291.0" prefWidth="150.0" />
+      <ComboBox fx:id="Deeltoernooi" layoutX="954.0" layoutY="291.0" prefWidth="150.0" />
       <Label layoutX="954.0" layoutY="274.0" text="Deeltoernooi" />
       <ChoiceBox fx:id="Licentie" layoutX="1125.0" layoutY="291.0" prefWidth="150.0" />
       <Label layoutX="1125.0" layoutY="274.0" text="Licentie" />
@@ -65,5 +64,8 @@
       <Label layoutX="613.0" layoutY="123.0" text="inschrijfdatum" />
       <Label layoutX="779.0" layoutY="123.0" text="Begindatum" />
       <Label layoutX="968.0" layoutY="123.0" text="Einddatum" />
+      <ChoiceBox fx:id="Vereniging" layoutX="248.0" layoutY="212.0" prefWidth="150.0" />
+      <Label layoutX="248.0" layoutY="183.0" text="Vereniging" />
+      <Button fx:id="VerenigingToevoegen" layoutX="439.0" layoutY="212.0" mnemonicParsing="false" styleClass="button-small" text="Vereniging toevoegen" />
    </children>
 </Pane>

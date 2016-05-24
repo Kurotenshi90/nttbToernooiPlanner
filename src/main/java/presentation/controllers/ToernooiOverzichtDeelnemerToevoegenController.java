@@ -53,8 +53,8 @@ public class ToernooiOverzichtDeelnemerToevoegenController implements Initializa
         Button_DeelnemerToevoegen.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/NieuwToernooi.fxml"));
-                NieuwToernooiController controller = new NieuwToernooiController();
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/DeelnemerToevoegen.fxml"));
+                SpelersInschrijvenController controller = new SpelersInschrijvenController(TableViewToernooiOverzicht.getSelectionModel().getSelectedItem().getId());
                 loader.setController(controller);
                 Stage stage = (Stage) Button_DeelnemerToevoegen.getScene().getWindow();
                 Parent root = null;

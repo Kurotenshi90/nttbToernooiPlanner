@@ -97,4 +97,8 @@ public class Deeltoernooi {
     public void setKlasses(ArrayList<Klasse> klasses) {
         this.klasses = klasses;
     }
+
+    public String toString() {
+        return "BeginTijd: " + beginTijd + ", Max aantal spelers: " + maxAantalSpelers + ", Spelvorm: " + spelvorm;
+    }
 }
