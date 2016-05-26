@@ -11,7 +11,6 @@ import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.swing.text.html.ImageView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -24,6 +23,7 @@ public class MenuController implements Initializable {
     @FXML Button Inloggen;
     @FXML Button Exit;
     @FXML Button Home;
+    @FXML Button ToernooiInplannen;
 
 
     @Override
@@ -113,6 +113,24 @@ public class MenuController implements Initializable {
                 stage.setScene(scene);
                 stage.initOwner(Inloggen.getScene().getWindow());
                 stage.initModality(Modality.WINDOW_MODAL);
+                stage.show();
+            }
+        });
+        ToernooiInplannen.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/DeeltoernooiInplannen.fxml"));
+                DeeltoernooiInplannenController controller = new DeeltoernooiInplannenController();
+                loader.setController(controller);
+                Stage stage = (Stage) ToernooiInplannen.getScene().getWindow();
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Scene scene = new Scene(root, 1920, 1080);
+                stage.setScene(scene);
                 stage.show();
             }
         });
