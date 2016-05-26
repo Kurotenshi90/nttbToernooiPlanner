@@ -2,10 +2,7 @@ package datasource.DAO;
 
 import domain.*;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -213,5 +210,51 @@ public class ToernooiDao extends DAO {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void saveToernooiIndeling(Deeltoernooi deeltoernooi) {
+        connect();
+
+        try {
+            if(deeltoernooi instanceof PouleDeeltoernooi) {
+                PouleDeeltoernooi genereerPoules = (PouleDeeltoernooi) deeltoernooi;
+                PreparedStatement generatePoules = conn.prepareStatement("EXEC STP_PoulesAanmaken ?, ?");
+                generatePoules.setInt(1, genereerPoules.getDeeltoernooinr());
+                generatePoules.setInt(2, genereerPoules.getPoules().size());
+                generatePoules.executeUpdate();
+
+                PreparedStatement schrijfSpelersIn = conn.prepareStatement("EXEC STP_InsertDeelnemerIntoPoule ?");
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("[{");
+                boolean checkPastFirstRound= false;
+                for(int i = 0; i<((PouleDeeltoernooi) deeltoernooi).getPoules().size();i++){
+                    for(Deelnemer deelnemer: ((PouleDeeltoernooi) deeltoernooi).getPoules().get(i).getDeelnemers()){
+                        if(checkPastFirstRound){
+                            stringBuilder.append("},{");
+                        }
+                        stringBuilder.append("\"Deelnemernr\":"+deelnemer.getDeelnemerID()+",");
+                        stringBuilder.append("\"Deeltoernooinr\":"+deeltoernooi.getDeeltoernooinr()+",");
+                        stringBuilder.append("\"Poulenr\":"+(i+1));
+                        checkPastFirstRound = true;
+                    }
+                }
+                stringBuilder.append("}]");
+                schrijfSpelersIn.setString(1, stringBuilder.toString());
+                schrijfSpelersIn.executeUpdate();
+
+                PreparedStatement maakWedstrijden = conn.prepareStatement("EXEC STP_PouleWedstrijdenAanmaken ?");
+                maakWedstrijden.setInt(1, deeltoernooi.getDeeltoernooinr());
+                maakWedstrijden.executeUpdate();
+
+                PreparedStatement deelWedstrijdenIn = conn.prepareStatement("EXEC STP_PlanWedstrijdenPoule ?");
+                deelWedstrijdenIn.setInt(1, deeltoernooi.getDeeltoernooinr());
+                deelWedstrijdenIn.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        disconnect();
     }
 }
