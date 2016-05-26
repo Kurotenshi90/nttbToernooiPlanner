@@ -60,6 +60,7 @@ public class ToernooiDao extends DAO {
         ResultSet commissieResult = null;
         ResultSet deeltoernooiResult = null;
         ResultSet deeltoernooiklassesResult = null;
+        ResultSet deeltoernooiDeelnemerResult = null;
 
         try {
             toernooiResult = conn.prepareStatement("SELECT T.Toernooinr, T.Naam, T.InschrijfDatum, T.StartDatum, T.EindDatum, L.LOCATIENR, L.Woonplaats, L.Huisnr, L.Straatnaam, T.Betalingsinfo, T.ToernooiSoort FROM Locatie L RIGHT JOIN Toernooi T ON L.LOCATIENR=T.Locatienr WHERE T.Toernooinr = " + toernooiID).executeQuery();
@@ -93,7 +94,18 @@ public class ToernooiDao extends DAO {
 
             ArrayList<Deeltoernooi> deeltoernoois = new ArrayList<>();
             while (deeltoernooiResult.next()){
-                Deeltoernooi deeltoernooi = new Deeltoernooi(deeltoernooiResult.getInt(3),deeltoernooiResult.getInt(1), deeltoernooiResult.getTimestamp(6).toLocalDateTime(), deeltoernooiResult.getDouble(5), deeltoernooiResult.getString(2), deeltoernooiResult.getBoolean(4));
+                Deeltoernooi deeltoernooi;
+                if(toernooi.getToernooisoort().equals("Poule")) {
+                    deeltoernooi = new PouleDeeltoernooi(deeltoernooiResult.getInt(3), deeltoernooiResult.getInt(1), deeltoernooiResult.getTimestamp(6).toLocalDateTime(), deeltoernooiResult.getDouble(5), deeltoernooiResult.getString(2), deeltoernooiResult.getBoolean(4));
+                    deeltoernooiDeelnemerResult = conn.prepareStatement("SELECT Deelnemernr, Deeltoernooinr, Voornaam, Achternaam, Bondsnr, Geslacht, Licentie, Verenigingnr FROM Deelnemer WHERE Deeltoernooinr = " + deeltoernooi.getDeeltoernooinr()).executeQuery();
+                    ArrayList<Deelnemer> deelnemers = new ArrayList<>();
+                    while(deeltoernooiDeelnemerResult.next()){
+                        deelnemers.add(new Deelnemer(deeltoernooiDeelnemerResult.getInt(1), deeltoernooiDeelnemerResult.getInt(2), deeltoernooiDeelnemerResult.getString(3), deeltoernooiDeelnemerResult.getString(4), deeltoernooiDeelnemerResult.getInt(5), deeltoernooiDeelnemerResult.getString(6), deeltoernooiDeelnemerResult.getString(7), deeltoernooiDeelnemerResult.getInt(8)));
+                    }
+                    deeltoernooi.setDeelnemers(deelnemers);
+                } else {
+                    deeltoernooi = new Deeltoernooi(deeltoernooiResult.getInt(3), deeltoernooiResult.getInt(1), deeltoernooiResult.getTimestamp(6).toLocalDateTime(), deeltoernooiResult.getDouble(5), deeltoernooiResult.getString(2), deeltoernooiResult.getBoolean(4));
+                }
                 deeltoernooiklassesResult = conn.prepareStatement("SELECT LicentieType, KlasseNaam FROM KlasseInToernooi WHERE DeelToernooinr = "+ deeltoernooi.getDeeltoernooinr()).executeQuery();
                 ArrayList<Klasse> klasses = new ArrayList<>();
                 while(deeltoernooiklassesResult.next()) {

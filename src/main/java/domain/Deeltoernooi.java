@@ -16,6 +16,7 @@ public class Deeltoernooi {
     private ArrayList<Klasse> klasses;
     private double prijs;
     private LocalDateTime beginTijd;
+    private ArrayList<Deelnemer> deelnemers;
 
     public Deeltoernooi(int maxAantalSpelers, int deeltoernooinr, LocalDateTime beginTijd, double prijs, String spelvorm, boolean gesloten) {
         klasses = new ArrayList<>();
@@ -36,6 +37,25 @@ public class Deeltoernooi {
         this.klasses = klasses;
         this.prijs = prijs;
         this.beginTijd = beginTijd;
+    }
+
+    public Deeltoernooi(int deeltoernooinr, int maxAantalSpelers, String spelvorm, boolean gesloten, ArrayList<Klasse> klasses, double prijs, LocalDateTime beginTijd, ArrayList<Deelnemer> deelnemers) {
+        this.deeltoernooinr = deeltoernooinr;
+        this.maxAantalSpelers = maxAantalSpelers;
+        this.spelvorm = spelvorm;
+        this.gesloten = gesloten;
+        this.klasses = klasses;
+        this.prijs = prijs;
+        this.beginTijd = beginTijd;
+        this.deelnemers = deelnemers;
+    }
+
+    public ArrayList<Deelnemer> getDeelnemers() {
+        return deelnemers;
+    }
+
+    public void setDeelnemers(ArrayList<Deelnemer> deelnemers) {
+        this.deelnemers = deelnemers;
     }
 
     public LocalDateTime getBeginTijd() {

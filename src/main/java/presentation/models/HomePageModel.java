@@ -1,6 +1,7 @@
 package presentation.models;
 
 import domain.HomePageToernooi;
+import domain.Toernooi;
 import services.ToernooiService;
 
 import java.util.ArrayList;
@@ -20,5 +21,9 @@ public class HomePageModel {
 
     public ArrayList<HomePageToernooi> getHomepagetoernooi(){
         return homePageToernoois;
+    }
+
+    public Toernooi getOneToernooi(int toernooiID){
+       return toernooiService.getOneToernooi(toernooiID);
     }
 }
