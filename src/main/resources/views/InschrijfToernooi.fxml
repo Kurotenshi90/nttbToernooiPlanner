@@ -31,5 +31,6 @@
          </image>
       </ImageView>
        <Button fx:id="Home" layoutX="10.0" layoutY="5.0" mnemonicParsing="false" styleClass="button-home" />
+      <Button fx:id="DeelnemersAanpassen" layoutX="1547.0" layoutY="560.0" mnemonicParsing="false" styleClass="button-big" text="Deelnemers aanpassen" />
    </children>
 </Pane>

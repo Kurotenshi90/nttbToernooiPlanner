@@ -27,6 +27,19 @@ public class Deelnemer {
         this.deeltoernooi = deeltoernooi;
     }
 
+    public Deelnemer(int deelnemerID, int deelToernooinr, String voornaam, String achternaam, int bondsnr, String geslacht, String licentie, int bondsnrPartner, int verenigingnr, String deeltoernooi) {
+        this.deelnemerID = deelnemerID;
+        this.deelToernooinr = deelToernooinr;
+        this.voornaam = voornaam;
+        this.achternaam = achternaam;
+        this.bondsnr = bondsnr;
+        this.geslacht = geslacht;
+        this.licentie = licentie;
+        this.bondsnrPartner = bondsnrPartner;
+        this.verenigingnr = verenigingnr;
+        this.deeltoernooi = deeltoernooi;
+    }
+
     public String getDeeltoernooi() {
         return deeltoernooi;
     }

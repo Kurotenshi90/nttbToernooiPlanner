@@ -31,6 +31,7 @@ public class SpelersInschrijvenController implements Initializable {
     @FXML Button Annuleren;
     @FXML Button Opslaan;
     @FXML Button DeelnemerToevoegen;
+    @FXML Button DeelnemerVerwijderen;
     @FXML ChoiceBox<Vereniging> Vereniging;
     @FXML Button VerenigingToevoegen;
 
@@ -168,6 +169,17 @@ public class SpelersInschrijvenController implements Initializable {
                 stage.initOwner(VerenigingToevoegen.getScene().getWindow());
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.show();
+            }
+        });
+
+        DeelnemerVerwijderen.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Deelnemer deelnemer = Deelnemers.getSelectionModel().getSelectedItem();
+                if(deelnemer != null){
+                    spelersInschrijvenModel.deleteDeelnemer(deelnemer);
+                    Deelnemers.getItems().setAll(spelersInschrijvenModel.getToegevoegdeDeelnemers());
+                }
             }
         });
     }

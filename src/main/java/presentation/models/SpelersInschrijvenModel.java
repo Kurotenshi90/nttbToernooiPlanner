@@ -52,7 +52,24 @@ public class SpelersInschrijvenModel {
         verenigings = verenigingService.getVerenigings();
     }
 
+    public void deleteDeelnemer(Deelnemer deelnemer){
+        toegevoegdeDeelnemers.remove(deelnemer);
+        if(deelnemer.getBondsnrPartner() != 0){
+            Deelnemer deelnemer1 = null;
+            for(Deelnemer d: toegevoegdeDeelnemers){
+                if(d.getBondsnr() == deelnemer.getBondsnrPartner()) {
+                    deelnemer1 = d;
+                }
+            }
+            toegevoegdeDeelnemers.remove(deelnemer1);
+        }
+    }
+
     public ArrayList<Vereniging> getVerenigings(){
         return verenigings;
+    }
+
+    public void getAllDeelnemersOnToernooi(int toernooiID){
+        toegevoegdeDeelnemers = deelnemerService.getDeelnemersOfDeeltoernooi(toernooiID);
     }
 }

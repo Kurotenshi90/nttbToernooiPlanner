@@ -67,5 +67,6 @@
       <ChoiceBox fx:id="Vereniging" layoutX="248.0" layoutY="212.0" prefWidth="150.0" />
       <Label layoutX="248.0" layoutY="183.0" text="Vereniging" />
       <Button fx:id="VerenigingToevoegen" layoutX="439.0" layoutY="212.0" mnemonicParsing="false" styleClass="button-small" text="Vereniging toevoegen" />
+      <Button fx:id="DeelnemerVerwijderen" layoutX="1551.0" layoutY="383.0" mnemonicParsing="false" styleClass="button-small" text="Deelnemer verwijderen" />
    </children>
 </Pane>

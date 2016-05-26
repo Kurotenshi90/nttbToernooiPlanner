@@ -4,6 +4,7 @@ import domain.CommisieLidInToernooi;
 import domain.Deelnemer;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -11,6 +12,23 @@ import java.util.ArrayList;
  * Created by donnyolijslager on 23-05-16.
  */
 public class DeelnemerDao extends DAO {
+
+    public ArrayList<Deelnemer> getDeelnemersOfDeeltoernooi(int toernooiID) {
+        ArrayList<Deelnemer> deelnemers = new ArrayList<>();
+
+        connect();
+        try {
+            ResultSet deelnemerResult = conn.prepareStatement("SELECT D.Deelnemernr, D.DeelToernooinr, D.Voornaam, D.Achternaam, D.Bondsnr, D.Geslacht, D.Licentie, D.Verenigingnr, DL.Bondsnr, DT.Startdatum FROM Deelnemer D LEFT JOIN Partner P ON D.Deelnemernr = P.Deelnemernr LEFT JOIN Deelnemer DL ON P.Partnernr=DL.Deelnemernr INNER JOIN Deeltoernooi DT ON D.DeelToernooinr= DT.DeelToernooinr WHERE DT.Toernooinr = " + toernooiID).executeQuery();
+            while(deelnemerResult.next()){
+                deelnemers.add(new Deelnemer(deelnemerResult.getInt(1),deelnemerResult.getInt(2),deelnemerResult.getString(3),deelnemerResult.getString(4),deelnemerResult.getInt(5), deelnemerResult.getString(6), deelnemerResult.getString(7), deelnemerResult.getInt(9), deelnemerResult.getInt(8), deelnemerResult.getString(10)));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        disconnect();
+        return deelnemers;
+    }
 
     public void saveDeelnemers(ArrayList<Deelnemer> deelnemers){
         String updateString = "EXEC STP_SignInForTournament ?, ?";
@@ -27,6 +45,7 @@ public class DeelnemerDao extends DAO {
                     stringBuilder.append("},{");
                 }
 
+                stringBuilder.append("\"Deelnemernr\":" + d.getDeelnemerID() + ",");
                 stringBuilder.append("\"DeelToernooinr\":" + d.getDeelToernooinr() + ",");
                 stringBuilder.append("\"Voornaam\":\"" + d.getVoornaam() + "\",");
                 stringBuilder.append("\"Achternaam\":\"" + d.getAchternaam() + "\",");

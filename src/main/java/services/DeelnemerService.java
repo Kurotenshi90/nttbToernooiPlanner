@@ -18,4 +18,8 @@ public class DeelnemerService {
     public void saveDeelnemers(ArrayList<Deelnemer> deelnemers) {
         deelnemerDao.saveDeelnemers(deelnemers);
     }
+
+    public ArrayList<Deelnemer> getDeelnemersOfDeeltoernooi(int toernooiID){
+        return deelnemerDao.getDeelnemersOfDeeltoernooi(toernooiID);
+    }
 }
