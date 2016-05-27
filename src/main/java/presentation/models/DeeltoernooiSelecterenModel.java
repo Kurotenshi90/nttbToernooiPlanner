@@ -20,4 +20,7 @@ public class DeeltoernooiSelecterenModel {
     public ArrayList<Deeltoernooi> getDeeltoernoois(){
         return toernooi.getDeeltoernoois();
     }
+    public Toernooi getToernooi(){
+        return toernooi;
+    }
 }

@@ -13,6 +13,8 @@ public class PouleDeeltoernooi extends Deeltoernooi {
 
     public PouleDeeltoernooi(int maxAantalSpelers, int deeltoernooinr, LocalDateTime beginTijd, double prijs, String spelvorm, boolean gesloten) {
         super(maxAantalSpelers, deeltoernooinr, beginTijd, prijs, spelvorm, gesloten);
+        this.poules = new ArrayList<Poule>();
+        this.deelnemers = new ArrayList<Deelnemer>();
     }
 
     public ArrayList<Poule> getPoules() {

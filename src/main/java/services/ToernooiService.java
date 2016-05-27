@@ -1,6 +1,7 @@
 package services;
 
 import datasource.DAO.ToernooiDao;
+import domain.Deeltoernooi;
 import domain.HomePageToernooi;
 import domain.Toernooi;
 
@@ -24,5 +25,9 @@ public class ToernooiService {
 
     public Toernooi getOneToernooi(int toernooiID){
         return toernooiDao.getOneToernooi(toernooiID);
+    }
+
+    public void saveToernooiIndeling(Deeltoernooi deeltoernooi){
+        toernooiDao.saveToernooiIndeling(deeltoernooi);
     }
 }

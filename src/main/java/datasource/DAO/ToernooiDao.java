@@ -213,15 +213,16 @@ public class ToernooiDao extends DAO {
     }
 
     public void saveToernooiIndeling(Deeltoernooi deeltoernooi) {
-        connect();
-
         try {
             if(deeltoernooi instanceof PouleDeeltoernooi) {
+                connect();
                 PouleDeeltoernooi genereerPoules = (PouleDeeltoernooi) deeltoernooi;
                 PreparedStatement generatePoules = conn.prepareStatement("EXEC STP_PoulesAanmaken ?, ?");
                 generatePoules.setInt(1, genereerPoules.getDeeltoernooinr());
                 generatePoules.setInt(2, genereerPoules.getPoules().size());
                 generatePoules.executeUpdate();
+                disconnect();
+                connect();
 
                 PreparedStatement schrijfSpelersIn = conn.prepareStatement("EXEC STP_InsertDeelnemerIntoPoule ?");
                 StringBuilder stringBuilder = new StringBuilder();
@@ -241,20 +242,19 @@ public class ToernooiDao extends DAO {
                 stringBuilder.append("}]");
                 schrijfSpelersIn.setString(1, stringBuilder.toString());
                 schrijfSpelersIn.executeUpdate();
-
-                PreparedStatement maakWedstrijden = conn.prepareStatement("EXEC STP_PouleWedstrijdenAanmaken ?");
-                maakWedstrijden.setInt(1, deeltoernooi.getDeeltoernooinr());
-                maakWedstrijden.executeUpdate();
-
-                PreparedStatement deelWedstrijdenIn = conn.prepareStatement("EXEC STP_PlanWedstrijdenPoule ?");
-                deelWedstrijdenIn.setInt(1, deeltoernooi.getDeeltoernooinr());
-                deelWedstrijdenIn.executeUpdate();
+//
+//                PreparedStatement maakWedstrijden = conn.prepareStatement("EXEC STP_PouleWedstrijdenAanmaken ?");
+//                maakWedstrijden.setInt(1, deeltoernooi.getDeeltoernooinr());
+//                maakWedstrijden.executeUpdate();
+//
+//                PreparedStatement deelWedstrijdenIn = conn.prepareStatement("EXEC STP_PlanWedstrijdenPoule ?");
+//                deelWedstrijdenIn.setInt(1, deeltoernooi.getDeeltoernooinr());
+//                deelWedstrijdenIn.executeUpdate();
+                disconnect();
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        disconnect();
     }
 }

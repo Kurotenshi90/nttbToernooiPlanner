@@ -96,5 +96,23 @@ public class DeeltoernooiSelecterenController implements Initializable{
                 stage.show();
             }
         });
+        DeeltoernooiInplannen.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/PouleInplannen.fxml"));
+                PouleInplannenController controller = new PouleInplannenController(deeltoernooiSelecterenModel.getToernooi(), Deeltoernooi.getSelectionModel().getSelectedItem().getDeeltoernooinr());
+                loader.setController(controller);
+                Stage stage = (Stage) DeeltoernooiInplannen.getScene().getWindow();
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Scene scene = new Scene(root, 1920, 1080);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
     }
 }
