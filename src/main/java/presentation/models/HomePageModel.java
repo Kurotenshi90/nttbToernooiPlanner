@@ -23,7 +23,4 @@ public class HomePageModel {
         return homePageToernoois;
     }
 
-    public Toernooi getOneToernooi(int toernooiID){
-       return toernooiService.getOneToernooi(toernooiID);
-    }
 }

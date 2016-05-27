@@ -15,8 +15,8 @@ public class DeelnemerService {
         deelnemerDao = new DeelnemerDao();
     }
 
-    public void saveDeelnemers(ArrayList<Deelnemer> deelnemers) {
-        deelnemerDao.saveDeelnemers(deelnemers);
+    public void saveDeelnemers(ArrayList<Deelnemer> deelnemers, int toernooiId) {
+        deelnemerDao.saveDeelnemers(deelnemers, toernooiId);
     }
 
     public ArrayList<Deelnemer> getDeelnemersOfDeeltoernooi(int toernooiID){

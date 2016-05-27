@@ -30,8 +30,8 @@ public class DeelnemerDao extends DAO {
         return deelnemers;
     }
 
-    public void saveDeelnemers(ArrayList<Deelnemer> deelnemers){
-        String updateString = "EXEC STP_SignInForTournament ?, ?";
+    public void saveDeelnemers(ArrayList<Deelnemer> deelnemers, int toernooiId){
+        String updateString = "EXEC STP_SignInForTournament ?, ?, ?";
         connect();
 
         try {
@@ -58,6 +58,7 @@ public class DeelnemerDao extends DAO {
 
             }
             stringBuilder.append("}]");
+            System.out.println(stringBuilder.toString());
             preparedStatement.setString(1, stringBuilder.toString());
 
             StringBuilder stringBuilder1 = new StringBuilder();
@@ -78,6 +79,7 @@ public class DeelnemerDao extends DAO {
             }
             stringBuilder1.append("}]");
             preparedStatement.setString(2, stringBuilder1.toString());
+            preparedStatement.setInt(3, toernooiId);
 
             preparedStatement.executeUpdate();
             disconnect();

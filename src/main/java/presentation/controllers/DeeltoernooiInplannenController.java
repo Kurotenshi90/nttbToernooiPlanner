@@ -73,7 +73,7 @@ public class DeeltoernooiInplannenController implements Initializable{
             @Override
             public void handle(ActionEvent event) {
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/DeeltoernooiSelecteren.fxml"));
-                DeeltoernooiSelecterenController controller = new DeeltoernooiSelecterenController(homePageModel.getOneToernooi(TableViewToernooiOverzicht.getSelectionModel().getSelectedItem().getId()));
+                DeeltoernooiSelecterenController controller = new DeeltoernooiSelecterenController(TableViewToernooiOverzicht.getSelectionModel().getSelectedItem().getId());
                 loader.setController(controller);
                 Stage stage = (Stage) Button_ToernooiInplannen.getScene().getWindow();
                 Parent root = null;

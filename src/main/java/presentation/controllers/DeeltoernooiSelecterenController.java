@@ -41,7 +41,7 @@ public class DeeltoernooiSelecterenController implements Initializable{
     @FXML private Button DeeltoernooiInplannen;
     @FXML private Button Annuleren;
 
-    public DeeltoernooiSelecterenController(Toernooi toernooi) {
+    public DeeltoernooiSelecterenController(int toernooi) {
         this.deeltoernooiSelecterenModel = new DeeltoernooiSelecterenModel(toernooi);
     }
 

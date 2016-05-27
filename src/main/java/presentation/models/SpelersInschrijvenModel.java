@@ -45,7 +45,7 @@ public class SpelersInschrijvenModel {
     }
 
     public void saveDeelnemers() {
-        deelnemerService.saveDeelnemers(toegevoegdeDeelnemers);
+        deelnemerService.saveDeelnemers(toegevoegdeDeelnemers, toernooi.getID());
     }
 
     public void getAllVerenigings() {

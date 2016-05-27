@@ -13,8 +13,9 @@ public class DeeltoernooiSelecterenModel {
     private ToernooiService toernooiService;
     private Toernooi toernooi;
 
-    public DeeltoernooiSelecterenModel(Toernooi toernooi) {
-        this.toernooi = toernooi;
+    public DeeltoernooiSelecterenModel(int toernooi) {
+        toernooiService = new ToernooiService();
+        this.toernooi = toernooiService.getOneToernooi(toernooi);
     }
 
     public ArrayList<Deeltoernooi> getDeeltoernoois(){

@@ -88,7 +88,7 @@ public class PouleInplannenController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/DeeltoernooiSelecteren.fxml"));
-                DeeltoernooiSelecterenController controller = new DeeltoernooiSelecterenController(pouleInplannenModel.getToernooi());
+                DeeltoernooiSelecterenController controller = new DeeltoernooiSelecterenController(pouleInplannenModel.getToernooi().getID());
                 loader.setController(controller);
                 Stage stage = (Stage) Annuleren.getScene().getWindow();
                 Parent root = null;
@@ -151,7 +151,7 @@ public class PouleInplannenController implements Initializable {
             public void handle(ActionEvent event) {
                 pouleInplannenModel.saveDeelnemersInPoule();
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/DeeltoernooiSelecteren.fxml"));
-                DeeltoernooiSelecterenController controller = new DeeltoernooiSelecterenController(pouleInplannenModel.getToernooi());
+                DeeltoernooiSelecterenController controller = new DeeltoernooiSelecterenController(pouleInplannenModel.getToernooi().getID());
                 loader.setController(controller);
                 Stage stage = (Stage) Annuleren.getScene().getWindow();
                 Parent root = null;
