@@ -30,4 +30,8 @@ public class ToernooiService {
     public void saveToernooiIndeling(Deeltoernooi deeltoernooi){
         toernooiDao.saveToernooiIndeling(deeltoernooi);
     }
+
+    public void planEnSluitDeeltoernooiPlanning(Deeltoernooi deeltoernooi){
+        toernooiDao.planEnSluitDeeltoernooiPlanning(deeltoernooi);
+    }
 }

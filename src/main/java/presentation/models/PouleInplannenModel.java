@@ -10,7 +10,6 @@ import java.util.ArrayList;
  */
 public class PouleInplannenModel {
     private Toernooi toernooi;
-    private Toernooi backup;
     private int deeltoernooinummer;
     private PouleDeeltoernooi pouledt;
     private ToernooiService toernooiService;
@@ -61,6 +60,10 @@ public class PouleInplannenModel {
 
     public void saveDeelnemersInPoule(){
         toernooiService.saveToernooiIndeling(pouledt);
+    }
+
+    public void planEnSluitDeeltoernooiPlanning(){
+        toernooiService.planEnSluitDeeltoernooiPlanning(pouledt);
     }
 
     public Toernooi getToernooi(){

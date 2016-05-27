@@ -47,6 +47,7 @@ public class PouleInplannenController implements Initializable {
     @FXML private Button RemovePoule;
     @FXML private Button Opslaan;
     @FXML private Button Annuleren;
+    @FXML private Button DeeltoernooiStarten;
 
     public PouleInplannenController(Toernooi toernooi, int deeltoernooinummer) {
         this.pouleInplannenModel = new PouleInplannenModel(toernooi, deeltoernooinummer);
@@ -124,14 +125,15 @@ public class PouleInplannenController implements Initializable {
         Poules.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                DeelnemersInPoule.getItems().setAll(Poules.getSelectionModel().getSelectedItem().getDeelnemers());               ;
+                DeelnemersInPoule.getItems().setAll(Poules.getSelectionModel().getSelectedItem().getDeelnemers());
+                ;
             }
         });
 
         AddDeelnemerInPoule.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                pouleInplannenModel.addDeelnemerPoule(Deelnemers.getSelectionModel().getSelectedItem(),Poules.getSelectionModel().getSelectedItem());
+                pouleInplannenModel.addDeelnemerPoule(Deelnemers.getSelectionModel().getSelectedItem(), Poules.getSelectionModel().getSelectedItem());
                 Deelnemers.getItems().setAll(pouleInplannenModel.getDeelnemers());
                 DeelnemersInPoule.getItems().setAll(Poules.getSelectionModel().getSelectedItem().getDeelnemers());
             }
@@ -140,7 +142,7 @@ public class PouleInplannenController implements Initializable {
         RemoveDeelnemerInPoule.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                pouleInplannenModel.removeDeelnemerPoule(DeelnemersInPoule.getSelectionModel().getSelectedItem(),Poules.getSelectionModel().getSelectedItem());
+                pouleInplannenModel.removeDeelnemerPoule(DeelnemersInPoule.getSelectionModel().getSelectedItem(), Poules.getSelectionModel().getSelectedItem());
                 Deelnemers.getItems().setAll(pouleInplannenModel.getDeelnemers());
                 DeelnemersInPoule.getItems().setAll(Poules.getSelectionModel().getSelectedItem().getDeelnemers());
             }
@@ -150,6 +152,25 @@ public class PouleInplannenController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 pouleInplannenModel.saveDeelnemersInPoule();
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/DeeltoernooiSelecteren.fxml"));
+                DeeltoernooiSelecterenController controller = new DeeltoernooiSelecterenController(pouleInplannenModel.getToernooi().getID());
+                loader.setController(controller);
+                Stage stage = (Stage) Annuleren.getScene().getWindow();
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Scene scene = new Scene(root, 1920, 1080);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+        DeeltoernooiStarten.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                pouleInplannenModel.planEnSluitDeeltoernooiPlanning();
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/DeeltoernooiSelecteren.fxml"));
                 DeeltoernooiSelecterenController controller = new DeeltoernooiSelecterenController(pouleInplannenModel.getToernooi().getID());
                 loader.setController(controller);
