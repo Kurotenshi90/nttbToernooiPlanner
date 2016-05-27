@@ -78,7 +78,8 @@ public class DeelnemerDao extends DAO {
             }
             stringBuilder1.append("}]");
             preparedStatement.setString(2, stringBuilder1.toString());
-
+            System.out.println(stringBuilder1.toString());
+            System.out.println(stringBuilder.toString());
             preparedStatement.executeUpdate();
             disconnect();
 

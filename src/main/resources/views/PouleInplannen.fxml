@@ -44,6 +44,7 @@
       <Button fx:id="RemoveDeelnemerInPoule" layoutX="775.0" layoutY="550.0" mnemonicParsing="false" styleClass="button-ball" text="&lt;" />
       <Button fx:id="AddDeelnemerInPoule" layoutX="775.0" layoutY="450.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
       <Button fx:id="Opslaan" layoutX="1525.0" layoutY="920.0" mnemonicParsing="false" styleClass="button-big" text="Opslaan" />
+       <Button fx:id="DeeltoernooiStarten" layoutX="1525.0" layoutY="970.0" mnemonicParsing="false" styleClass="button-big" text="Deeltoernooi Starten" />
       <ImageView fitHeight="200.0" fitWidth="1920.0">
          <image>
             <Image url="@../images/TopBorder.png" />
