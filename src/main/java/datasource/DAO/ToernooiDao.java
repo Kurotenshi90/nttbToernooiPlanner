@@ -257,18 +257,25 @@ public class ToernooiDao extends DAO {
                 stringBuilder.append("}]");
                 schrijfSpelersIn.setString(1, stringBuilder.toString());
                 schrijfSpelersIn.executeUpdate();
-//
-//                PreparedStatement maakWedstrijden = conn.prepareStatement("EXEC STP_PouleWedstrijdenAanmaken ?");
-//                maakWedstrijden.setInt(1, deeltoernooi.getDeeltoernooinr());
-//                maakWedstrijden.executeUpdate();
-//
-//                PreparedStatement deelWedstrijdenIn = conn.prepareStatement("EXEC STP_PlanWedstrijdenPoule ?");
-//                deelWedstrijdenIn.setInt(1, deeltoernooi.getDeeltoernooinr());
-//                deelWedstrijdenIn.executeUpdate();
+
                 disconnect();
             }
 
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void planEnSluitDeeltoernooiPlanning(Deeltoernooi deeltoernooi){
+        try {
+            connect();
+            PreparedStatement maakWedstrijden = conn.prepareStatement("EXEC STP_PouleWedstrijdenAanmaken ?");
+            maakWedstrijden.setInt(1, deeltoernooi.getDeeltoernooinr());
+            maakWedstrijden.executeUpdate();
+            PreparedStatement deelWedstrijdenIn = conn.prepareStatement("EXEC STP_PlanWedstrijdenPoule ?");
+            deelWedstrijdenIn.setInt(1, deeltoernooi.getDeeltoernooinr());
+            deelWedstrijdenIn.executeUpdate();
+            disconnect();
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
