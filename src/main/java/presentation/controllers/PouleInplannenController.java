@@ -126,7 +126,6 @@ public class PouleInplannenController implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 DeelnemersInPoule.getItems().setAll(Poules.getSelectionModel().getSelectedItem().getDeelnemers());
-                ;
             }
         });
 
