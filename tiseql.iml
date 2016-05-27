@@ -12,16 +12,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.jfxtras:jfxtras-controls:8.0-r4" level="project" />
-    <orderEntry type="library" name="Maven: org.jfxtras:jfxtras-fxml:8.0-r4" level="project" />
-    <orderEntry type="library" name="Maven: org.jfxtras:jfxtras-common:8.0-r4" level="project" />
-    <orderEntry type="library" name="Maven: org.jfxtras:jfxtras-controls:8.0-r4" level="project" />
-    <orderEntry type="library" name="Maven: org.jfxtras:jfxtras-fxml:8.0-r4" level="project" />
-    <orderEntry type="library" name="Maven: org.jfxtras:jfxtras-common:8.0-r4" level="project" />
     <orderEntry type="module-library">
       <library name="Maven: com.oracle:javafx:2.2">
         <CLASSES>
-          <root url="jar://C:/Program Files (x86)/Java/jdk1.8.0_60/jre/lib/ext/jfxrt.jar!/" />
+          <root url="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_66.jdk/Contents/Home/jre/lib/ext/jfxrt.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

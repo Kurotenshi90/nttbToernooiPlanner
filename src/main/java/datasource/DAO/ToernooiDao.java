@@ -94,11 +94,26 @@ public class ToernooiDao extends DAO {
                 Deeltoernooi deeltoernooi;
                 if(toernooi.getToernooisoort().equals("Poule")) {
                     deeltoernooi = new PouleDeeltoernooi(deeltoernooiResult.getInt(3), deeltoernooiResult.getInt(1), deeltoernooiResult.getTimestamp(6).toLocalDateTime(), deeltoernooiResult.getDouble(5), deeltoernooiResult.getString(2), deeltoernooiResult.getBoolean(4));
-                    deeltoernooiDeelnemerResult = conn.prepareStatement("SELECT Deelnemernr, Deeltoernooinr, Voornaam, Achternaam, Bondsnr, Geslacht, Licentie, Verenigingnr FROM Deelnemer WHERE Deeltoernooinr = " + deeltoernooi.getDeeltoernooinr()).executeQuery();
+                    deeltoernooiDeelnemerResult = conn.prepareStatement("SELECT d.Deelnemernr, d.Deeltoernooinr, Voornaam, Achternaam, Bondsnr, Geslacht, Licentie, Verenigingnr, s.poulenr FROM Deelnemer d LEFT JOIN SpelersInPoule s ON d.Deelnemernr=s.deelnemernr WHERE d.Deeltoernooinr = " + deeltoernooi.getDeeltoernooinr() + "Order by s.poulenr asc").executeQuery();
                     ArrayList<Deelnemer> deelnemers = new ArrayList<>();
+                    ArrayList<Poule> poules = new ArrayList<>();
                     while(deeltoernooiDeelnemerResult.next()){
-                        deelnemers.add(new Deelnemer(deeltoernooiDeelnemerResult.getInt(1), deeltoernooiDeelnemerResult.getInt(2), deeltoernooiDeelnemerResult.getString(3), deeltoernooiDeelnemerResult.getString(4), deeltoernooiDeelnemerResult.getInt(5), deeltoernooiDeelnemerResult.getString(6), deeltoernooiDeelnemerResult.getString(7), deeltoernooiDeelnemerResult.getInt(8)));
+                        if(deeltoernooiDeelnemerResult.getInt(9) != 0){
+                                if(poules.size() != deeltoernooiDeelnemerResult.getInt(9)){
+                                    poules.add(new Poule("Poule " +deeltoernooiDeelnemerResult.getInt(9)));
+                                }
+                                poules.get(deeltoernooiDeelnemerResult.getInt(9)-1).addDeelnemer(new Deelnemer(deeltoernooiDeelnemerResult.getInt(1), deeltoernooiDeelnemerResult.getInt(2), deeltoernooiDeelnemerResult.getString(3),
+                                        deeltoernooiDeelnemerResult.getString(4), deeltoernooiDeelnemerResult.getInt(5), deeltoernooiDeelnemerResult.getString(6),
+                                        deeltoernooiDeelnemerResult.getString(7), deeltoernooiDeelnemerResult.getInt(8)));
+
+                        } else {
+
+                            deelnemers.add(new Deelnemer(deeltoernooiDeelnemerResult.getInt(1), deeltoernooiDeelnemerResult.getInt(2), deeltoernooiDeelnemerResult.getString(3),
+                                    deeltoernooiDeelnemerResult.getString(4), deeltoernooiDeelnemerResult.getInt(5), deeltoernooiDeelnemerResult.getString(6),
+                                    deeltoernooiDeelnemerResult.getString(7), deeltoernooiDeelnemerResult.getInt(8)));
+                        }
                     }
+                    ((PouleDeeltoernooi)deeltoernooi).setPoules(poules);
                     deeltoernooi.setDeelnemers(deelnemers);
                 } else {
                     deeltoernooi = new Deeltoernooi(deeltoernooiResult.getInt(3), deeltoernooiResult.getInt(1), deeltoernooiResult.getTimestamp(6).toLocalDateTime(), deeltoernooiResult.getDouble(5), deeltoernooiResult.getString(2), deeltoernooiResult.getBoolean(4));

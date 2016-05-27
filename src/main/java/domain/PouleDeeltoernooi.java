@@ -25,6 +25,14 @@ public class PouleDeeltoernooi extends Deeltoernooi {
         this.poules = poules;
     }
 
+    public void addPoule(Poule poule) {
+        poules.add(poule);
+    }
+
+    public void addDeelnemer(Deelnemer deelnemer){
+        deelnemers.add(deelnemer);
+    }
+
     @Override
     public ArrayList<Deelnemer> getDeelnemers() {
         return deelnemers;
