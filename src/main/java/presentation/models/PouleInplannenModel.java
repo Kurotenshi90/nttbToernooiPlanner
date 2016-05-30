@@ -46,16 +46,41 @@ public class PouleInplannenModel {
         for(int i = 0; i < pouledt.getPoules().size(); i++){
             pouledt.getPoules().get(i).setNaam("Poule " + (i + 1));
         }
+        for(Deelnemer deelnemer: poule.getDeelnemers()){
+            pouledt.getDeelnemers().add(deelnemer);
+        }
     }
 
     public void addDeelnemerPoule(Deelnemer deelnemer, Poule poule){
+        ArrayList<Deelnemer> deelnemers = pouledt.getDeelnemers();
+        Deelnemer deelnemer1 = null;
         poule.addDeelnemer(deelnemer);
-        pouledt.getDeelnemers().remove(deelnemer);
+        deelnemers.remove(deelnemer);
+        if(deelnemer.getBondsnrPartner() != 0) {
+            for (Deelnemer deelnemer2 : deelnemers) {
+                if (deelnemer2.getBondsnr() == deelnemer.getBondsnrPartner()) {
+                    deelnemer1 = deelnemer2;
+                }
+            }
+            deelnemers.remove(deelnemer1);
+            poule.addDeelnemer(deelnemer1);
+        }
     }
 
     public void removeDeelnemerPoule(Deelnemer deelnemer, Poule poule){
+        ArrayList<Deelnemer> deelnemers = pouledt.getDeelnemers();
+        Deelnemer deelnemer1 = null;
         pouledt.getDeelnemers().add(deelnemer);
         poule.removeDeelnemer(deelnemer);
+        if(deelnemer.getBondsnrPartner() != 0) {
+            for (Deelnemer deelnemer2 : deelnemers) {
+                if (deelnemer2.getBondsnr() == deelnemer.getBondsnrPartner()) {
+                    deelnemer1 = deelnemer2;
+                }
+            }
+            deelnemers.add(deelnemer1);
+            poule.removeDeelnemer(deelnemer1);
+        }
     }
 
     public void saveDeelnemersInPoule(){

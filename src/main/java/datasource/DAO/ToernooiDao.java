@@ -94,7 +94,7 @@ public class ToernooiDao extends DAO {
                 Deeltoernooi deeltoernooi;
                 if(toernooi.getToernooisoort().equals("Poule")) {
                     deeltoernooi = new PouleDeeltoernooi(deeltoernooiResult.getInt(3), deeltoernooiResult.getInt(1), deeltoernooiResult.getTimestamp(6).toLocalDateTime(), deeltoernooiResult.getDouble(5), deeltoernooiResult.getString(2), deeltoernooiResult.getBoolean(4));
-                    deeltoernooiDeelnemerResult = conn.prepareStatement("SELECT d.Deelnemernr, d.Deeltoernooinr, Voornaam, Achternaam, Bondsnr, Geslacht, Licentie, Verenigingnr, s.poulenr FROM Deelnemer d LEFT JOIN SpelersInPoule s ON d.Deelnemernr=s.deelnemernr WHERE d.Deeltoernooinr = " + deeltoernooi.getDeeltoernooinr() + "Order by s.poulenr asc").executeQuery();
+                    deeltoernooiDeelnemerResult = conn.prepareStatement("SELECT d.Deelnemernr, d.Deeltoernooinr, d.Voornaam, d.Achternaam, d.Bondsnr, d.Geslacht, d.Licentie, d.Verenigingnr, s.poulenr, dl.bondsnr FROM Deelnemer d LEFT JOIN SpelersInPoule s ON d.Deelnemernr=s.deelnemernr LEFT JOIN Partner p ON d.deelnemernr = p.deelnemernr LEFT JOIN Deelnemer DL ON P.Partnernr=DL.Deelnemernr WHERE d.Deeltoernooinr =" + deeltoernooi.getDeeltoernooinr() + "Order by s.poulenr asc").executeQuery();
                     ArrayList<Deelnemer> deelnemers = new ArrayList<>();
                     ArrayList<Poule> poules = new ArrayList<>();
                     while(deeltoernooiDeelnemerResult.next()){
@@ -104,13 +104,13 @@ public class ToernooiDao extends DAO {
                                 }
                                 poules.get(deeltoernooiDeelnemerResult.getInt(9)-1).addDeelnemer(new Deelnemer(deeltoernooiDeelnemerResult.getInt(1), deeltoernooiDeelnemerResult.getInt(2), deeltoernooiDeelnemerResult.getString(3),
                                         deeltoernooiDeelnemerResult.getString(4), deeltoernooiDeelnemerResult.getInt(5), deeltoernooiDeelnemerResult.getString(6),
-                                        deeltoernooiDeelnemerResult.getString(7), deeltoernooiDeelnemerResult.getInt(8)));
+                                        deeltoernooiDeelnemerResult.getString(7), deeltoernooiDeelnemerResult.getInt(8), deeltoernooiDeelnemerResult.getInt(10)));
 
                         } else {
 
                             deelnemers.add(new Deelnemer(deeltoernooiDeelnemerResult.getInt(1), deeltoernooiDeelnemerResult.getInt(2), deeltoernooiDeelnemerResult.getString(3),
                                     deeltoernooiDeelnemerResult.getString(4), deeltoernooiDeelnemerResult.getInt(5), deeltoernooiDeelnemerResult.getString(6),
-                                    deeltoernooiDeelnemerResult.getString(7), deeltoernooiDeelnemerResult.getInt(8)));
+                                    deeltoernooiDeelnemerResult.getString(7), deeltoernooiDeelnemerResult.getInt(8), deeltoernooiDeelnemerResult.getInt(10)));
                         }
                     }
                     ((PouleDeeltoernooi)deeltoernooi).setPoules(poules);
@@ -231,6 +231,8 @@ public class ToernooiDao extends DAO {
         try {
             if(deeltoernooi instanceof PouleDeeltoernooi) {
                 connect();
+
+
                 PouleDeeltoernooi genereerPoules = (PouleDeeltoernooi) deeltoernooi;
                 PreparedStatement generatePoules = conn.prepareStatement("EXEC STP_PoulesAanmaken ?, ?");
                 generatePoules.setInt(1, genereerPoules.getDeeltoernooinr());
@@ -271,6 +273,8 @@ public class ToernooiDao extends DAO {
             PreparedStatement maakWedstrijden = conn.prepareStatement("EXEC STP_PouleWedstrijdenAanmaken ?");
             maakWedstrijden.setInt(1, deeltoernooi.getDeeltoernooinr());
             maakWedstrijden.executeUpdate();
+            disconnect();
+            connect();
             PreparedStatement deelWedstrijdenIn = conn.prepareStatement("EXEC STP_PlanWedstrijdenPoule ?");
             deelWedstrijdenIn.setInt(1, deeltoernooi.getDeeltoernooinr());
             deelWedstrijdenIn.executeUpdate();

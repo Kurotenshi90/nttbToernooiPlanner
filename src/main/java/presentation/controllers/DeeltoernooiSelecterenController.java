@@ -99,19 +99,40 @@ public class DeeltoernooiSelecterenController implements Initializable{
         DeeltoernooiInplannen.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/PouleInplannen.fxml"));
-                PouleInplannenController controller = new PouleInplannenController(deeltoernooiSelecterenModel.getToernooi(), Deeltoernooi.getSelectionModel().getSelectedItem().getDeeltoernooinr());
-                loader.setController(controller);
-                Stage stage = (Stage) DeeltoernooiInplannen.getScene().getWindow();
-                Parent root = null;
-                try {
-                    root = loader.load();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                Deeltoernooi deeltoernooi = Deeltoernooi.getSelectionModel().getSelectedItem();
+                if(deeltoernooi != null) {
+                    if (deeltoernooi.getSpelvorm().equals("Enkel")) {
+
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/PouleInplannen.fxml"));
+                        PouleInplannenController controller = new PouleInplannenController(deeltoernooiSelecterenModel.getToernooi(), deeltoernooi.getDeeltoernooinr());
+                        loader.setController(controller);
+                        Stage stage = (Stage) DeeltoernooiInplannen.getScene().getWindow();
+                        Parent root = null;
+                        try {
+                            root = loader.load();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        Scene scene = new Scene(root, 1920, 1080);
+                        stage.setScene(scene);
+                        stage.show();
+                    } else {
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/PouleInplannenDubbel.fxml"));
+                        PouleInplannenDubbelController controller = new PouleInplannenDubbelController(deeltoernooiSelecterenModel.getToernooi(), deeltoernooi.getDeeltoernooinr());
+                        loader.setController(controller);
+                        Stage stage = (Stage) DeeltoernooiInplannen.getScene().getWindow();
+                        Parent root = null;
+                        try {
+                            root = loader.load();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        Scene scene = new Scene(root, 1920, 1080);
+                        stage.setScene(scene);
+                        stage.show();
+
+                    }
                 }
-                Scene scene = new Scene(root, 1920, 1080);
-                stage.setScene(scene);
-                stage.show();
             }
         });
     }

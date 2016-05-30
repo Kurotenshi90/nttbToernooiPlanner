@@ -1,6 +1,8 @@
 package presentation.controllers;
 
-import domain.*;
+import domain.Deelnemer;
+import domain.Poule;
+import domain.Toernooi;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -22,7 +24,7 @@ import java.util.ResourceBundle;
 /**
  * Created by dirk on 26-5-2016.
  */
-public class PouleInplannenController implements Initializable {
+public class PouleInplannenDubbelController implements Initializable {
     private PouleInplannenModel pouleInplannenModel;
 
     @FXML private TableView<Deelnemer> Deelnemers;
@@ -30,6 +32,7 @@ public class PouleInplannenController implements Initializable {
     @FXML private TableColumn<Deelnemer, String> DeelnemersVoornaam;
     @FXML private TableColumn<Deelnemer, String> DeelnemersAchternaam;
     @FXML private TableColumn<Deelnemer, String> DeelnemersLicentie;
+    @FXML private TableColumn<Deelnemer, String> DeelnemersBondsnummerPartner;
 
     @FXML private TableView<Poule> Poules;
     @FXML private TableColumn<Poule, String> PoulesPoulenummer;
@@ -40,6 +43,7 @@ public class PouleInplannenController implements Initializable {
     @FXML private TableColumn<Deelnemer, String> DeelnemersInPouleAchternaam;
     @FXML private TableColumn<Deelnemer, String> DeelnemersInPouleLicentie;
     @FXML private TableColumn<Deelnemer, String> DeelnemersInPoulePoulenummer;
+    @FXML private TableColumn<Deelnemer, String> DeelnemersInPouleBondsnummerPartner;
 
     @FXML private Button AddDeelnemerInPoule;
     @FXML private Button RemoveDeelnemerInPoule;
@@ -49,7 +53,7 @@ public class PouleInplannenController implements Initializable {
     @FXML private Button Annuleren;
     @FXML private Button DeeltoernooiStarten;
 
-    public PouleInplannenController(Toernooi toernooi, int deeltoernooinummer) {
+    public PouleInplannenDubbelController(Toernooi toernooi, int deeltoernooinummer) {
         this.pouleInplannenModel = new PouleInplannenModel(toernooi, deeltoernooinummer);
     }
 
@@ -66,6 +70,7 @@ public class PouleInplannenController implements Initializable {
         DeelnemersVoornaam.setCellValueFactory(new PropertyValueFactory<Deelnemer, String>("Voornaam"));
         DeelnemersAchternaam.setCellValueFactory(new PropertyValueFactory<Deelnemer, String>("Achternaam"));
         DeelnemersLicentie.setCellValueFactory(new PropertyValueFactory<Deelnemer, String>("Licentie"));
+        DeelnemersBondsnummerPartner.setCellValueFactory(new PropertyValueFactory<Deelnemer, String>("bondsnrPartner"));
 
         Deelnemers.getItems().setAll(pouleInplannenModel.getDeelnemers());
     }
@@ -82,6 +87,7 @@ public class PouleInplannenController implements Initializable {
         DeelnemersInPouleVoornaam.setCellValueFactory(new PropertyValueFactory<Deelnemer, String>("Voornaam"));
         DeelnemersInPouleAchternaam.setCellValueFactory(new PropertyValueFactory<Deelnemer, String>("Achternaam"));
         DeelnemersInPouleLicentie.setCellValueFactory(new PropertyValueFactory<Deelnemer, String>("Licentie"));
+        DeelnemersInPouleBondsnummerPartner.setCellValueFactory(new PropertyValueFactory<Deelnemer, String>("bondsnrPartner"));
     }
 
     private void initializeButtons(){
