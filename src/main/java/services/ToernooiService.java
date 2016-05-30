@@ -34,4 +34,8 @@ public class ToernooiService {
     public void planEnSluitDeeltoernooiPlanning(Deeltoernooi deeltoernooi){
         toernooiDao.planEnSluitDeeltoernooiPlanning(deeltoernooi);
     }
+
+    public void knockoutToernooiAanmaken(Deeltoernooi deeltoernooi){
+        toernooiDao.knockoutToernooiAanmaken(deeltoernooi);
+    }
 }

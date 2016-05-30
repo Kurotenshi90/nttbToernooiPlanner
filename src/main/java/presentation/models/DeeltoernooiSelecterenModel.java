@@ -24,4 +24,8 @@ public class DeeltoernooiSelecterenModel {
     public Toernooi getToernooi(){
         return toernooi;
     }
+
+    public void knockoutToernooiAanmaken(Deeltoernooi deeltoernooi) {
+        toernooiService.knockoutToernooiAanmaken(deeltoernooi);
+    }
 }

@@ -283,4 +283,29 @@ public class ToernooiDao extends DAO {
             e.printStackTrace();
         }
     }
+
+    public void knockoutToernooiAanmaken(Deeltoernooi deeltoernooi){
+        connect();
+
+        try {
+            boolean bestaat = false;
+            ResultSet resultSet = conn.prepareStatement("SELECT 1 FROM Bracket WHERE Deeltoernooinr = "+ deeltoernooi.getDeeltoernooinr()).executeQuery();
+            while (resultSet.next()){
+                System.out.println(resultSet.getInt(1));
+            }
+
+            if(!bestaat) {
+                PreparedStatement preparedStatement = conn.prepareStatement("EXEC STP_KnockoutWedstrijdenAanmaken ?, ?");
+                preparedStatement.setInt(1, deeltoernooi.getDeeltoernooinr());
+                preparedStatement.setInt(2, 3);
+                preparedStatement.executeUpdate();
+            }
+            disconnect();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
 }
