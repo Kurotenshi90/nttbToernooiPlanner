@@ -32,9 +32,9 @@ public class VerenigingToevoegenController implements Initializable {
     @FXML Button VerenigingAnnuleren;
 
     private VerenigingToevoegenModel verenigingToevoegenModel;
-    private SpelersInschrijvenController spelersInschrijvenController;
+    private SpelersAanpasseController spelersInschrijvenController;
 
-    public VerenigingToevoegenController(SpelersInschrijvenController spelersInschrijvenController){
+    public VerenigingToevoegenController(SpelersAanpasseController spelersInschrijvenController){
         this.spelersInschrijvenController = spelersInschrijvenController;
     }
 

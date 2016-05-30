@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Peter-Paul on 29/04/2016.
  */
-public class ToernooiOverzichtDeelnemerToevoegenController implements Initializable{
+public class SelecteerToernooiInplannen implements Initializable{
     @FXML private TableView<HomePageToernooi> TableViewToernooiOverzicht;
     @FXML private TableColumn<HomePageToernooi, String> TableViewToernooiOverzicht_Toernooinaam;
     @FXML private TableColumn<HomePageToernooi, String> TableViewToernooiOverzicht_Toernooileider;
@@ -36,9 +36,9 @@ public class ToernooiOverzichtDeelnemerToevoegenController implements Initializa
     @FXML private TableColumn<HomePageToernooi, String> TableViewToernooiOverzicht_Plaats;
     @FXML private TableColumn<HomePageToernooi, String> TableViewToernooiOverzicht_Straat;
     @FXML private TableColumn<HomePageToernooi, String> TableViewToernooiOverzicht_Nummer;
-    @FXML private Button Button_DeelnemerToevoegen;
     @FXML private Button Home;
     @FXML private Button DeelnemersAanpassen;
+    @FXML private Button Button_ToernooiInplannen;
     private HomePageModel homePageModel;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -51,13 +51,13 @@ public class ToernooiOverzichtDeelnemerToevoegenController implements Initializa
 
 
     private void initializeButtons() {
-        Button_DeelnemerToevoegen.setOnAction(new EventHandler<ActionEvent>() {
+        Button_ToernooiInplannen.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/DeelnemerToevoegen.fxml"));
-                SpelersInschrijvenController controller = new SpelersInschrijvenController(TableViewToernooiOverzicht.getSelectionModel().getSelectedItem().getId());
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/DeeltoernooiSelecteren.fxml"));
+                DeeltoernooiSelecterenController controller = new DeeltoernooiSelecterenController(TableViewToernooiOverzicht.getSelectionModel().getSelectedItem().getId());
                 loader.setController(controller);
-                Stage stage = (Stage) Button_DeelnemerToevoegen.getScene().getWindow();
+                Stage stage = (Stage) Button_ToernooiInplannen.getScene().getWindow();
                 Parent root = null;
                 try {
                     root = loader.load();
@@ -68,7 +68,10 @@ public class ToernooiOverzichtDeelnemerToevoegenController implements Initializa
                 stage.setScene(scene);
                 stage.show();
             }
+
+
         });
+
         DeelnemersAanpassen.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

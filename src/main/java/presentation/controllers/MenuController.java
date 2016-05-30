@@ -35,8 +35,8 @@ public class MenuController implements Initializable {
         ToernooiBeheren.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/Home.fxml"));
-                HomeController controller = new HomeController();
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/ToernooiBeheren.fxml"));
+                ToernooiBeherenController controller = new ToernooiBeherenController();
                 loader.setController(controller);
                 Stage stage = (Stage) ToernooiBeheren.getScene().getWindow();
                 Parent root = null;
@@ -54,7 +54,7 @@ public class MenuController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/InschrijfToernooi.fxml"));
-                ToernooiOverzichtDeelnemerToevoegenController controller = new ToernooiOverzichtDeelnemerToevoegenController();
+                SelecteerToernooiInplannen controller = new SelecteerToernooiInplannen();
                 loader.setController(controller);
                 Stage stage = (Stage) InschrijvenToernooi.getScene().getWindow();
                 Parent root = null;
@@ -73,7 +73,7 @@ public class MenuController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/Menu.fxml"));
-                HomeController controller = new HomeController();
+                ToernooiBeherenController controller = new ToernooiBeherenController();
                 loader.setController(controller);
                 Stage stage = (Stage) Home.getScene().getWindow();
                 Parent root = null;
@@ -116,25 +116,6 @@ public class MenuController implements Initializable {
                 stage.show();
             }
         });
-        ToernooiInplannen.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/DeeltoernooiInplannen.fxml"));
-                DeeltoernooiInplannenController controller = new DeeltoernooiInplannenController();
-                loader.setController(controller);
-                Stage stage = (Stage) ToernooiInplannen.getScene().getWindow();
-                Parent root = null;
-                try {
-                    root = loader.load();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                Scene scene = new Scene(root, 1920, 1080);
-                stage.setScene(scene);
-                stage.show();
-            }
-        });
-
     }
     private MenuController getController() {
         return this;

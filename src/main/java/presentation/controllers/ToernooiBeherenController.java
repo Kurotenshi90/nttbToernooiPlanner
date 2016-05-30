@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Peter-Paul on 29/04/2016.
  */
-public class HomeController implements Initializable{
+public class ToernooiBeherenController implements Initializable{
     @FXML private TableView<HomePageToernooi> TableViewToernooiOverzicht;
     @FXML private TableColumn<HomePageToernooi, String> TableViewToernooiOverzicht_Toernooinaam;
     @FXML private TableColumn<HomePageToernooi, String> TableViewToernooiOverzicht_Toernooileider;

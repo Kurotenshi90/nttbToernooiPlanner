@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.image.*?>
-<?import javafx.scene.*?>
-<?import java.net.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
@@ -24,13 +21,14 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="Button_DeelnemerToevoegen" layoutX="1550.0" layoutY="450.0" mnemonicParsing="false" styleClass="button-big" text="Deelnemers toevoegen" />
+       <Button fx:id="DeelnemersAanpassen" layoutX="1547.0" layoutY="200.0" mnemonicParsing="false" styleClass="button-big" text="Deelnemers beheren" />
+       <Button fx:id="Button_ToernooiInplannen" layoutX="1550.0" layoutY="300.0" mnemonicParsing="false" styleClass="button-big" text="Toernooi inplannen" />
       <ImageView fitHeight="200.0" fitWidth="1920.0">
          <image>
             <Image url="@../images/TopBorder.png" />
          </image>
       </ImageView>
        <Button fx:id="Home" layoutX="10.0" layoutY="5.0" mnemonicParsing="false" styleClass="button-home" />
-      <Button fx:id="DeelnemersAanpassen" layoutX="1547.0" layoutY="560.0" mnemonicParsing="false" styleClass="button-big" text="Deelnemers aanpassen" />
+
    </children>
 </Pane>
