@@ -1,7 +1,6 @@
 package presentation.controllers;
 
 import domain.Deelnemer;
-import domain.Deeltoernooi;
 import domain.Klasse;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -158,7 +157,7 @@ public class SpelersAanpasseController implements Initializable {
 
     private void goToHome(Button button) {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/InschrijfToernooi.fxml"));
-        ToernooiOverzichtDeelnemerToevoegenController controller = new ToernooiOverzichtDeelnemerToevoegenController();
+        SelecteerToernooiInplannen controller = new SelecteerToernooiInplannen();
         loader.setController(controller);
         Stage stage = (Stage) button.getScene().getWindow();
         Parent root = null;
@@ -213,7 +212,7 @@ public class SpelersAanpasseController implements Initializable {
             public void handle(ActionEvent event) {
                 domain.Deeltoernooi deeltoernooi = Deeltoernooi.getSelectionModel().getSelectedItem();
                 Licentie.getItems().setAll(deeltoernooi.getKlasses());
-                if(deeltoernooi.getSpelvorm().equals("Dubbel")){
+                if (deeltoernooi.getSpelvorm().equals("Dubbel")) {
                     setPartnerVis();
                     DeeltoernooiPartner.setText(deeltoernooi.toString());
                     DeeltoernooiPartner.setEditable(false);
@@ -264,26 +263,26 @@ public class SpelersAanpasseController implements Initializable {
             }
         });
 
-//        VerenigingToevoegen.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/VerenigingToevoegen.fxml"));
-//                VerenigingToevoegenController controller = new VerenigingToevoegenController(getController());
-//                loader.setController(controller);
-//                Parent root = null;
-//                try {
-//                    root = loader.load();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//                Stage stage = new Stage();
-//                Scene scene = new Scene(root, 480, 320);
-//                stage.setScene(scene);
-//                stage.initOwner(VerenigingToevoegen.getScene().getWindow());
-//                stage.initModality(Modality.WINDOW_MODAL);
-//                stage.show();
-//            }
-//        });
+        VerenigingToevoegen.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/VerenigingToevoegen.fxml"));
+                VerenigingToevoegenController controller = new VerenigingToevoegenController(getController());
+                loader.setController(controller);
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Stage stage = new Stage();
+                Scene scene = new Scene(root, 480, 320);
+                stage.setScene(scene);
+                stage.initOwner(VerenigingToevoegen.getScene().getWindow());
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.show();
+            }
+        });
 
         DeelnemerVerwijderen.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -295,6 +294,9 @@ public class SpelersAanpasseController implements Initializable {
                 }
             }
         });
+    }
+    private SpelersAanpasseController getController() {
+        return this;
     }
 
 }

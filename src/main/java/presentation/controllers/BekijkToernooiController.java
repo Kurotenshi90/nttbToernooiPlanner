@@ -14,7 +14,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import presentation.models.BekijkToernooiModel;
-import presentation.models.ToernooiModel;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -169,8 +168,8 @@ public class BekijkToernooiController implements Initializable{
         Annuleren.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/Home.fxml"));
-                HomeController controller = new HomeController();
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/ToernooiBeheren.fxml"));
+                ToernooiBeherenController controller = new ToernooiBeherenController();
                 loader.setController(controller);
                 Stage stage = (Stage) Annuleren.getScene().getWindow();
                 Parent root = null;

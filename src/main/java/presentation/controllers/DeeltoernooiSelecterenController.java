@@ -2,7 +2,6 @@ package presentation.controllers;
 
 import domain.Deeltoernooi;
 import domain.Klasse;
-import domain.Toernooi;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -81,8 +80,8 @@ public class DeeltoernooiSelecterenController implements Initializable{
         Annuleren.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/DeeltoernooiInplannen.fxml"));
-                DeeltoernooiInplannenController controller = new DeeltoernooiInplannenController();
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/InschrijfToernooi.fxml"));
+                SelecteerToernooiInplannen controller = new SelecteerToernooiInplannen();
                 loader.setController(controller);
                 Stage stage = (Stage) Annuleren.getScene().getWindow();
                 Parent root = null;

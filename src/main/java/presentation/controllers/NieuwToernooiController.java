@@ -14,13 +14,10 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import jfxtras.scene.control.CalendarTimeTextField;
 import jfxtras.scene.control.LocalDateTimeTextField;
-import jfxtras.scene.control.LocalTimeTextField;
 import presentation.models.ToernooiModel;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -214,8 +211,8 @@ public class NieuwToernooiController implements Initializable {
         Annuleren.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/Home.fxml"));
-                HomeController controller = new HomeController();
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/ToernooiBeheren.fxml"));
+                ToernooiBeherenController controller = new ToernooiBeherenController();
                 loader.setController(controller);
                 Stage stage = (Stage) Annuleren.getScene().getWindow();
                 Parent root = null;
@@ -313,8 +310,8 @@ public class NieuwToernooiController implements Initializable {
     }
 
     private void goToHome(Button button) {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/Home.fxml"));
-        HomeController controller = new HomeController();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/ToernooiBeheren.fxml"));
+        ToernooiBeherenController controller = new ToernooiBeherenController();
         loader.setController(controller);
         Stage stage = (Stage) button.getScene().getWindow();
         Parent root = null;

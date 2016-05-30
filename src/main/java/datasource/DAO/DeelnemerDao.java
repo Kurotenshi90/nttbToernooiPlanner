@@ -79,7 +79,7 @@ public class DeelnemerDao extends DAO {
             }
             stringBuilder1.append("}]");
             preparedStatement.setString(2, stringBuilder1.toString());
-
+            preparedStatement.setInt(3, toernooiId);
             preparedStatement.executeUpdate();
             disconnect();
 
