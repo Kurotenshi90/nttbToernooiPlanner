@@ -118,8 +118,14 @@ public class DeeltoernooiSelecterenController implements Initializable{
                             loader = new FXMLLoader(getClass().getClassLoader().getResource("views/KnockoutInplannen.fxml"));
                             KnockoutInplannenController controller = new KnockoutInplannenController(deeltoernooiSelecterenModel.getToernooi(), deeltoernooi.getDeeltoernooinr());
                             loader.setController(controller);
-                            deeltoernooiSelecterenModel.knockoutToernooiAanmaken(deeltoernooi);
+
+                        } else if(deeltoernooi.getSpelvorm().equals("Dubbel")){
+                            loader = new FXMLLoader(getClass().getClassLoader().getResource("views/KnockoutInplannenDubbel.fxml"));
+                            KnockoutInplannenDubbelController controller = new KnockoutInplannenDubbelController(deeltoernooiSelecterenModel.getToernooi(), deeltoernooi.getDeeltoernooinr());
+                            loader.setController(controller);
+
                         }
+                        deeltoernooiSelecterenModel.knockoutToernooiAanmaken(deeltoernooi);
                     }
                     Stage stage = (Stage) DeeltoernooiInplannen.getScene().getWindow();
                     Parent root = null;

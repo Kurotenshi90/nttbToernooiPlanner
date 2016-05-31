@@ -29,6 +29,7 @@ public class Poule {
     public void setNaam(String naam) {
         this.naam = naam;
     }
+
     public void addDeelnemer(Deelnemer deelnemer){
         deelnemers.add(deelnemer);
     }

@@ -7,13 +7,23 @@ import java.util.ArrayList;
  */
 public class Bracket {
     int bracketnr;
+    int wedstrijdnr;
     private ArrayList<Deelnemer> speler1;
     private ArrayList<Deelnemer> speler2;
 
-    public Bracket(int bracketnr){
+    public Bracket(int bracketnr, int wedstrijdnr){
         speler1 = new ArrayList<>();
         speler2 = new ArrayList<>();
         this.bracketnr = bracketnr;
+        this.wedstrijdnr = wedstrijdnr;
+    }
+
+    public int getWedstrijdnr() {
+        return wedstrijdnr;
+    }
+
+    public void setWedstrijdnr(int wedstrijdnr) {
+        this.wedstrijdnr = wedstrijdnr;
     }
 
     public void addSpeler1(Deelnemer deelnemer){
@@ -46,5 +56,13 @@ public class Bracket {
 
     public void setSpeler2(ArrayList<Deelnemer> speler2) {
         this.speler2 = speler2;
+    }
+
+    public int getBracketnr() {
+        return bracketnr;
+    }
+
+    public void setBracketnr(int bracketnr) {
+        this.bracketnr = bracketnr;
     }
 }

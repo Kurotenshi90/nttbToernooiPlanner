@@ -2,7 +2,6 @@ package presentation.controllers;
 
 import domain.Bracket;
 import domain.Deelnemer;
-import domain.Poule;
 import domain.Toernooi;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,7 +25,7 @@ import java.util.ResourceBundle;
 /**
  * Created by donnyolijslager on 30-05-16.
  */
-public class KnockoutInplannenController implements Initializable {
+public class KnockoutInplannenDubbelController implements Initializable {
     private KnockoutInplannenModel knockoutInplannenModel;
 
     @FXML
@@ -35,6 +34,7 @@ public class KnockoutInplannenController implements Initializable {
     @FXML private TableColumn<Deelnemer, String> DeelnemersVoornaam;
     @FXML private TableColumn<Deelnemer, String> DeelnemersAchternaam;
     @FXML private TableColumn<Deelnemer, String> DeelnemersLicentie;
+    @FXML private TableColumn<Deelnemer, String> DeelnemersBondsnrPartner;
 
 
     @FXML private TextField Speler1Bondsnr;
@@ -45,6 +45,15 @@ public class KnockoutInplannenController implements Initializable {
     @FXML private TextField Speler2Voornaam;
     @FXML private TextField Speler2Achternaam;
     @FXML private TextField Speler2Licentie;
+
+    @FXML private TextField Speler1BondsnrPartner;
+    @FXML private TextField Speler1VoornaamPartner;
+    @FXML private TextField Speler1AchternaamPartner;
+    @FXML private TextField Speler1LicentiePartner;
+    @FXML private TextField Speler2BondsnrPartner;
+    @FXML private TextField Speler2VoornaamPartner;
+    @FXML private TextField Speler2AchternaamPartner;
+    @FXML private TextField Speler2LicentiePartner;
 
 
     @FXML private TableView<Bracket> Brackets;
@@ -58,7 +67,7 @@ public class KnockoutInplannenController implements Initializable {
     @FXML private Button Annuleren;
     @FXML private Button DeeltoernooiStarten;
 
-    public KnockoutInplannenController(Toernooi toernooi, int deeltoernooinummer) {
+    public KnockoutInplannenDubbelController(Toernooi toernooi, int deeltoernooinummer) {
         this.knockoutInplannenModel = new KnockoutInplannenModel(toernooi, deeltoernooinummer);
     }
 
@@ -75,6 +84,7 @@ public class KnockoutInplannenController implements Initializable {
         DeelnemersVoornaam.setCellValueFactory(new PropertyValueFactory<Deelnemer, String>("Voornaam"));
         DeelnemersAchternaam.setCellValueFactory(new PropertyValueFactory<Deelnemer, String>("Achternaam"));
         DeelnemersLicentie.setCellValueFactory(new PropertyValueFactory<Deelnemer, String>("Licentie"));
+        DeelnemersBondsnrPartner.setCellValueFactory(new PropertyValueFactory<Deelnemer, String>("bondsnrPartner"));
 
         Deelnemers.getItems().setAll(knockoutInplannenModel.getDeelnemers());
     }
@@ -113,13 +123,13 @@ public class KnockoutInplannenController implements Initializable {
             public void handle(MouseEvent event) {
             Bracket bracket = Brackets.getSelectionModel().getSelectedItem();
                 if(bracket != null) {
-                    if (bracket.getSpeler1().size() > 0) {
-                        setTextFieldsSpeler1(bracket.getSpeler1().get(0));
+                    if (bracket.getSpeler1().size() > 1) {
+                        setTextFieldsSpeler1(bracket.getSpeler1().get(0), bracket.getSpeler1().get(1));
                     } else {
                         setTextFieldsSpeler1Empty();
                     }
-                    if (bracket.getSpeler2().size() > 0) {
-                        setTextFieldsSpeler2(bracket.getSpeler2().get(0));
+                    if (bracket.getSpeler2().size() > 1) {
+                        setTextFieldsSpeler2(bracket.getSpeler2().get(0), bracket.getSpeler2().get(1));
                     } else {
                         setTextFieldsSpeler2Emtpy();
                     }
@@ -132,10 +142,14 @@ public class KnockoutInplannenController implements Initializable {
         AddDeelnemer1InBracket.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(Brackets.getSelectionModel().getSelectedItem().getSpeler1().size() < 1) {
-                    knockoutInplannenModel.addDeelnemerBracket(Deelnemers.getSelectionModel().getSelectedItem(), Brackets.getSelectionModel().getSelectedItem(), true);
-                    Deelnemers.getItems().setAll(knockoutInplannenModel.getDeelnemers());
-                    setTextFieldsSpeler1(Brackets.getSelectionModel().getSelectedItem().getSpeler1().get(0));
+                if(Brackets.getSelectionModel().getSelectedItem().getSpeler2().size() < 2) {
+                    Bracket bracket = Brackets.getSelectionModel().getSelectedItem();
+                    Deelnemer deelnemer = Deelnemers.getSelectionModel().getSelectedItem();
+                    if (bracket != null && deelnemer != null) {
+                        knockoutInplannenModel.addDeelnemerBracket(deelnemer, bracket, true);
+                        Deelnemers.getItems().setAll(knockoutInplannenModel.getDeelnemers());
+                        setTextFieldsSpeler1(bracket.getSpeler1().get(0), bracket.getSpeler1().get(1));
+                    }
                 }
             }
         });
@@ -143,10 +157,14 @@ public class KnockoutInplannenController implements Initializable {
         AddDeelnemer2InBracket.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(Brackets.getSelectionModel().getSelectedItem().getSpeler2().size() < 1) {
-                    knockoutInplannenModel.addDeelnemerBracket(Deelnemers.getSelectionModel().getSelectedItem(), Brackets.getSelectionModel().getSelectedItem(), false);
-                    Deelnemers.getItems().setAll(knockoutInplannenModel.getDeelnemers());
-                    setTextFieldsSpeler2(Brackets.getSelectionModel().getSelectedItem().getSpeler2().get(0));
+                if(Brackets.getSelectionModel().getSelectedItem().getSpeler2().size() < 2) {
+                    Bracket bracket = Brackets.getSelectionModel().getSelectedItem();
+                    Deelnemer deelnemer = Deelnemers.getSelectionModel().getSelectedItem();
+                    if (bracket != null && deelnemer != null) {
+                        knockoutInplannenModel.addDeelnemerBracket(deelnemer, bracket, false);
+                        Deelnemers.getItems().setAll(knockoutInplannenModel.getDeelnemers());
+                        setTextFieldsSpeler2(bracket.getSpeler2().get(0), bracket.getSpeler2().get(1));
+                    }
                 }
             }
         });
@@ -154,7 +172,8 @@ public class KnockoutInplannenController implements Initializable {
         RemoveDeelnemer1InBracket.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                knockoutInplannenModel.removeDeelnemerBracket(Brackets.getSelectionModel().getSelectedItem().getSpeler1().get(0), Brackets.getSelectionModel().getSelectedItem(), true);
+                Bracket bracket = Brackets.getSelectionModel().getSelectedItem();
+                knockoutInplannenModel.removeDeelnemerBracket(bracket.getSpeler1().get(0), bracket, true);
                 Deelnemers.getItems().setAll(knockoutInplannenModel.getDeelnemers());
                 setTextFieldsSpeler1Empty();
             }
@@ -163,7 +182,8 @@ public class KnockoutInplannenController implements Initializable {
         RemoveDeelnemer2InBracket.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                knockoutInplannenModel.removeDeelnemerBracket(Brackets.getSelectionModel().getSelectedItem().getSpeler2().get(0), Brackets.getSelectionModel().getSelectedItem(), false);
+                Bracket bracket = Brackets.getSelectionModel().getSelectedItem();
+                knockoutInplannenModel.removeDeelnemerBracket(bracket.getSpeler2().get(0), bracket, false);
                 Deelnemers.getItems().setAll(knockoutInplannenModel.getDeelnemers());
                 setTextFieldsSpeler2Emtpy();
             }
@@ -214,6 +234,10 @@ public class KnockoutInplannenController implements Initializable {
         Speler2Voornaam.setText("");
         Speler2Achternaam.setText("");
         Speler2Licentie.setText("");
+        Speler2BondsnrPartner.setText("");
+        Speler2VoornaamPartner.setText("");
+        Speler2AchternaamPartner.setText("");
+        Speler2LicentiePartner.setText("");
     }
 
     private void setTextFieldsSpeler1Empty() {
@@ -221,23 +245,34 @@ public class KnockoutInplannenController implements Initializable {
         Speler1Voornaam.setText("");
         Speler1Achternaam.setText("");
         Speler1Licentie.setText("");
+        Speler1BondsnrPartner.setText("");
+        Speler1VoornaamPartner.setText("");
+        Speler1AchternaamPartner.setText("");
+        Speler1LicentiePartner.setText("");
     }
 
 
-    private void setTextFieldsSpeler1(Deelnemer deelnemer){
+    private void setTextFieldsSpeler1(Deelnemer deelnemer, Deelnemer deelnemer1){
         Speler1Bondsnr.setText(deelnemer.getBondsnr() + "");
         Speler1Voornaam.setText(deelnemer.getVoornaam());
         Speler1Achternaam.setText(deelnemer.getAchternaam());
         Speler1Licentie.setText(deelnemer.getLicentie());
+        Speler1BondsnrPartner.setText(deelnemer1.getBondsnr() + "");
+        Speler1VoornaamPartner.setText(deelnemer1.getVoornaam());
+        Speler1AchternaamPartner.setText(deelnemer1.getAchternaam());
+        Speler1LicentiePartner.setText(deelnemer1.getLicentie());
 
     }
 
-    private void setTextFieldsSpeler2(Deelnemer deelnemer){
+    private void setTextFieldsSpeler2(Deelnemer deelnemer, Deelnemer deelnemer1){
         Speler2Bondsnr.setText(deelnemer.getBondsnr() + "");
         Speler2Voornaam.setText(deelnemer.getVoornaam());
         Speler2Achternaam.setText(deelnemer.getAchternaam());
         Speler2Licentie.setText(deelnemer.getLicentie());
-
+        Speler2BondsnrPartner.setText(deelnemer1.getBondsnr() + "");
+        Speler2VoornaamPartner.setText(deelnemer1.getVoornaam());
+        Speler2AchternaamPartner.setText(deelnemer1.getAchternaam());
+        Speler2LicentiePartner.setText(deelnemer1.getLicentie());
     }
 
     private void setTextfieldsUneditable() {
@@ -245,9 +280,18 @@ public class KnockoutInplannenController implements Initializable {
         Speler1Voornaam.setEditable(false);
         Speler1Achternaam.setEditable(false);
         Speler1Licentie.setEditable(false);
+        Speler1BondsnrPartner.setEditable(false);
+        Speler1VoornaamPartner.setEditable(false);
+        Speler1AchternaamPartner.setEditable(false);
+        Speler1LicentiePartner.setEditable(false);
+
         Speler2Bondsnr.setEditable(false);
         Speler2Voornaam.setEditable(false);
         Speler2Achternaam.setEditable(false);
         Speler2Licentie.setEditable(false);
+        Speler2BondsnrPartner.setEditable(false);
+        Speler2VoornaamPartner.setEditable(false);
+        Speler2AchternaamPartner.setEditable(false);
+        Speler2LicentiePartner.setEditable(false);
     }
 }
