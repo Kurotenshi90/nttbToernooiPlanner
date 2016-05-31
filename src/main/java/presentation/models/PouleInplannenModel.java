@@ -85,12 +85,12 @@ public class PouleInplannenModel {
         }
     }
 
-    public void saveDeelnemersInPoule(int teWinnenRondes){
-        toernooiService.saveToernooiIndeling(pouledt, teWinnenRondes);
+    public void saveDeelnemersInPoule(){
+        toernooiService.saveToernooiIndeling(pouledt);
     }
 
-    public void planEnSluitDeeltoernooiPlanning(){
-        toernooiService.planEnSluitDeeltoernooiPlanning(pouledt);
+    public void planEnSluitDeeltoernooiPlanning(int teWinnenRondes){
+        toernooiService.planEnSluitDeeltoernooiPlanning(pouledt, teWinnenRondes);
     }
 
     public Toernooi getToernooi(){

@@ -158,7 +158,7 @@ public class PouleInplannenDubbelController implements Initializable {
         Opslaan.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                pouleInplannenModel.saveDeelnemersInPoule(3);
+                pouleInplannenModel.saveDeelnemersInPoule();
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/DeeltoernooiSelecteren.fxml"));
                 DeeltoernooiSelecterenController controller = new DeeltoernooiSelecterenController(pouleInplannenModel.getToernooi().getID());
                 loader.setController(controller);
@@ -177,7 +177,7 @@ public class PouleInplannenDubbelController implements Initializable {
         DeeltoernooiStarten.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                pouleInplannenModel.planEnSluitDeeltoernooiPlanning();
+                pouleInplannenModel.planEnSluitDeeltoernooiPlanning(3);
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/DeeltoernooiSelecteren.fxml"));
                 DeeltoernooiSelecterenController controller = new DeeltoernooiSelecterenController(pouleInplannenModel.getToernooi().getID());
                 loader.setController(controller);
