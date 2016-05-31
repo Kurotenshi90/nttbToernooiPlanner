@@ -274,17 +274,16 @@ public class ToernooiDao extends DAO {
         }
     }
 
-    public void saveToernooiIndeling(Deeltoernooi deeltoernooi, int teWinnenWedstrijden) {
+    public void saveToernooiIndeling(Deeltoernooi deeltoernooi) {
         try {
             if(deeltoernooi instanceof PouleDeeltoernooi) {
                 connect();
 
 
                 PouleDeeltoernooi genereerPoules = (PouleDeeltoernooi) deeltoernooi;
-                PreparedStatement generatePoules = conn.prepareStatement("EXEC STP_PoulesAanmaken ?, ?, ?");
+                PreparedStatement generatePoules = conn.prepareStatement("EXEC STP_PoulesAanmaken ?, ?");
                 generatePoules.setInt(1, genereerPoules.getDeeltoernooinr());
                 generatePoules.setInt(2, genereerPoules.getPoules().size());
-                generatePoules.setInt(3, teWinnenWedstrijden);
                 generatePoules.executeUpdate();
                 disconnect();
                 connect();
@@ -353,11 +352,12 @@ public class ToernooiDao extends DAO {
 
     }
 
-    public void planEnSluitDeeltoernooiPlanning(Deeltoernooi deeltoernooi){
+    public void planEnSluitDeeltoernooiPlanning(Deeltoernooi deeltoernooi, int teWinnenWedstrijden){
         try {
             connect();
-            PreparedStatement maakWedstrijden = conn.prepareStatement("EXEC STP_PouleWedstrijdenAanmaken ?");
+            PreparedStatement maakWedstrijden = conn.prepareStatement("EXEC STP_PouleWedstrijdenAanmaken ?, ?");
             maakWedstrijden.setInt(1, deeltoernooi.getDeeltoernooinr());
+            maakWedstrijden.setInt(2, teWinnenWedstrijden);
             maakWedstrijden.executeUpdate();
             disconnect();
             connect();

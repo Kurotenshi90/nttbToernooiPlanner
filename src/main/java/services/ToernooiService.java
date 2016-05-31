@@ -27,12 +27,12 @@ public class ToernooiService {
         return toernooiDao.getOneToernooi(toernooiID);
     }
 
-    public void saveToernooiIndeling(Deeltoernooi deeltoernooi, int teWinnenRondes){
-        toernooiDao.saveToernooiIndeling(deeltoernooi, teWinnenRondes);
+    public void saveToernooiIndeling(Deeltoernooi deeltoernooi){
+        toernooiDao.saveToernooiIndeling(deeltoernooi);
     }
 
-    public void planEnSluitDeeltoernooiPlanning(Deeltoernooi deeltoernooi){
-        toernooiDao.planEnSluitDeeltoernooiPlanning(deeltoernooi);
+    public void planEnSluitDeeltoernooiPlanning(Deeltoernooi deeltoernooi, int teWinnenRondes){
+        toernooiDao.planEnSluitDeeltoernooiPlanning(deeltoernooi, teWinnenRondes);
     }
 
     public void knockoutToernooiAanmaken(Deeltoernooi deeltoernooi){
