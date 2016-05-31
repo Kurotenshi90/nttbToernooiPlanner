@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="Deelnemers" layoutX="150.0" layoutY="250.0" prefHeight="600.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="DeelnemersBondsnummer" prefWidth="75.0" text="Bondsnummer" />
+          <TableColumn fx:id="DeelnemersVoornaam" prefWidth="75.0" text="Voornaam" />
+            <TableColumn fx:id="DeelnemersAchternaam" prefWidth="75.0" text="Achternaam" />
+            <TableColumn fx:id="DeelnemersLicentie" prefWidth="75.0" text="Licentie" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <TableView fx:id="Brackets" layoutX="850.0" layoutY="250.0" prefHeight="600.0" prefWidth="250.0">
+        <columns>
+          <TableColumn fx:id="BracketsBracketnummer" prefWidth="75.0" text="Bracketnummer" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Button fx:id="Annuleren" layoutX="150.0" layoutY="920.0" mnemonicParsing="false" styleClass="button-big" text="Annuleren" />
+      <Button fx:id="RemoveDeelnemer1InBracket" layoutX="1125.0" layoutY="405.0" mnemonicParsing="false" styleClass="button-ball" text="&lt;" />
+      <Button fx:id="AddDeelnemer1InBracket" layoutX="1125.0" layoutY="307.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
+      <Button fx:id="Opslaan" layoutX="1525.0" layoutY="920.0" mnemonicParsing="false" styleClass="button-big" text="Opslaan" />
+       <Button fx:id="DeeltoernooiStarten" layoutX="1525.0" layoutY="970.0" mnemonicParsing="false" styleClass="button-big" text="Deeltoernooi Starten" />
+      <ImageView fitHeight="200.0" fitWidth="1920.0">
+         <image>
+            <Image url="@../images/TopBorder.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="AddDeelnemer2InBracket" layoutX="1125.0" layoutY="575.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
+      <Button fx:id="RemoveDeelnemer2InBracket" layoutX="1125.0" layoutY="693.0" mnemonicParsing="false" styleClass="button-ball" text="&lt;" />
+      <TextField fx:id="Speler1Bondsnr" layoutX="1229.0" layoutY="406.0" prefHeight="27.0" prefWidth="100.0" />
+      <TextField fx:id="Speler1Voornaam" layoutX="1341.0" layoutY="406.0" />
+      <TextField fx:id="Speler1Achternaam" layoutX="1525.0" layoutY="406.0" />
+      <TextField fx:id="Speler1Licentie" layoutX="1706.0" layoutY="406.0" prefHeight="27.0" prefWidth="48.0" />
+      <Label layoutX="1229.0" layoutY="371.0" text="Bondsnummer" />
+      <Label layoutX="1341.0" layoutY="372.0" text="Voornaam" />
+      <Label layoutX="1525.0" layoutY="371.0" text="Achternaam" />
+      <Label layoutX="1706.0" layoutY="372.0" text="Licentie" />
+      <Label layoutX="1229.0" layoutY="332.0" text="Speler 1" />
+      <Label layoutX="1229.0" layoutY="600.0" text="Speler 2" />
+      <Label layoutX="1706.0" layoutY="640.0" text="Licentie" />
+      <Label layoutX="1525.0" layoutY="639.0" text="Achternaam" />
+      <Label layoutX="1341.0" layoutY="640.0" text="Voornaam" />
+      <Label layoutX="1229.0" layoutY="639.0" text="Bondsnummer" />
+      <TextField fx:id="Speler2Licentie" layoutX="1706.0" layoutY="674.0" prefHeight="27.0" prefWidth="48.0" />
+      <TextField fx:id="Speler2Achternaam" layoutX="1525.0" layoutY="674.0" />
+      <TextField fx:id="Speler2Voornaam" layoutX="1341.0" layoutY="674.0" />
+      <TextField fx:id="Speler2Bondsnr" layoutX="1229.0" layoutY="674.0" prefHeight="27.0" prefWidth="100.0" />
+   </children>
+</Pane>

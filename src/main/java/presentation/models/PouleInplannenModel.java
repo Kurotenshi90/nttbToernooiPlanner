@@ -73,9 +73,11 @@ public class PouleInplannenModel {
         pouledt.getDeelnemers().add(deelnemer);
         poule.removeDeelnemer(deelnemer);
         if(deelnemer.getBondsnrPartner() != 0) {
-            for (Deelnemer deelnemer2 : deelnemers) {
+            for (Deelnemer deelnemer2 : poule.getDeelnemers()) {
                 if (deelnemer2.getBondsnr() == deelnemer.getBondsnrPartner()) {
                     deelnemer1 = deelnemer2;
+                    System.out.println(deelnemer2);
+                    System.out.println(deelnemer1);
                 }
             }
             deelnemers.add(deelnemer1);
@@ -83,8 +85,8 @@ public class PouleInplannenModel {
         }
     }
 
-    public void saveDeelnemersInPoule(){
-        toernooiService.saveToernooiIndeling(pouledt);
+    public void saveDeelnemersInPoule(int teWinnenRondes){
+        toernooiService.saveToernooiIndeling(pouledt, teWinnenRondes);
     }
 
     public void planEnSluitDeeltoernooiPlanning(){

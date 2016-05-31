@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -40,6 +41,8 @@ public class PouleInplannenController implements Initializable {
     @FXML private TableColumn<Deelnemer, String> DeelnemersInPouleAchternaam;
     @FXML private TableColumn<Deelnemer, String> DeelnemersInPouleLicentie;
     @FXML private TableColumn<Deelnemer, String> DeelnemersInPoulePoulenummer;
+
+    @FXML private TextField TeWinnenRondes;
 
     @FXML private Button AddDeelnemerInPoule;
     @FXML private Button RemoveDeelnemerInPoule;
@@ -152,7 +155,7 @@ public class PouleInplannenController implements Initializable {
         Opslaan.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                pouleInplannenModel.saveDeelnemersInPoule();
+                pouleInplannenModel.saveDeelnemersInPoule(3);
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/DeeltoernooiSelecteren.fxml"));
                 DeeltoernooiSelecterenController controller = new DeeltoernooiSelecterenController(pouleInplannenModel.getToernooi().getID());
                 loader.setController(controller);

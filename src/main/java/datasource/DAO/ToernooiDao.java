@@ -58,6 +58,7 @@ public class ToernooiDao extends DAO {
         ResultSet deeltoernooiResult = null;
         ResultSet deeltoernooiklassesResult = null;
         ResultSet deeltoernooiDeelnemerResult = null;
+        ResultSet deeltoernooiBracketResult = null;
 
         try {
             toernooiResult = conn.prepareStatement("SELECT T.Toernooinr, T.Naam, T.InschrijfDatum, T.StartDatum, T.EindDatum, L.LOCATIENR, L.Woonplaats, L.Huisnr, L.Straatnaam, T.Betalingsinfo, T.ToernooiSoort FROM Locatie L RIGHT JOIN Toernooi T ON L.LOCATIENR=T.Locatienr WHERE T.Toernooinr = " + toernooiID).executeQuery();
@@ -115,6 +116,53 @@ public class ToernooiDao extends DAO {
                     }
                     ((PouleDeeltoernooi)deeltoernooi).setPoules(poules);
                     deeltoernooi.setDeelnemers(deelnemers);
+                } else if(toernooi.getToernooisoort().equals("Knockout")) {
+
+                    deeltoernooi = new KnockoutDeeltoernooi(deeltoernooiResult.getInt(3), deeltoernooiResult.getInt(1), deeltoernooiResult.getTimestamp(6).toLocalDateTime(), deeltoernooiResult.getDouble(5), deeltoernooiResult.getString(2), deeltoernooiResult.getBoolean(4));
+                    deeltoernooiDeelnemerResult = conn.prepareStatement("SELECT d.Deelnemernr, d.Deeltoernooinr, d.Voornaam, d.Achternaam, d.Bondsnr, d.Geslacht, d.Licentie, d.Verenigingnr, dl.bondsnr, diw.wedstrijdnr, diw.team" +
+                            " FROM Deelnemer d left join DeelnemerInWedstrijd diw ON d.Deelnemernr=diw.Deelnemernr" +
+                            " left JOIN Wedstrijd w ON diw.Wedstrijdnr=w.wedstrijdnr LEFT JOIN Partner p " +
+                            "ON d.deelnemernr = p.deelnemernr left JOIN Deelnemer DL ON P.Partnernr=DL.Deelnemernr" +
+                            " WHERE d.Deeltoernooinr =" + deeltoernooi.getDeeltoernooinr()).executeQuery();
+                    deeltoernooiBracketResult = conn.prepareStatement("select b.Bracketnr, b.wedstrijdnr" +
+                            " from Bracket b inner join Wedstrijd w on b.wedstrijdnr=w.wedstrijdnr" +
+                            " where b.Bracketnr > ( select (max(bracketnr))/2 from Bracket WHERE deeltoernooinr = " + deeltoernooi.getDeeltoernooinr() + " ) and w.deeltoernooinr ="+ deeltoernooi.getDeeltoernooinr()).executeQuery();
+                    ArrayList<Deelnemer> deelnemers = new ArrayList<>();
+                    ArrayList<Bracket> brackets = new ArrayList<>();
+
+                    while(deeltoernooiBracketResult.next()){
+                        if(brackets.size() != deeltoernooiBracketResult.getInt(1)){
+                            brackets.add(new Bracket(deeltoernooiBracketResult.getInt(1), deeltoernooiBracketResult.getInt(2)));
+                        }
+                    }
+                    while(deeltoernooiDeelnemerResult.next()){
+                        if(deeltoernooiDeelnemerResult.getInt(10) != 0){
+                            for (Bracket bracket:brackets
+                                 ) {
+                                if(bracket.getWedstrijdnr() == deeltoernooiDeelnemerResult.getInt(10)){
+                                    if(deeltoernooiDeelnemerResult.getInt(11)== 0){
+                                        bracket.addSpeler1(new Deelnemer(deeltoernooiDeelnemerResult.getInt(1), deeltoernooiDeelnemerResult.getInt(2), deeltoernooiDeelnemerResult.getString(3),
+                                                deeltoernooiDeelnemerResult.getString(4), deeltoernooiDeelnemerResult.getInt(5), deeltoernooiDeelnemerResult.getString(6),
+                                                deeltoernooiDeelnemerResult.getString(7), deeltoernooiDeelnemerResult.getInt(8), deeltoernooiDeelnemerResult.getInt(9)));
+                                    } else {
+                                        bracket.addSpeler2(new Deelnemer(deeltoernooiDeelnemerResult.getInt(1), deeltoernooiDeelnemerResult.getInt(2), deeltoernooiDeelnemerResult.getString(3),
+                                                deeltoernooiDeelnemerResult.getString(4), deeltoernooiDeelnemerResult.getInt(5), deeltoernooiDeelnemerResult.getString(6),
+                                                deeltoernooiDeelnemerResult.getString(7), deeltoernooiDeelnemerResult.getInt(8), deeltoernooiDeelnemerResult.getInt(9)));
+                                    }
+                                }
+
+                            }
+                        } else {
+                            deelnemers.add(new Deelnemer(deeltoernooiDeelnemerResult.getInt(1), deeltoernooiDeelnemerResult.getInt(2), deeltoernooiDeelnemerResult.getString(3),
+                                    deeltoernooiDeelnemerResult.getString(4), deeltoernooiDeelnemerResult.getInt(5), deeltoernooiDeelnemerResult.getString(6),
+                                    deeltoernooiDeelnemerResult.getString(7), deeltoernooiDeelnemerResult.getInt(8), deeltoernooiDeelnemerResult.getInt(9)));
+                        }
+
+                    }
+                    ((KnockoutDeeltoernooi)deeltoernooi).setBrackets(brackets);
+                    deeltoernooi.setDeelnemers(deelnemers);
+
+
                 } else {
                     deeltoernooi = new Deeltoernooi(deeltoernooiResult.getInt(3), deeltoernooiResult.getInt(1), deeltoernooiResult.getTimestamp(6).toLocalDateTime(), deeltoernooiResult.getDouble(5), deeltoernooiResult.getString(2), deeltoernooiResult.getBoolean(4));
                 }
@@ -128,11 +176,10 @@ public class ToernooiDao extends DAO {
                 deeltoernoois.add(deeltoernooi);
             }
             toernooi.setDeeltoernoois(deeltoernoois);
-
+            disconnect();
         }catch (Exception e){
             e.printStackTrace();
         }
-        disconnect();
 
         return toernooi;
     }
@@ -227,16 +274,17 @@ public class ToernooiDao extends DAO {
         }
     }
 
-    public void saveToernooiIndeling(Deeltoernooi deeltoernooi) {
+    public void saveToernooiIndeling(Deeltoernooi deeltoernooi, int teWinnenWedstrijden) {
         try {
             if(deeltoernooi instanceof PouleDeeltoernooi) {
                 connect();
 
 
                 PouleDeeltoernooi genereerPoules = (PouleDeeltoernooi) deeltoernooi;
-                PreparedStatement generatePoules = conn.prepareStatement("EXEC STP_PoulesAanmaken ?, ?");
+                PreparedStatement generatePoules = conn.prepareStatement("EXEC STP_PoulesAanmaken ?, ?, ?");
                 generatePoules.setInt(1, genereerPoules.getDeeltoernooinr());
                 generatePoules.setInt(2, genereerPoules.getPoules().size());
+                generatePoules.setInt(3, teWinnenWedstrijden);
                 generatePoules.executeUpdate();
                 disconnect();
                 connect();
@@ -261,12 +309,50 @@ public class ToernooiDao extends DAO {
                 schrijfSpelersIn.executeUpdate();
 
                 disconnect();
+            } else if(deeltoernooi instanceof KnockoutDeeltoernooi){
+                connect();
+
+                KnockoutDeeltoernooi planSpelers = (KnockoutDeeltoernooi) deeltoernooi;
+                PreparedStatement planSpelersIn = conn.prepareStatement("EXEC STP_InsertDeelnemerIntoWedstrijdKnockout ?, ?");
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("[{");
+                boolean checkPastFirstRound= false;
+                for(int i = 0; i<planSpelers.getBrackets().size();i++){
+                    maakDeelnemerJson(stringBuilder, planSpelers, planSpelers.getBrackets().get(i).getSpeler1(), i, checkPastFirstRound, false);
+                    stringBuilder.append("},{");
+                    maakDeelnemerJson(stringBuilder, planSpelers, planSpelers.getBrackets().get(i).getSpeler2(), i, checkPastFirstRound, true);
+                }
+                stringBuilder.append("}]");
+                System.out.println(stringBuilder.toString());
+                planSpelersIn.setString(1, stringBuilder.toString());
+                planSpelersIn.setInt(2, planSpelers.getDeeltoernooinr());
+                planSpelersIn.executeUpdate();
+                disconnect();
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+    private void maakDeelnemerJson(StringBuilder stringBuilder, KnockoutDeeltoernooi planSpelers, ArrayList<Deelnemer> deelnemers, int i, boolean checkPastFirstRound, boolean speler2){
+        for(Deelnemer deelnemer: deelnemers){
+            if(checkPastFirstRound){
+                stringBuilder.append("},{");
+            }
+            stringBuilder.append("\"Deelnemernr\":"+deelnemer.getDeelnemerID()+",");
+            stringBuilder.append("\"Wedstrijdnr\":"+planSpelers.getBrackets().get(i).getWedstrijdnr()+",");
+            if(speler2) {
+                stringBuilder.append("\"Team\":" + 1);
+            } else {
+                stringBuilder.append("\"Team\":" + 0);
+            }
+
+            checkPastFirstRound = true;
+        }
+
+    }
+
     public void planEnSluitDeeltoernooiPlanning(Deeltoernooi deeltoernooi){
         try {
             connect();
@@ -282,5 +368,23 @@ public class ToernooiDao extends DAO {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void knockoutToernooiAanmaken(Deeltoernooi deeltoernooi){
+
+        try {
+            connect();
+            ResultSet resultSet = conn.prepareStatement("SELECT 1 FROM Bracket WHERE Deeltoernooinr = "+ deeltoernooi.getDeeltoernooinr()).executeQuery();
+            while(!resultSet.isBeforeFirst()){
+                PreparedStatement preparedStatement = conn.prepareStatement("EXEC STP_KnockoutWedstrijdenAanmaken ?, ?");
+                preparedStatement.setInt(1, deeltoernooi.getDeeltoernooinr());
+                preparedStatement.setInt(2, 3);
+                preparedStatement.executeUpdate();
+            }
+            disconnect();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }
