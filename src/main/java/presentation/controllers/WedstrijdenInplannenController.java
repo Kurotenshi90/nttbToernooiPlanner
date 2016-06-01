@@ -46,18 +46,6 @@ public class WedstrijdenInplannenController implements Initializable {
     }
 
     private void initializeWedstrijden() {
-        ArrayList<Integer> speler1 = new ArrayList<>();
-        speler1.add(1);
-        ArrayList<Integer> speler2 = new ArrayList<>();
-        speler2.add(1);
-        ArrayList<Wedstrijd> wedstrijden = new ArrayList<>();
-        wedstrijden.add(new Wedstrijd(1, speler1, speler2));
-        wedstrijden.add(new Wedstrijd(1, speler1, speler2));
-        wedstrijden.add(new Wedstrijd(1, speler1, speler2));
-        speler1.add(2);
-        speler2.add(2);
-        wedstrijden.add(new Wedstrijd(1, speler1, speler2));
-        wedstrijden.add(new Wedstrijd(1, speler1, speler2));
 
         Wedstrijden.setCellFactory(new Callback<ListView<String>,
                                     ListCell<Wedstrijd>>() {
@@ -67,8 +55,6 @@ public class WedstrijdenInplannenController implements Initializable {
                                 }
                             }
         );
-
-        Wedstrijden.getItems().setAll(wedstrijden);
     }
 
     private void initializeTafels(){

@@ -1,5 +1,6 @@
 package domain.Util;
 
+import domain.SpelerInWedstrijd;
 import domain.Wedstrijd;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -22,8 +23,11 @@ public class WedstrijdListCell extends ListCell<Wedstrijd> {
     private static final String FONT_AWESOME = "FontAwesome";
 
     private GridPane grid = new GridPane();
+    private Label wedstrijdDatum = new Label();
     private Label wedstrijdnrText = new Label();
     private Label wedstrijdnr = new Label();
+    private Label wedstrijdBestOfText = new Label();
+    private Label wedstrijdBestOf = new Label();
     private Label teamA = new Label();
     private Label teamB = new Label();
     private ArrayList<Label> teamASpelers;
@@ -53,24 +57,14 @@ public class WedstrijdListCell extends ListCell<Wedstrijd> {
     private void configureName() {
         teamA.getStyleClass().add(CACHE_LIST_NAME_CLASS);
         teamB.getStyleClass().add(CACHE_LIST_NAME_CLASS);
+        wedstrijdnrText.getStyleClass().add(CACHE_LIST_NAME_CLASS);
+        wedstrijdBestOfText.getStyleClass().add(CACHE_LIST_NAME_CLASS);
     }
 
     private void configureDifficultyTerrain() {
      //   dt.getStyleClass().add(CACHE_LIST_DT_CLASS);
     }
 
-    private void addControlsToGrid() {
-        grid.add(wedstrijdnrText, 0, 0, 1, 1);
-        grid.add(wedstrijdnr, 0, 1, 1, teamASpelers.size()+teamBSpelers.size()+1);
-        grid.add(teamA, 1, 0);
-        for(int i = 0; i>teamASpelers.size(); i++){
-            grid.add(teamASpelers.get(i),1,i+1);
-        }
-        grid.add(teamB, 1, teamASpelers.size()+1);
-        for(int i = 0; i>teamBSpelers.size(); i++){
-            grid.add(teamBSpelers.get(i),1,teamASpelers.size()+i+2);
-        }
-    }
 
     @Override
     public void updateItem(Wedstrijd cache, boolean empty) {
@@ -78,29 +72,36 @@ public class WedstrijdListCell extends ListCell<Wedstrijd> {
         if (empty) {
             clearContent();
         } else {
-            for(Integer i: cache.getSpeler1()){
+            for(SpelerInWedstrijd i: cache.getSpeler1()){
                 teamASpelers.add(new Label(i.toString()));
             }
-            for(Integer i : cache.getSpeler2()){
+            for(SpelerInWedstrijd i : cache.getSpeler2()){
                 teamBSpelers.add(new Label(i.toString()));
             }
-            System.out.println(teamASpelers.size());
 
+            grid.add(wedstrijdDatum, 0, 0, 3,0);
 
-            grid.add(wedstrijdnrText, 0, 0, 1, 1);
-            grid.add(wedstrijdnr, 0, 1, 1, teamASpelers.size()+teamBSpelers.size()+1);
-            grid.add(teamA, 1, 0);
-            for(int i = 0; i>teamASpelers.size(); i++){
-                grid.add(teamASpelers.get(i),1,i+1);
+            grid.add(wedstrijdnrText, 0, 1, 1, 1);
+            grid.add(wedstrijdnr, 0, 2, 1, teamASpelers.size()+teamBSpelers.size()+2);
+
+            grid.add(wedstrijdBestOfText, 1, 2, 1, 1);
+            grid.add(wedstrijdBestOf, 1, 2, 1, teamASpelers.size()+teamBSpelers.size()+2);
+
+            grid.add(teamA, 2, 1);
+
+            for(int i = 0; i<teamASpelers.size(); i++){
+                grid.add(teamASpelers.get(i),2,i+2);
+
             }
-            grid.add(teamB, 1, teamASpelers.size()+1);
-            for(int i = 0; i>teamBSpelers.size(); i++){
-                grid.add(teamBSpelers.get(i),1,teamASpelers.size()+i+2);
+            grid.add(teamB, 2, teamASpelers.size()+2);
+
+            for(int i = 0; i<teamBSpelers.size(); i++){
+                grid.add(teamBSpelers.get(i),2,teamASpelers.size()+i+3);
             }
+
             addContent(cache);
 
         }
-        System.out.println("hoi");
     }
 
     private void clearContent() {
@@ -112,12 +113,17 @@ public class WedstrijdListCell extends ListCell<Wedstrijd> {
         setText(null);
         wedstrijdnrText.setText("Wedstrijdnr:");
         wedstrijdnr.setText(String.valueOf(cache.getWedstrijdnr()));
+        wedstrijdBestOfText.setText("Te winnen rondes:");
+        wedstrijdBestOf.setText(String.valueOf(cache.getTeWinnenRondes()));
         teamA.setText("Team A:");
-        teamB.setText("Team B:");
-
         for(int i = 0; i>teamASpelers.size(); i++){
-            teamASpelers.get(i).setText("1");
+            teamASpelers.get(i).setText(cache.getSpeler1().get(i).toString());
         }
+        teamB.setText("Team B:");
+        for(int i = 0; i>teamBSpelers.size(); i++){
+            teamBSpelers.get(i).setText(cache.getSpeler2().get(i).toString());
+        }
+
 
 
 
