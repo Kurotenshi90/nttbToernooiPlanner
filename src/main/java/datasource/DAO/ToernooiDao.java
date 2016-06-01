@@ -85,6 +85,8 @@ public class ToernooiDao extends DAO {
                     commissieLid.setLeider(true);
                 } else if (rol.equals("contactpersoon")){
                     commissieLid.setContactpersoon(true);
+                } else if (rol.equals("bondsVertegenwoordiger")){
+                    commissieLid.setBondsVertegenwoordiger(true);
                 }
                 commissieLeden.add(commissieLid);
             }
@@ -214,6 +216,8 @@ public class ToernooiDao extends DAO {
                 }
                 else if (c.getContactpersoon()){
                     dummy = "contactpersoon";
+                } else if (c.getBondsVertegenwoordiger()){
+                    dummy = "bondsVertegenwoordiger";
                 }
                 stringBuilder.append("\"rol\":\""+dummy+"\"");
                 checkPastFirstRound = true;

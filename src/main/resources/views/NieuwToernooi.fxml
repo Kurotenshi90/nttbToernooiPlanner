@@ -66,6 +66,12 @@
                 <cellValueFactory><PropertyValueFactory property="contactpersoon" /></cellValueFactory>
                 <cellFactory><CheckBoxCellFactory /></cellFactory>
             </TableColumn>
+
+            <TableColumn prefWidth="75.0" text="Bondsvertegenwoordiger" >
+                <cellValueFactory><PropertyValueFactory property="bondsVertegenwoordiger" /></cellValueFactory>
+                <cellFactory><CheckBoxCellFactory /></cellFactory>
+            </TableColumn>
+
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -51,5 +51,7 @@
             <Image url="@../images/TopBorder.png" />
          </image>
       </ImageView>
+      <Label layoutX="150.0" layoutY="131.0" text="Te winnen rondes" />
+      <TextField fx:id="TeWinnenRondes" layoutX="150.0" layoutY="173.0" promptText="aantal" />
    </children>
 </Pane>
