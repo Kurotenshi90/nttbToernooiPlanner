@@ -52,6 +52,8 @@ public class WedstrijdListCell extends ListCell<Wedstrijd> {
     private void configureIcon() {
         wedstrijdnr.setFont(Font.font(FONT_AWESOME, FontWeight.BOLD, 24));
         wedstrijdnr.getStyleClass().add(CACHE_LIST_ICON_CLASS);
+        wedstrijdDatum.setFont(Font.font(FONT_AWESOME, FontWeight.BOLD, 24));
+        wedstrijdDatum.getStyleClass().add(CACHE_LIST_ICON_CLASS);
     }
 
     private void configureName() {
@@ -73,10 +75,10 @@ public class WedstrijdListCell extends ListCell<Wedstrijd> {
             clearContent();
         } else {
             for(SpelerInWedstrijd i: cache.getSpeler1()){
-                teamASpelers.add(new Label(i.toString()));
+                teamASpelers.add(new Label(i.getVoornaam() + " " + i.getAchternaam() + ", " + i.getBondsnr()));
             }
             for(SpelerInWedstrijd i : cache.getSpeler2()){
-                teamBSpelers.add(new Label(i.toString()));
+                teamBSpelers.add(new Label(i.getVoornaam() + " " + i.getAchternaam() + ", " + i.getBondsnr()));
             }
 
             grid.add(wedstrijdDatum, 0, 0, 3,0);
@@ -117,11 +119,11 @@ public class WedstrijdListCell extends ListCell<Wedstrijd> {
         wedstrijdBestOf.setText(String.valueOf(cache.getTeWinnenRondes()));
         teamA.setText("Team A:");
         for(int i = 0; i>teamASpelers.size(); i++){
-            teamASpelers.get(i).setText(cache.getSpeler1().get(i).toString());
+            teamASpelers.get(i).setText(cache.getSpeler1().get(i).getVoornaam() + " " + cache.getSpeler1().get(i).getAchternaam() + ", " + cache.getSpeler1().get(i).getBondsnr());
         }
         teamB.setText("Team B:");
         for(int i = 0; i>teamBSpelers.size(); i++){
-            teamBSpelers.get(i).setText(cache.getSpeler2().get(i).toString());
+            teamBSpelers.get(i).setText(cache.getSpeler2().get(i).getVoornaam() + " " + cache.getSpeler1().get(i).getAchternaam() + ", " + cache.getSpeler1().get(i).getBondsnr());
         }
 
 
