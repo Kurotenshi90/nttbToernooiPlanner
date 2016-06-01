@@ -36,7 +36,7 @@ public class WedstrijdListCell extends ListCell<Wedstrijd> {
         configureIcon();
         configureName();
         configureDifficultyTerrain();
-        addControlsToGrid();
+
     }
 
     private void configureGrid() {
@@ -78,13 +78,27 @@ public class WedstrijdListCell extends ListCell<Wedstrijd> {
         if (empty) {
             clearContent();
         } else {
-            addContent(cache);
             for(Integer i: cache.getSpeler1()){
                 teamASpelers.add(new Label(i.toString()));
             }
             for(Integer i : cache.getSpeler2()){
                 teamBSpelers.add(new Label(i.toString()));
             }
+            System.out.println(teamASpelers.size());
+
+
+            grid.add(wedstrijdnrText, 0, 0, 1, 1);
+            grid.add(wedstrijdnr, 0, 1, 1, teamASpelers.size()+teamBSpelers.size()+1);
+            grid.add(teamA, 1, 0);
+            for(int i = 0; i>teamASpelers.size(); i++){
+                grid.add(teamASpelers.get(i),1,i+1);
+            }
+            grid.add(teamB, 1, teamASpelers.size()+1);
+            for(int i = 0; i>teamBSpelers.size(); i++){
+                grid.add(teamBSpelers.get(i),1,teamASpelers.size()+i+2);
+            }
+            addContent(cache);
+
         }
         System.out.println("hoi");
     }
@@ -100,6 +114,13 @@ public class WedstrijdListCell extends ListCell<Wedstrijd> {
         wedstrijdnr.setText(String.valueOf(cache.getWedstrijdnr()));
         teamA.setText("Team A:");
         teamB.setText("Team B:");
+
+        for(int i = 0; i>teamASpelers.size(); i++){
+            teamASpelers.get(i).setText("1");
+        }
+
+
+
         //setStyleClassDependingOnFoundState(cache);
         setGraphic(grid);
     }
