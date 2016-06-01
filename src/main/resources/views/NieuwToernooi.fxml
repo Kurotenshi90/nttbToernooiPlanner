@@ -66,8 +66,7 @@
                 <cellValueFactory><PropertyValueFactory property="contactpersoon" /></cellValueFactory>
                 <cellFactory><CheckBoxCellFactory /></cellFactory>
             </TableColumn>
-
-            <TableColumn prefWidth="75.0" text="Bondsvertegenwoordiger" >
+            <TableColumn prefWidth="75.0" text="Bondsvertegenwoordiger">
                 <cellValueFactory><PropertyValueFactory property="bondsVertegenwoordiger" /></cellValueFactory>
                 <cellFactory><CheckBoxCellFactory /></cellFactory>
             </TableColumn>

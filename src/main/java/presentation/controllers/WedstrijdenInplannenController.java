@@ -3,15 +3,19 @@ package presentation.controllers;
 import domain.Deelnemer;
 import domain.Tafel;
 import domain.Toernooi;
+import domain.Util.WedstrijdListCell;
+import domain.Wedstrijd;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import presentation.models.WedstrijdenInplannenModel;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -24,6 +28,11 @@ public class WedstrijdenInplannenController implements Initializable {
     @FXML TextField Aantal;
     @FXML TableView Tafels;
     @FXML TableColumn<Tafel, String> Tafelnaam;
+
+
+    @FXML ListView Wedstrijden;
+
+
     private WedstrijdenInplannenModel wedstrijdenInplannenModel;
     public WedstrijdenInplannenController(int toernooinummer) {
         wedstrijdenInplannenModel = new WedstrijdenInplannenModel(toernooinummer);
@@ -33,7 +42,33 @@ public class WedstrijdenInplannenController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initializeTafels();
         initializeButtons();
+        initializeWedstrijden();
+    }
 
+    private void initializeWedstrijden() {
+        ArrayList<Integer> speler1 = new ArrayList<>();
+        speler1.add(1);
+        ArrayList<Integer> speler2 = new ArrayList<>();
+        speler2.add(1);
+        ArrayList<Wedstrijd> wedstrijden = new ArrayList<>();
+        wedstrijden.add(new Wedstrijd(1, speler1, speler2));
+        wedstrijden.add(new Wedstrijd(1, speler1, speler2));
+        wedstrijden.add(new Wedstrijd(1, speler1, speler2));
+        speler1.add(2);
+        speler2.add(2);
+        wedstrijden.add(new Wedstrijd(1, speler1, speler2));
+        wedstrijden.add(new Wedstrijd(1, speler1, speler2));
+
+        Wedstrijden.setCellFactory(new Callback<ListView<String>,
+                                    ListCell<Wedstrijd>>() {
+                                @Override
+                                public ListCell<Wedstrijd> call(ListView<String> list) {
+                                    return new WedstrijdListCell();
+                                }
+                            }
+        );
+
+        Wedstrijden.getItems().setAll(wedstrijden);
     }
 
     private void initializeTafels(){
