@@ -16,14 +16,14 @@ public class Wedstrijd {
     private ArrayList<SpelerInWedstrijd> speler2;
 
 
-    public Wedstrijd(int deeltoernooinr, int teWinnenRondes, int wedstrijdnr, LocalDateTime startTijdDeeltoernooi, int tafelnr, ArrayList<SpelerInWedstrijd> speler1, ArrayList<SpelerInWedstrijd> speler2) {
+    public Wedstrijd(int deeltoernooinr, int teWinnenRondes, int wedstrijdnr, LocalDateTime startTijdDeeltoernooi, int tafelnr) {
         this.deeltoernooinr = deeltoernooinr;
         this.teWinnenRondes = teWinnenRondes;
         this.wedstrijdnr = wedstrijdnr;
         this.startTijdDeeltoernooi = startTijdDeeltoernooi;
         this.tafelnr = tafelnr;
-        this.speler1 = speler1;
-        this.speler2 = speler2;
+        this.speler1 = new ArrayList<>();
+        this.speler2 = new ArrayList<>();
     }
 
     public int getDeeltoernooinr() {
@@ -80,5 +80,13 @@ public class Wedstrijd {
 
     public void setSpeler2(ArrayList<SpelerInWedstrijd> speler2) {
         this.speler2 = speler2;
+    }
+
+    public void addSpeler1(SpelerInWedstrijd spelerInWedstrijd){
+        speler1.add(spelerInWedstrijd);
+    }
+
+    public void addSpeler2(SpelerInWedstrijd spelerInWedstrijd){
+        speler2.add(spelerInWedstrijd);
     }
 }
