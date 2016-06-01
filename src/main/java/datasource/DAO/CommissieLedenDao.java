@@ -1,7 +1,9 @@
 package datasource.DAO;
 
+import domain.Commissielid;
 import domain.NieuwToernooiCommissieLeden;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,4 +35,20 @@ public class CommissieLedenDao extends DAO {
         return returnValue;
     }
 
+    public void saveCommissielid(Commissielid commissielid){
+        String update = "EXEC Stp_VoegCommissielidToe ?, ?, ?, ?, ?";
+        connect();
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(update);
+            preparedStatement.setString(1, commissielid.getNaam());
+            preparedStatement.setString(2, commissielid.getStraatnaam());
+            preparedStatement.setInt(3, commissielid.getHuisnr());
+            preparedStatement.setString(4, commissielid.getPostcode());
+            preparedStatement.setString(5, commissielid.getEmail());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
