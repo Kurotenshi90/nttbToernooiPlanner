@@ -10,6 +10,7 @@ public class CommisieLidInToernooi {
     private int lidnr;
     private SimpleBooleanProperty leider = new SimpleBooleanProperty(false);
     private SimpleBooleanProperty contactpersoon = new SimpleBooleanProperty(false);
+    private SimpleBooleanProperty bondsVertegenwoordiger = new SimpleBooleanProperty(false);
 
 
     public CommisieLidInToernooi() {
@@ -48,6 +49,10 @@ public class CommisieLidInToernooi {
         return this.contactpersoon;
     }
 
+    public SimpleBooleanProperty bondsVertegenwoordigerProperty(){
+        return this.bondsVertegenwoordiger;
+    }
+
     public Boolean getContactpersoon() {
         return this.contactpersoonProperty().get();
     }
@@ -55,5 +60,15 @@ public class CommisieLidInToernooi {
     public void setContactpersoon(Boolean contactpersoon) {
         this.contactpersoonProperty().set(contactpersoon);
     }
+
+    public Boolean getBondsVertegenwoordiger() {
+        return this.bondsVertegenwoordigerProperty().get();
+    }
+
+    public void setBondsVertegenwoordiger(Boolean bondsVertegenwoordiger) {
+        this.bondsVertegenwoordigerProperty().set(bondsVertegenwoordiger);
+    }
+
+
 
 }

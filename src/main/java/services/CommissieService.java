@@ -1,6 +1,7 @@
 package services;
 
 import datasource.DAO.CommissieLedenDao;
+import domain.Commissielid;
 import domain.NieuwToernooiCommissieLeden;
 
 import java.util.ArrayList;
@@ -17,5 +18,9 @@ public class CommissieService {
 
     public ArrayList<NieuwToernooiCommissieLeden> getNieuwToernooiCommissieLeden() {
         return commissieLedenDao.getNieuwToernooiCommissieLeden();
+    }
+
+    public void saveCommissielid(Commissielid commissielid){
+        commissieLedenDao.saveCommissielid(commissielid);
     }
 }

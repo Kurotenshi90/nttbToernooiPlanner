@@ -1,5 +1,6 @@
 package presentation.controllers;
 
+import domain.Commissielid;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.Exchanger;
 
 /**
  * Created by Peter-Paul on 12/05/2016.
@@ -23,6 +25,7 @@ public class MenuController implements Initializable {
     @FXML Button Inloggen;
     @FXML Button Exit;
     @FXML Button Home;
+    @FXML Button ToevoegenCommissielid;
     @FXML Button ToernooiInplannen;
 
 
@@ -112,6 +115,27 @@ public class MenuController implements Initializable {
                 Scene scene = new Scene(root, 480, 320);
                 stage.setScene(scene);
                 stage.initOwner(Inloggen.getScene().getWindow());
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.show();
+            }
+        });
+
+        ToevoegenCommissielid.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/CommissieledenToevoegen.fxml"));
+                CommissielidToevoegenController controller = new CommissielidToevoegenController();
+                loader.setController(controller);
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Stage stage = new Stage();
+                Scene scene = new Scene(root, 480, 320);
+                stage.setScene(scene);
+                stage.initOwner(ToevoegenCommissielid.getScene().getWindow());
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.show();
             }

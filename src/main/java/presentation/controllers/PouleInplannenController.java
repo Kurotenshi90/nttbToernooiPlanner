@@ -174,7 +174,7 @@ public class PouleInplannenController implements Initializable {
         DeeltoernooiStarten.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                pouleInplannenModel.planEnSluitDeeltoernooiPlanning(3);
+                pouleInplannenModel.planEnSluitDeeltoernooiPlanning(Integer.parseInt(TeWinnenRondes.getText()));
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/DeeltoernooiSelecteren.fxml"));
                 DeeltoernooiSelecterenController controller = new DeeltoernooiSelecterenController(pouleInplannenModel.getToernooi().getID());
                 loader.setController(controller);
