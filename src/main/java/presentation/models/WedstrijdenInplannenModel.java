@@ -1,8 +1,13 @@
 package presentation.models;
 
+import domain.Deeltoernooi;
+import domain.PlanningWedstrijd;
 import domain.Tafel;
+import domain.Wedstrijd;
+import services.DeeltoernooiService;
 import services.WedstrijdenService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -10,24 +15,78 @@ import java.util.ArrayList;
  */
 public class WedstrijdenInplannenModel {
     private int toernooiId;
-    private ArrayList<Tafel> tafels;
     private WedstrijdenService wedstrijdenService;
+    private DeeltoernooiService deeltoernooiService;
+    private PlanningWedstrijd planningWedstrijd;
+    private ArrayList<Deeltoernooi> deeltoernoois;
 
     public WedstrijdenInplannenModel(int toernooiId) {
         this.toernooiId = toernooiId;
         wedstrijdenService = new WedstrijdenService();
-        setTafels();
+        deeltoernooiService = new DeeltoernooiService();
+        deeltoernoois = deeltoernooiService.getDeeltoernooi(toernooiId);
+        deeltoernoois.add(new Deeltoernooi(0, 0, LocalDateTime.now(), 0, "niks", true));
+        getPlanningwedstrijd(toernooiId);
     }
 
-    public ArrayList<Tafel> tafels(){
-        return  tafels;
+    public void getPlanningwedstrijd(int toernooiId){
+        planningWedstrijd = wedstrijdenService.getWedstrijden(toernooiId);
     }
 
-    public void setTafels(){
-        tafels = wedstrijdenService.getNietBezetteTafels(toernooiId);
+    public ArrayList<Deeltoernooi> getDeeltoernoois(){
+        return deeltoernoois;
     }
+
+    public ArrayList<Wedstrijd> getGeplandeWedstrijden() {
+        ArrayList<Wedstrijd> geplandeWedstrijden = new ArrayList<>();
+        for(Wedstrijd w: planningWedstrijd.getWedstrijden()){
+            if(w.getTafel()!=null){
+                geplandeWedstrijden.add(w);
+            }
+        }
+        return geplandeWedstrijden;
+    }
+
+    public ArrayList<Wedstrijd> getNietGeplandeWedstrijden() {
+        ArrayList<Wedstrijd> nietGeplandeWedstrijden = new ArrayList<>();
+        for(Wedstrijd w: planningWedstrijd.getWedstrijden()){
+            if(w.getTafel()==null){
+                nietGeplandeWedstrijden.add(w);
+            }
+        }
+        return nietGeplandeWedstrijden;
+    }
+
+    public ArrayList<Wedstrijd> getNietGeplandeWedstrijdenOnDeeltoernooir(int deeltoernooinr) {
+        if(deeltoernooinr == 0){
+            return getNietGeplandeWedstrijden();
+        }
+        ArrayList<Wedstrijd> nietGeplandeWedstrijden = new ArrayList<>();
+        for(Wedstrijd w: planningWedstrijd.getWedstrijden()){
+            if(w.getTafel()==null && w.getDeeltoernooinr() == deeltoernooinr){
+                nietGeplandeWedstrijden.add(w);
+            }
+        }
+        return nietGeplandeWedstrijden;
+    }
+
+
     public void addTafels(int aantal){
         wedstrijdenService.addTafels(toernooiId, aantal);
-        setTafels();
+    }
+
+
+    public PlanningWedstrijd getPlanningWedstrijd() {
+        return planningWedstrijd;
+    }
+
+    public void koppelWedstrijd(Wedstrijd wedstrijd, Tafel tafel){
+        wedstrijdenService.koppelTafel(wedstrijd, tafel);
+        getPlanningwedstrijd(toernooiId);
+    }
+
+    public void onKoppelWedstrijd(Wedstrijd wedstrijd){
+        wedstrijdenService.onKoppelTafel(wedstrijd);
+        getPlanningwedstrijd(toernooiId);
     }
 }

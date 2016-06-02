@@ -119,6 +119,9 @@ public class Deeltoernooi {
     }
 
     public String toString() {
+        if(deeltoernooinr == 0){
+            return "Alles";
+        }
         return "BeginTijd: " + beginTijd + ", Max aantal spelers: " + maxAantalSpelers + ", Spelvorm: " + spelvorm;
     }
 }

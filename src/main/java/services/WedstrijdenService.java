@@ -1,7 +1,9 @@
 package services;
 
 import datasource.DAO.WedstrijdenDao;
+import domain.PlanningWedstrijd;
 import domain.Tafel;
+import domain.Wedstrijd;
 
 import java.util.ArrayList;
 
@@ -15,10 +17,18 @@ public class WedstrijdenService {
         this.wedstrijdenDao = new WedstrijdenDao();
     }
 
-    public ArrayList<Tafel> getNietBezetteTafels(int toernooiId){
-        return wedstrijdenDao.getNietBezetteTafels(toernooiId);
-    }
     public void addTafels(int toernooinummer, int aantal){
         wedstrijdenDao.addTafels(toernooinummer, aantal);
+    }
+
+    public PlanningWedstrijd getWedstrijden(int toernooiID) {
+        return wedstrijdenDao.getwedstrijden(toernooiID);
+    }
+
+    public void koppelTafel(Wedstrijd wedstrijd, Tafel tafel){
+        wedstrijdenDao.koppelTafel(wedstrijd, tafel);
+    }
+    public void onKoppelTafel(Wedstrijd wedstrijd){
+        wedstrijdenDao.onKoppelTafel(wedstrijd);
     }
 }

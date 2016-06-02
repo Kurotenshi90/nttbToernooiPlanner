@@ -1,18 +1,20 @@
 package datasource.DAO;
 
+import domain.PlanningWedstrijd;
 import domain.SpelerInWedstrijd;
 import domain.Tafel;
 import domain.Wedstrijd;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
  * Created by Peter-Paul on 30/05/2016.
  */
 public class WedstrijdenDao extends DAO {
-    public ArrayList<Tafel> getNietBezetteTafels(int toernooiId){
+    private ArrayList<Tafel> getNietBezetteTafels(int toernooiId){
         ArrayList<Tafel> tafels = new ArrayList<>();
         try{
             connect();
@@ -33,8 +35,10 @@ public class WedstrijdenDao extends DAO {
         return tafels;
     }
 
-    public ArrayList<Wedstrijd> getwedstrijden(int toernooiId){
+    public PlanningWedstrijd getwedstrijden(int toernooiId){
+        PlanningWedstrijd planningWedstrijd = null;
         ArrayList<Wedstrijd> wedstrijd = new ArrayList<>();
+        ArrayList<Tafel> tafels = getNietBezetteTafels(toernooiId);
         try{
             connect();
             PreparedStatement preparedStatement = conn.prepareStatement("select d.DeelToernooinr, w.TeWinnenRondes, w.Wedstrijdnr, w.DeelToernooinr, d.Startdatum, t.TAFELNR, di.Team, dn.Voornaam, dn.Achternaam, dn.Bondsnr from DeelToernooi d \n" +
@@ -48,17 +52,26 @@ public class WedstrijdenDao extends DAO {
                                                                         "where d.Toernooinr = ?");
             preparedStatement.setInt(1, toernooiId);
             ResultSet rs = preparedStatement.executeQuery();
-            PreparedStatement preparedStatement2 = conn.prepareStatement("select d.DeelToernooinr, w.TeWinnenRondes, w.Wedstrijdnr, w.DeelToernooinr, d.Startdatum, t.TAFELNR from DeelToernooi d \n" +
+            PreparedStatement preparedStatement2 = conn.prepareStatement("select d.DeelToernooinr, w.TeWinnenRondes, w.Wedstrijdnr, d.Startdatum, t.TAFELNR from DeelToernooi d \n" +
                                                                          "left join \n" +
                                                                          "Wedstrijd w on  d.DeelToernooinr = w.DeelToernooinr \n" +
                                                                          "left join Tafels t on t.Wedstrijdnr = w.Wedstrijdnr  \n" +
                                                                          "where d.Toernooinr = ?");
 
             preparedStatement2.setInt(1, toernooiId);
-            ResultSet rs2 = preparedStatement.executeQuery();
+            ResultSet rs2 = preparedStatement2.executeQuery();
 
             while(rs2.next()){
-                wedstrijd.add(new Wedstrijd(rs.getInt(1), rs.getInt(2),rs.getInt(3),rs.getTimestamp(4).toLocalDateTime(),rs.getInt(5)));
+                Wedstrijd wedstrijd1 = new Wedstrijd(rs2.getInt(1), rs2.getInt(2),rs2.getInt(3),rs2.getTimestamp(4).toLocalDateTime());
+                if(rs2.getInt(5)!= 0){
+                    for(Tafel t: tafels){
+                        if(t.getTafelnummer() == rs2.getInt(5)){
+                            wedstrijd1.setTafel(t);
+                        }
+                    }
+                }
+                wedstrijd.add(wedstrijd1);
+
             }
 
             while(rs.next()){
@@ -72,12 +85,18 @@ public class WedstrijdenDao extends DAO {
                     }
                 }
             }
+
+            for(Wedstrijd w: wedstrijd){
+                tafels.remove(w.getTafel());
+            }
+
             disconnect();
+            planningWedstrijd = new PlanningWedstrijd(wedstrijd, tafels);
 
         }catch (Exception e){
             e.printStackTrace();
         }
-        return wedstrijd;
+        return planningWedstrijd;
     }
 
     public void addTafels(int toernooinummer, int aantal){
@@ -93,5 +112,34 @@ public class WedstrijdenDao extends DAO {
             e.printStackTrace();
         }
     }
+
+    public void koppelTafel(Wedstrijd wedstrijd, Tafel tafel){
+        connect();
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement("EXEC STP_KoppelWedstrijdAanTafel ?, ?");
+            preparedStatement.setInt(1, wedstrijd.getWedstrijdnr());
+            preparedStatement.setInt(2, tafel.getTafelnummer());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void onKoppelTafel(Wedstrijd wedstrijd){
+        connect();
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement("EXEC STP_OnKoppelWedstrijdAanTafel ?");
+            preparedStatement.setInt(1, wedstrijd.getTafel().getTafelnummer());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 
 }

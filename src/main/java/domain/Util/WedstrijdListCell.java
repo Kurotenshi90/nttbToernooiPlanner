@@ -22,24 +22,20 @@ public class WedstrijdListCell extends ListCell<Wedstrijd> {
     private static final String CACHE_LIST_ICON_CLASS = "cache-list-icon";
     private static final String FONT_AWESOME = "FontAwesome";
 
-    private GridPane grid = new GridPane();
-    private Label wedstrijdDatum = new Label();
-    private Label wedstrijdnrText = new Label();
-    private Label wedstrijdnr = new Label();
-    private Label wedstrijdBestOfText = new Label();
-    private Label wedstrijdBestOf = new Label();
-    private Label teamA = new Label();
-    private Label teamB = new Label();
+    private GridPane grid;
+    private Label wedstrijdDatum;
+    private Label wedstrijdnrText;
+    private Label wedstrijdnr;
+    private Label wedstrijdBestOfText;
+    private Label wedstrijdBestOf;
+    private Label teamA;
+    private Label teamB;
+    private Label tafelnrText;
+    private Label tafelnr;
     private ArrayList<Label> teamASpelers;
     private ArrayList<Label> teamBSpelers;
 
     public WedstrijdListCell() {
-        teamASpelers = new ArrayList<>();
-        teamBSpelers = new ArrayList<>();
-        configureGrid();
-        configureIcon();
-        configureName();
-        configureDifficultyTerrain();
 
     }
 
@@ -52,8 +48,8 @@ public class WedstrijdListCell extends ListCell<Wedstrijd> {
     private void configureIcon() {
         wedstrijdnr.setFont(Font.font(FONT_AWESOME, FontWeight.BOLD, 24));
         wedstrijdnr.getStyleClass().add(CACHE_LIST_ICON_CLASS);
-        wedstrijdDatum.setFont(Font.font(FONT_AWESOME, FontWeight.BOLD, 24));
-        wedstrijdDatum.getStyleClass().add(CACHE_LIST_ICON_CLASS);
+        wedstrijdBestOf.setFont(Font.font(FONT_AWESOME, FontWeight.BOLD, 24));
+        wedstrijdBestOf.getStyleClass().add(CACHE_LIST_ICON_CLASS);
     }
 
     private void configureName() {
@@ -64,7 +60,7 @@ public class WedstrijdListCell extends ListCell<Wedstrijd> {
     }
 
     private void configureDifficultyTerrain() {
-     //   dt.getStyleClass().add(CACHE_LIST_DT_CLASS);
+        wedstrijdDatum.getStyleClass().add(CACHE_LIST_DT_CLASS);
     }
 
 
@@ -74,6 +70,8 @@ public class WedstrijdListCell extends ListCell<Wedstrijd> {
         if (empty) {
             clearContent();
         } else {
+            configureCell(cache);
+
             for(SpelerInWedstrijd i: cache.getSpeler1()){
                 teamASpelers.add(new Label(i.getVoornaam() + " " + i.getAchternaam() + ", " + i.getBondsnr()));
             }
@@ -81,29 +79,63 @@ public class WedstrijdListCell extends ListCell<Wedstrijd> {
                 teamBSpelers.add(new Label(i.getVoornaam() + " " + i.getAchternaam() + ", " + i.getBondsnr()));
             }
 
-            grid.add(wedstrijdDatum, 0, 0, 3,0);
 
-            grid.add(wedstrijdnrText, 0, 1, 1, 1);
-            grid.add(wedstrijdnr, 0, 2, 1, teamASpelers.size()+teamBSpelers.size()+2);
-
-            grid.add(wedstrijdBestOfText, 1, 2, 1, 1);
-            grid.add(wedstrijdBestOf, 1, 2, 1, teamASpelers.size()+teamBSpelers.size()+2);
-
-            grid.add(teamA, 2, 1);
-
-            for(int i = 0; i<teamASpelers.size(); i++){
-                grid.add(teamASpelers.get(i),2,i+2);
-
-            }
-            grid.add(teamB, 2, teamASpelers.size()+2);
-
-            for(int i = 0; i<teamBSpelers.size(); i++){
-                grid.add(teamBSpelers.get(i),2,teamASpelers.size()+i+3);
-            }
+            setGrid(cache);
 
             addContent(cache);
 
         }
+    }
+
+    private void setGrid(Wedstrijd wedstrijd) {
+        grid.add(wedstrijdDatum, 0, 0, 3,1);
+
+        grid.add(wedstrijdnrText, 0, 1, 1, 1);
+        grid.add(wedstrijdnr, 0, 2, 1, teamASpelers.size()+teamBSpelers.size()+2);
+
+        grid.add(wedstrijdBestOfText, 1, 1, 1, 1);
+        grid.add(wedstrijdBestOf, 1, 2, 1, teamASpelers.size()+teamBSpelers.size()+2);
+
+        grid.add(teamA, 2, 1);
+
+        for(int i = 0; i<teamASpelers.size(); i++){
+            grid.add(teamASpelers.get(i),2,i+2);
+
+        }
+        grid.add(teamB, 2, teamASpelers.size()+2);
+
+        for(int i = 0; i<teamBSpelers.size(); i++){
+            grid.add(teamBSpelers.get(i),2,teamASpelers.size()+i+3);
+        }
+
+        if(wedstrijd.getTafel() != null){
+            grid.add(tafelnrText,3, 1);
+            grid.add(tafelnr, 3, teamASpelers.size()+teamBSpelers.size()+2);
+        }
+
+
+    }
+
+    private void configureCell(Wedstrijd wedstrijd) {
+        grid  = new GridPane();
+        wedstrijdDatum = new Label();
+        wedstrijdnrText = new Label();
+        wedstrijdnr = new Label();
+        wedstrijdBestOfText = new Label();
+        wedstrijdBestOf = new Label();
+        teamA = new Label();
+        teamB = new Label();
+        teamASpelers = new ArrayList<>();
+        teamBSpelers = new ArrayList<>();
+        if(wedstrijd.getTafel() != null){
+            tafelnrText = new Label();
+            tafelnr = new Label();
+        }
+
+        configureIcon();
+        configureName();
+        configureGrid();
+        configureDifficultyTerrain();
     }
 
     private void clearContent() {
@@ -113,9 +145,10 @@ public class WedstrijdListCell extends ListCell<Wedstrijd> {
 
     private void addContent(Wedstrijd cache) {
         setText(null);
+        wedstrijdDatum.setText(cache.getStartTijdDeeltoernooi().toString());
         wedstrijdnrText.setText("Wedstrijdnr:");
         wedstrijdnr.setText(String.valueOf(cache.getWedstrijdnr()));
-        wedstrijdBestOfText.setText("Te winnen rondes:");
+        wedstrijdBestOfText.setText("Best of:");
         wedstrijdBestOf.setText(String.valueOf(cache.getTeWinnenRondes()));
         teamA.setText("Team A:");
         for(int i = 0; i>teamASpelers.size(); i++){
@@ -124,6 +157,11 @@ public class WedstrijdListCell extends ListCell<Wedstrijd> {
         teamB.setText("Team B:");
         for(int i = 0; i>teamBSpelers.size(); i++){
             teamBSpelers.get(i).setText(cache.getSpeler2().get(i).getVoornaam() + " " + cache.getSpeler1().get(i).getAchternaam() + ", " + cache.getSpeler1().get(i).getBondsnr());
+        }
+
+        if(cache.getTafel() != null){
+            tafelnrText.setText("Tafelnummer:");
+            tafelnr.setText(cache.getTafel().getNaam());
         }
 
 
