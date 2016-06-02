@@ -49,14 +49,14 @@ public class WedstrijdenDao extends DAO {
                                                                         "inner join \n" +
                                                                         "Deelnemer dn on dn.Deelnemernr = di.Deelnemernr\n" +
                                                                         "left join Tafels t on t.Wedstrijdnr = w.Wedstrijdnr  \n" +
-                                                                        "where d.Toernooinr = ?");
+                                                                        "where d.Toernooinr = ? and w.TeWinnenRondes >= 1");
             preparedStatement.setInt(1, toernooiId);
             ResultSet rs = preparedStatement.executeQuery();
             PreparedStatement preparedStatement2 = conn.prepareStatement("select d.DeelToernooinr, w.TeWinnenRondes, w.Wedstrijdnr, d.Startdatum, t.TAFELNR from DeelToernooi d \n" +
                                                                          "left join \n" +
                                                                          "Wedstrijd w on  d.DeelToernooinr = w.DeelToernooinr \n" +
                                                                          "left join Tafels t on t.Wedstrijdnr = w.Wedstrijdnr  \n" +
-                                                                         "where d.Toernooinr = ?");
+                                                                         "where d.Toernooinr = ? and w.TeWinnenRondes >= 1 and exists (select 1 from DeelnemerInWedstrijd di where di.Wedstrijdnr = w.Wedstrijdnr)");
 
             preparedStatement2.setInt(1, toernooiId);
             ResultSet rs2 = preparedStatement2.executeQuery();
