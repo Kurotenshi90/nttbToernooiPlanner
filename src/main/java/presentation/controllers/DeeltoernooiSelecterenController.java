@@ -2,6 +2,7 @@ package presentation.controllers;
 
 import domain.Deeltoernooi;
 import domain.Klasse;
+import domain.Toernooi;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ import javafx.stage.Stage;
 import presentation.models.DeeltoernooiSelecterenModel;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 /**
@@ -37,6 +39,11 @@ public class DeeltoernooiSelecterenController implements Initializable{
     @FXML private TableColumn<Klasse, String> KlasseLeeftijd;
     @FXML private TableColumn<Klasse, String> KlasseLicentie;
 
+    @FXML private TableView<Toernooi> ToernooiInfoTable;
+    @FXML private TableColumn<Toernooi, String> ToernooiNaamInfo;
+    @FXML private TableColumn<Toernooi, Date> ToernooiStartdatumInfo;
+    @FXML private TableColumn<Toernooi, Date> ToernooiEinddatumInfo;
+
     @FXML private Button DeeltoernooiInplannen;
     @FXML private Button Annuleren;
 
@@ -46,6 +53,7 @@ public class DeeltoernooiSelecterenController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initializeTableViewToernooiInfo();
         initializeTableViewDeeltoernooiOverzicht();
         initializeTableVIewKlasse();
         alleButtons();
@@ -58,6 +66,14 @@ public class DeeltoernooiSelecterenController implements Initializable{
                 }
             }
         });
+    }
+
+    private void initializeTableViewToernooiInfo(){
+        ToernooiNaamInfo.setCellValueFactory(new PropertyValueFactory<Toernooi, String>("naam"));
+        ToernooiStartdatumInfo.setCellValueFactory(new PropertyValueFactory<Toernooi, Date>("begindatum"));
+        ToernooiEinddatumInfo.setCellValueFactory(new PropertyValueFactory<Toernooi, Date>("einddatum"));
+
+        ToernooiInfoTable.getItems().setAll(deeltoernooiSelecterenModel.getToernooi());
     }
 
     private void initializeTableViewDeeltoernooiOverzicht(){

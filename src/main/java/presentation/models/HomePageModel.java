@@ -16,11 +16,15 @@ public class HomePageModel {
     public HomePageModel(){
         homePageToernoois = new ArrayList<>();
         toernooiService = new ToernooiService();
-        homePageToernoois = toernooiService.getHomePageToernoois();
+        refreshHomePagetoernooi();
     }
 
     public ArrayList<HomePageToernooi> getHomepagetoernooi(){
         return homePageToernoois;
+    }
+
+    public void refreshHomePagetoernooi(){
+        homePageToernoois = toernooiService.getHomePageToernoois();
     }
 
 }

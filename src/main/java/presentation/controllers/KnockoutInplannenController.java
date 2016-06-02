@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import presentation.models.KnockoutInplannenModel;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 /**
@@ -46,6 +47,11 @@ public class KnockoutInplannenController implements Initializable {
     @FXML private TextField Speler2Achternaam;
     @FXML private TextField Speler2Licentie;
 
+    @FXML private TableView<Toernooi> ToernooiInfoTable;
+    @FXML private TableColumn<Toernooi, String> ToernooiNaamInfo;
+    @FXML private TableColumn<Toernooi, Date> ToernooiStartdatumInfo;
+    @FXML private TableColumn<Toernooi, Date> ToernooiEinddatumInfo;
+
 
     @FXML private TableView<Bracket> Brackets;
     @FXML private TableColumn<Bracket, String> BracketsBracketnummer;
@@ -56,7 +62,6 @@ public class KnockoutInplannenController implements Initializable {
     @FXML private Button RemoveDeelnemer2InBracket;
     @FXML private Button Opslaan;
     @FXML private Button Annuleren;
-    @FXML private Button DeeltoernooiStarten;
 
     public KnockoutInplannenController(Toernooi toernooi, int deeltoernooinummer) {
         this.knockoutInplannenModel = new KnockoutInplannenModel(toernooi, deeltoernooinummer);
@@ -66,6 +71,7 @@ public class KnockoutInplannenController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initializeTableViewDeelnemers();
         initializeTableViewBrackets();
+        initializeTableViewToernooiInfo();
         initializeButtons();
         setTextfieldsUneditable();
     }
@@ -86,7 +92,13 @@ public class KnockoutInplannenController implements Initializable {
         }
     }
 
+    private void initializeTableViewToernooiInfo(){
+        ToernooiNaamInfo.setCellValueFactory(new PropertyValueFactory<Toernooi, String>("naam"));
+        ToernooiStartdatumInfo.setCellValueFactory(new PropertyValueFactory<Toernooi, Date>("begindatum"));
+        ToernooiEinddatumInfo.setCellValueFactory(new PropertyValueFactory<Toernooi, Date>("einddatum"));
 
+        ToernooiInfoTable.getItems().setAll(knockoutInplannenModel.getToernooi());
+    }
 
     private void initializeButtons(){
         Annuleren.setOnAction(new EventHandler<ActionEvent>() {
@@ -173,40 +185,8 @@ public class KnockoutInplannenController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 knockoutInplannenModel.saveDeelnemersInPoule();
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/DeeltoernooiSelecteren.fxml"));
-                DeeltoernooiSelecterenController controller = new DeeltoernooiSelecterenController(knockoutInplannenModel.getToernooi().getID());
-                loader.setController(controller);
-                Stage stage = (Stage) Annuleren.getScene().getWindow();
-                Parent root = null;
-                try {
-                    root = loader.load();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                Scene scene = new Scene(root, 1920, 1080);
-                stage.setScene(scene);
-                stage.show();
             }
         });
-//        DeeltoernooiStarten.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                pouleInplannenModel.planEnSluitDeeltoernooiPlanning();
-//                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/DeeltoernooiSelecteren.fxml"));
-//                DeeltoernooiSelecterenController controller = new DeeltoernooiSelecterenController(pouleInplannenModel.getToernooi().getID());
-//                loader.setController(controller);
-//                Stage stage = (Stage) Annuleren.getScene().getWindow();
-//                Parent root = null;
-//                try {
-//                    root = loader.load();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//                Scene scene = new Scene(root, 1920, 1080);
-//                stage.setScene(scene);
-//                stage.show();
-//            }
-//        });
     }
 
     private void setTextFieldsSpeler2Emtpy() {

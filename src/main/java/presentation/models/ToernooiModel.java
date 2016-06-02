@@ -149,6 +149,10 @@ public class ToernooiModel {
         }
     }
 
+    public void deleteToernooi (int toernooiID) {
+        toernooiService.deleteToernooi(toernooiID);
+    }
+
     public Toernooi getToernooi() {
         return toernooi;
     }

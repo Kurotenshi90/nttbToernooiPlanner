@@ -391,4 +391,16 @@ public class ToernooiDao extends DAO {
         }
 
     }
+
+    public void deleteToernooi(int toernooiID) {
+        String delete = "EXEC Stp_DeleteToernooi ?";
+        connect();
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(delete);
+            preparedStatement.setInt(1, toernooiID);
+            preparedStatement.executeUpdate();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
