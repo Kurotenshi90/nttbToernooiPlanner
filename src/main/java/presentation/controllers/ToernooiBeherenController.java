@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
 import presentation.models.HomePageModel;
@@ -42,6 +43,7 @@ public class ToernooiBeherenController implements Initializable{
     @FXML private Button Button_ToernooiAanmaken;
     @FXML private Button Button_ToernooiBewerken;
     @FXML private Button Button_ToernooiBekijken;
+    @FXML private Button Button_ToernooiVerwijderen;
     @FXML private Button Home;
     private HomePageModel homePageModel;
     @Override
@@ -67,6 +69,7 @@ public class ToernooiBeherenController implements Initializable{
             if(role.equals("Voorzitter")){
                 Button_ToernooiAanmaken.setVisible(false);
                 Button_ToernooiBewerken.setVisible(false);
+                Button_ToernooiVerwijderen.setVisible(false);
             }
 
         }catch (Exception e){
@@ -119,6 +122,30 @@ public class ToernooiBeherenController implements Initializable{
             }
 
 
+        });
+
+        Button_ToernooiVerwijderen.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                HomePageToernooi toernooi = TableViewToernooiOverzicht.getSelectionModel().getSelectedItem();
+                if(toernooi != null) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/ToernooiVerwijderen.fxml"));
+                    ToernooiVerwijderenController controller = new ToernooiVerwijderenController(toernooi.getId(), getController());
+                    loader.setController(controller);
+                    Parent root = null;
+                    try {
+                        root = loader.load();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Stage stage = new Stage();
+                    Scene scene = new Scene(root, 320, 200);
+                    stage.setScene(scene);
+                    stage.initOwner(Button_ToernooiVerwijderen.getScene().getWindow());
+                    stage.initModality(Modality.WINDOW_MODAL);
+                    stage.show();
+                }
+            }
         });
 
         Home.setOnAction(new EventHandler<ActionEvent>() {
@@ -203,5 +230,16 @@ public class ToernooiBeherenController implements Initializable{
             return property;
         });
         TableViewToernooiOverzicht.getItems().setAll(homePageModel.getHomepagetoernooi());
+    }
+
+    public void refreshToernooiBeheren(){
+        //homePageModel = new HomePageModel();
+        homePageModel.refreshHomePagetoernooi();
+        TableViewToernooiOverzicht.getItems().setAll(homePageModel.getHomepagetoernooi());
+
+    }
+
+    private ToernooiBeherenController getController(){
+        return  this;
     }
 }

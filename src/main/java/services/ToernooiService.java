@@ -38,4 +38,8 @@ public class ToernooiService {
     public void knockoutToernooiAanmaken(Deeltoernooi deeltoernooi){
         toernooiDao.knockoutToernooiAanmaken(deeltoernooi);
     }
+
+    public void deleteToernooi(int toernooiID) {
+        toernooiDao.deleteToernooi(toernooiID);
+    }
 }

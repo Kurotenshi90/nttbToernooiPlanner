@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import presentation.models.PouleInplannenModel;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 /**
@@ -46,6 +47,11 @@ public class PouleInplannenDubbelController implements Initializable {
     @FXML private TableColumn<Deelnemer, String> DeelnemersInPoulePoulenummer;
     @FXML private TableColumn<Deelnemer, String> DeelnemersInPouleBondsnummerPartner;
 
+    @FXML private TableView<Toernooi> ToernooiInfoTable;
+    @FXML private TableColumn<Toernooi, String> ToernooiNaamInfo;
+    @FXML private TableColumn<Toernooi, Date> ToernooiStartdatumInfo;
+    @FXML private TableColumn<Toernooi, Date> ToernooiEinddatumInfo;
+
     @FXML private TextField TeWinnenRondes;
 
     @FXML private Button AddDeelnemerInPoule;
@@ -62,10 +68,19 @@ public class PouleInplannenDubbelController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initializeTableViewToernooiInfo();
         initializeTableViewDeelnemers();
         initializeTableViewPoules();
         initializeTableViewDeelnemersInPoule();
         initializeButtons();
+    }
+
+    private void initializeTableViewToernooiInfo(){
+        ToernooiNaamInfo.setCellValueFactory(new PropertyValueFactory<Toernooi, String>("naam"));
+        ToernooiStartdatumInfo.setCellValueFactory(new PropertyValueFactory<Toernooi, Date>("begindatum"));
+        ToernooiEinddatumInfo.setCellValueFactory(new PropertyValueFactory<Toernooi, Date>("einddatum"));
+
+        ToernooiInfoTable.getItems().setAll(pouleInplannenModel.getToernooi());
     }
 
     private void initializeTableViewDeelnemers(){
@@ -162,19 +177,6 @@ public class PouleInplannenDubbelController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 pouleInplannenModel.saveDeelnemersInPoule();
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/DeeltoernooiSelecteren.fxml"));
-                DeeltoernooiSelecterenController controller = new DeeltoernooiSelecterenController(pouleInplannenModel.getToernooi().getID());
-                loader.setController(controller);
-                Stage stage = (Stage) Annuleren.getScene().getWindow();
-                Parent root = null;
-                try {
-                    root = loader.load();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                Scene scene = new Scene(root, 1920, 1080);
-                stage.setScene(scene);
-                stage.show();
             }
         });
         DeeltoernooiStarten.setOnAction(new EventHandler<ActionEvent>() {
