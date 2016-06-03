@@ -2,6 +2,7 @@ package services;
 
 import datasource.DAO.WedstrijdenDao;
 import domain.PlanningWedstrijd;
+import domain.Ronde;
 import domain.Tafel;
 import domain.Wedstrijd;
 
@@ -30,5 +31,17 @@ public class WedstrijdenService {
     }
     public void onKoppelTafel(Wedstrijd wedstrijd){
         wedstrijdenDao.onKoppelTafel(wedstrijd);
+    }
+
+    public void rondeInvoeren(int wedstrijdnr, Ronde ronde){
+        wedstrijdenDao.voerRondeIn(wedstrijdnr, ronde);
+    }
+
+    public ArrayList<Ronde> getRondes(int toernooiId){
+        return wedstrijdenDao.getRondesOpToernooi(toernooiId);
+    }
+
+    public void rondeVerwijderen(Ronde ronde){
+        wedstrijdenDao.verwijderRonde(ronde);
     }
 }

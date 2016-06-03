@@ -1,9 +1,6 @@
 package datasource.DAO;
 
-import domain.PlanningWedstrijd;
-import domain.SpelerInWedstrijd;
-import domain.Tafel;
-import domain.Wedstrijd;
+import domain.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,6 +30,28 @@ public class WedstrijdenDao extends DAO {
             e.printStackTrace();
         }
         return tafels;
+    }
+
+    public ArrayList<Ronde> getRondesOpToernooi(int toernooiId){
+        connect();
+        ArrayList<Ronde> rondes = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement("select w.Wedstrijdnr, r.Rondenr, r.ScoreA, r.ScoreB from ronde r inner join Wedstrijd w on w.Wedstrijdnr = r.Wedstrijdnr inner join DeelToernooi d on d.DeelToernooinr = w.DeelToernooinr where d.Toernooinr = ?");
+            preparedStatement.setInt(1, toernooiId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                Ronde ronde = new Ronde(resultSet.getInt(3), resultSet.getInt(4));
+                ronde.setRondenr(resultSet.getInt(2));
+                ronde.setWedstrijdnr(resultSet.getInt(1));
+                rondes.add(ronde);
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  rondes;
     }
 
     public PlanningWedstrijd getwedstrijden(int toernooiId){
@@ -124,7 +143,7 @@ public class WedstrijdenDao extends DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        disconnect();
     }
 
     public void onKoppelTafel(Wedstrijd wedstrijd){
@@ -137,7 +156,37 @@ public class WedstrijdenDao extends DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        disconnect();
+    }
 
+    public void voerRondeIn(int wedstrijdnr, Ronde ronde){
+        connect();
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = conn.prepareStatement("EXEC STP_RondeInvoeren ?,?, ?");
+            preparedStatement.setInt(1, wedstrijdnr);
+            preparedStatement.setInt(2, ronde.getScoreA());
+            preparedStatement.setInt(3, ronde.getScoreB());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        disconnect();
+    }
+
+    public void verwijderRonde(Ronde ronde){
+        connect();
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement("EXEC STP_RondeVerwijderen ?, ?");
+            preparedStatement.setInt(1, ronde.getWedstrijdnr());
+            preparedStatement.setInt(2, ronde.getRondenr());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        disconnect();
     }
 
 

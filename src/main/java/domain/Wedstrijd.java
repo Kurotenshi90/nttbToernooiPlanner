@@ -14,15 +14,25 @@ public class Wedstrijd {
     private Tafel tafel;
     private ArrayList<SpelerInWedstrijd> speler1;
     private ArrayList<SpelerInWedstrijd> speler2;
+    private ArrayList<Ronde> rondes;
 
 
     public Wedstrijd(int deeltoernooinr, int teWinnenRondes, int wedstrijdnr, LocalDateTime startTijdDeeltoernooi) {
+        rondes = new ArrayList<>();
         this.deeltoernooinr = deeltoernooinr;
         this.teWinnenRondes = teWinnenRondes;
         this.wedstrijdnr = wedstrijdnr;
         this.startTijdDeeltoernooi = startTijdDeeltoernooi;
         this.speler1 = new ArrayList<>();
         this.speler2 = new ArrayList<>();
+    }
+
+    public ArrayList<Ronde> getRondes() {
+        return rondes;
+    }
+
+    public void setRondes(ArrayList<Ronde> rondes) {
+        this.rondes = rondes;
     }
 
     public int getDeeltoernooinr() {

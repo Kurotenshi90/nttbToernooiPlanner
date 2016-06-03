@@ -150,7 +150,7 @@ public class WedstrijdenInplannenController implements Initializable {
                     if(deeltoernooi!=null){
                         Wedstrijden.getItems().setAll(wedstrijdenInplannenModel.getNietGeplandeWedstrijdenOnDeeltoernooir(deeltoernooi.getDeeltoernooinr()));
                     } else {
-                        IngeplandeWedstrijden.getItems().setAll(wedstrijdenInplannenModel.getGeplandeWedstrijden());
+                        Wedstrijden.getItems().setAll(wedstrijdenInplannenModel.getNietGeplandeWedstrijden());
                     }
                     Tafels.getItems().setAll(wedstrijdenInplannenModel.getPlanningWedstrijd().getTafels());
                     IngeplandeWedstrijden.getItems().setAll(wedstrijdenInplannenModel.getGeplandeWedstrijden());
