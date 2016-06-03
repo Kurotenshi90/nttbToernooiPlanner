@@ -16,22 +16,22 @@
                 <Image url="@../images/TopBorder.png" />
             </image>
         </ImageView>
-        <DatePicker fx:id="BegindatumValue" layoutX="360.0" layoutY="200.0" />
-        <DatePicker fx:id="EinddatumValue" layoutX="360.0" layoutY="250.0" />
-        <TextField fx:id="ToernooiNaamValue" layoutX="50.0" layoutY="150.0" />
-        <Button fx:id="ToernooiAanmaken" layoutX="1577.0" layoutY="940.0" mnemonicParsing="false" styleClass="button-big" text="Opslaan" />
-        <Label layoutX="50.0" layoutY="130.0" text="Toernooinaam" />
-        <Label layoutX="360.0" layoutY="180.0" text="Begindatum" />
-        <Label layoutX="360.0" layoutY="230.0" text="Eindatum" />
-        <Label layoutX="360.0" layoutY="130.0" text="Inschrijfdatum" />
-        <DatePicker fx:id="InschrijfdatumValue" layoutX="360.0" layoutY="150.0" />
-        <Label fx:id="LocatieLabel" layoutX="54.0" layoutY="480.0" text="Locatie" />
-        <Button fx:id="NieuweLocatieToevoegen" layoutX="50.0" layoutY="727.0" mnemonicParsing="false" styleClass="button-small" text="Nieuwe locatie toevoegen" />
-        <Label layoutX="1000.0" layoutY="450.0" text="Prijs" />
-        <TextField fx:id="PrijsValue" layoutX="1000.0" layoutY="470.0" />
-        <TextArea fx:id="BetalingsinformatieValue" layoutX="50.0" layoutY="250.0" prefHeight="67.0" prefWidth="192.0" />
-        <Label layoutX="50.0" layoutY="230.0" text="Betalingsinformatie" />
-        <TableView fx:id="LocatieTable" layoutX="50.0" layoutY="505.0" prefHeight="200.0" prefWidth="500.0">
+        <DatePicker fx:id="BegindatumValue" layoutX="400.0" layoutY="240.0" />
+        <DatePicker fx:id="EinddatumValue" layoutX="400.0" layoutY="290.0" />
+        <TextField fx:id="ToernooiNaamValue" layoutX="75.0" layoutY="190.0" prefHeight="25.0" prefWidth="275.0" />
+        <Button fx:id="ToernooiAanmaken" layoutX="1565.0" layoutY="950.0" mnemonicParsing="false" styleClass="button-big" text="Opslaan" />
+        <Label layoutX="75.0" layoutY="170.0" text="Toernooinaam" />
+        <Label layoutX="400.0" layoutY="220.0" text="Begindatum" />
+        <Label layoutX="400.0" layoutY="270.0" text="Eindatum" />
+        <Label layoutX="400.0" layoutY="170.0" text="Inschrijfdatum" />
+        <DatePicker fx:id="InschrijfdatumValue" layoutX="400.0" layoutY="190.0" />
+        <Label fx:id="LocatieLabel" layoutX="75.0" layoutY="500.0" style="-fx-font-size: 20px;" text="Locatie invoeren" />
+        <Button fx:id="NieuweLocatieToevoegen" layoutX="380.0" layoutY="910.0" mnemonicParsing="false" styleClass="button-small" text="Nieuwe locatie toevoegen" />
+        <Label layoutX="700.0" layoutY="480.0" text="Prijs" />
+        <TextField fx:id="PrijsValue" layoutX="700.0" layoutY="500.0" prefWidth="150.0" />
+        <TextArea fx:id="BetalingsinformatieValue" layoutX="75.0" layoutY="240.0" prefHeight="80.0" prefWidth="275.0" />
+        <Label layoutX="75.0" layoutY="220.0" text="Betalingsinformatie" />
+        <TableView fx:id="LocatieTable" layoutX="75.0" layoutY="590.0" prefHeight="300.0" prefWidth="500.0">
             <columns>
                 <TableColumn fx:id="Plaats" prefWidth="75.0" text="Plaats" />
                 <TableColumn fx:id="Straat" prefWidth="98.0" text="Straat" />
@@ -41,13 +41,13 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
         </TableView>
-        <TextField fx:id="StraatValue" editable="false" layoutX="600.0" layoutY="200.0" />
-        <Label layoutX="600.0" layoutY="180.0" text="Straat" />
-        <Label layoutX="600.0" layoutY="130.0" text="Plaats" />
-        <TextField fx:id="PlaatsValue" editable="false" layoutX="600.0" layoutY="150.0" />
-        <Label layoutX="600.0" layoutY="230.0" text="Huisnummer" />
-        <TextField fx:id="HuisnummerValue" editable="false" layoutX="600.0" layoutY="250.0" />
-      <TableView fx:id="CommisieLeden" layoutX="1003.0" layoutY="184.0" prefHeight="250.0" prefWidth="200.0">
+        <TextField fx:id="StraatValue" editable="false" layoutX="240.0" layoutY="550.0" />
+        <Label layoutX="240.0" layoutY="530.0" text="Straat" />
+        <Label layoutX="75.0" layoutY="530.0" text="Plaats" />
+        <TextField fx:id="PlaatsValue" editable="false" layoutX="75.0" layoutY="550.0" />
+        <Label layoutX="410.0" layoutY="530.0" text="Huisnummer" />
+        <TextField fx:id="HuisnummerValue" editable="false" layoutX="410.0" layoutY="550.0" />
+      <TableView fx:id="CommisieLeden" layoutX="700.0" layoutY="170.0" prefHeight="250.0" prefWidth="200.0">
         <columns>
           <TableColumn fx:id="CommisieVoornaam" prefWidth="75.0" text="Voornaam" />
         </columns>
@@ -55,29 +55,26 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TableView fx:id="AddedCommisieLeden" editable="true" layoutX="1305.0" layoutY="184.0" prefHeight="250.0" prefWidth="450.0">
+      <TableView fx:id="AddedCommisieLeden" editable="true" layoutX="1000.0" layoutY="170.0" prefHeight="250.0" prefWidth="750.0">
         <columns>
-            <TableColumn fx:id="AddedCommisieVoornaam" prefWidth="75.0" text="Voornaam" />
-            <TableColumn text="Leider">
+            <TableColumn fx:id="AddedCommisieVoornaam" minWidth="150.0" prefWidth="75.0" resizable="false" text="Voornaam" />
+            <TableColumn minWidth="100.0" prefWidth="100.0" resizable="false" text="Leider">
             <cellValueFactory><PropertyValueFactory property="leider" /></cellValueFactory>
             <cellFactory><CheckBoxCellFactory /></cellFactory>
         </TableColumn>
-            <TableColumn text="Contactpersoon">
+            <TableColumn minWidth="150.0" prefWidth="150.0" resizable="false" text="Contactpersoon">
                 <cellValueFactory><PropertyValueFactory property="contactpersoon" /></cellValueFactory>
                 <cellFactory><CheckBoxCellFactory /></cellFactory>
             </TableColumn>
-            <TableColumn prefWidth="75.0" text="Bondsvertegenwoordiger">
+            <TableColumn minWidth="200.0" prefWidth="240.0" resizable="false" text="Bondsvertegenwoordiger">
                 <cellValueFactory><PropertyValueFactory property="bondsVertegenwoordiger" /></cellValueFactory>
                 <cellFactory><CheckBoxCellFactory /></cellFactory>
             </TableColumn>
 
         </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
       </TableView>
-      <Button fx:id="CommisieLidToevoegen" layoutX="1232.0" layoutY="209.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
-      <TableView fx:id="Deeltoernooi" layoutX="825.0" layoutY="590.0" prefHeight="300.0" prefWidth="400.0">
+      <Button fx:id="CommisieLidToevoegen" layoutX="925.0" layoutY="225.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
+      <TableView fx:id="Deeltoernooi" layoutX="700.0" layoutY="590.0" prefHeight="300.0" prefWidth="500.0">
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
@@ -92,7 +89,7 @@
             </TableColumn>
          </columns>
       </TableView>
-      <TableView fx:id="DeeltoernooiKlasse" layoutX="1577.0" layoutY="590.0" prefHeight="300.0" prefWidth="200.0">
+      <TableView fx:id="DeeltoernooiKlasse" layoutX="1550.0" layoutY="590.0" prefHeight="300.0" prefWidth="200.0">
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
@@ -105,7 +102,7 @@
             </TableColumn>
          </columns>
       </TableView>
-      <TableView fx:id="Klasse" layoutX="1279.0" layoutY="592.0" prefHeight="300.0" prefWidth="200.0">
+      <TableView fx:id="Klasse" layoutX="1250.0" layoutY="590.0" prefHeight="300.0" prefWidth="200.0">
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
@@ -118,20 +115,21 @@
             </TableColumn>
          </columns>
       </TableView>
-      <Button fx:id="KlasseToevoegen" layoutX="1506.0" layoutY="655.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
-      <Button fx:id="CommisieLidVerwijderen" layoutX="1230.0" layoutY="359.0" mnemonicParsing="false" styleClass="button-ball" text="&lt;" />
+      <Button fx:id="KlasseToevoegen" layoutX="1475.0" layoutY="665.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
+      <Button fx:id="CommisieLidVerwijderen" layoutX="925.0" layoutY="325.0" mnemonicParsing="false" styleClass="button-ball" text="&lt;" />
         <Button fx:id="Home" layoutX="10.0" layoutY="5.0" mnemonicParsing="false" styleClass="button-home" />
-      <Button fx:id="Annuleren" layoutX="50.0" layoutY="940.0" mnemonicParsing="false" styleClass="button-big" text="Annuleren" />
-      <ChoiceBox fx:id="SysteemType" layoutX="361.0" layoutY="329.0" prefWidth="150.0" />
-      <Label layoutX="366.0" layoutY="309.0" text="Systeemtype" />
-      <TextField fx:id="MaxAantalSpelers" layoutX="826.0" layoutY="472.0" />
-      <ChoiceBox fx:id="Spelvorm" layoutX="825.0" layoutY="516.0" prefWidth="150.0" />
-      <Label fx:id="MaxAantalSpelersLabel" layoutX="828.0" layoutY="444.0" text="Max aantal Spelers" />
-      <Label fx:id="SpelvormLabel" layoutX="825.0" layoutY="497.0" text="Spelvorm" />
-      <Button fx:id="AddDeeltoernooi" layoutX="825.0" layoutY="547.0" mnemonicParsing="false" styleClass="button-small" text="Add deeltoernooi" />
-      <Button fx:id="KlasseVerwijderen" layoutX="1506.0" layoutY="810.0" mnemonicParsing="false" styleClass="button-ball" text="&lt;" />
-      <Button fx:id="DeleteDeeltoernooi" layoutX="1000.0" layoutY="901.0" mnemonicParsing="false" styleClass="button-small" text="Verwijder deeltoernooi" />
-      <LocalDateTimeTextField fx:id="DatetimeDeeltoernooi" layoutX="1003.0" layoutY="516.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="169.0" />
-      <Label fx:id="SpelvormLabel1" layoutX="1000.0" layoutY="497.0" text="Datum en tijd" />
+      <Button fx:id="Annuleren" layoutX="75.0" layoutY="950.0" mnemonicParsing="false" styleClass="button-big" text="Annuleren" />
+      <ChoiceBox fx:id="SysteemType" layoutX="75.0" layoutY="347.0" prefWidth="150.0" />
+      <Label layoutX="75.0" layoutY="327.0" text="Systeemtype" />
+      <TextField fx:id="MaxAantalSpelers" layoutX="870.0" layoutY="500.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="Spelvorm" layoutX="700.0" layoutY="550.0" prefWidth="150.0" />
+      <Label fx:id="MaxAantalSpelersLabel" layoutX="870.0" layoutY="480.0" text="Max aantal Spelers" />
+      <Label fx:id="SpelvormLabel" layoutX="700.0" layoutY="530.0" text="Spelvorm" />
+      <Button fx:id="AddDeeltoernooi" layoutX="1050.0" layoutY="549.0" mnemonicParsing="false" styleClass="button-small" text="Add deeltoernooi" />
+      <Button fx:id="KlasseVerwijderen" layoutX="1475.0" layoutY="765.0" mnemonicParsing="false" styleClass="button-ball" text="&lt;" />
+      <Button fx:id="DeleteDeeltoernooi" layoutX="700.0" layoutY="910.0" mnemonicParsing="false" styleClass="button-small" text="Verwijder deeltoernooi" />
+      <LocalDateTimeTextField fx:id="DatetimeDeeltoernooi" layoutX="870.0" layoutY="550.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="169.0" />
+      <Label fx:id="SpelvormLabel1" layoutX="871.0" layoutY="530.0" text="Datum en tijd" />
+      <Label fx:id="LocatieLabel1" layoutX="75.0" layoutY="140.0" style="-fx-font-size: 20px;" text="Toernooi informatie" />
     </children>
 </Pane>
