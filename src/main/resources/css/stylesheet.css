@@ -120,3 +120,8 @@
 .cache-list-found .cache-list-icon {
     -fx-text-fill: #669900;
 }
+
+@font-face {
+    font-family: 'Crimes Times Six';
+    src: url('http://www.fontsaddict.com/fontface/crimes-times-six.ttf');
+}
