@@ -1,6 +1,6 @@
 package domain.Util;
 
-import domain.CommisieLidInToernooi;
+import domain.CommissieLidInToernooi;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.util.Callback;
@@ -13,7 +13,7 @@ public class CheckBoxCellFactory implements Callback {
 
     @Override
     public TableCell call(Object param) {
-        CheckBoxTableCell<CommisieLidInToernooi, Boolean> checkBoxTableCell= new CheckBoxTableCell<>();
+        CheckBoxTableCell<CommissieLidInToernooi, Boolean> checkBoxTableCell= new CheckBoxTableCell<>();
         return checkBoxTableCell;
     }
 }

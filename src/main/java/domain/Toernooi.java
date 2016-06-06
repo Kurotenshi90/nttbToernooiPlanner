@@ -1,12 +1,7 @@
 package domain;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by Peter-Paul on 20/04/2016.
@@ -20,7 +15,7 @@ public class Toernooi {
     public Locatie locatie;
     public String betalingsinformatie;
     public String toernooisoort;
-    private ArrayList<CommisieLidInToernooi> commisieLidInToernooi;
+    private ArrayList<CommissieLidInToernooi> commisieLidInToernooi;
     private ArrayList<Deeltoernooi> deeltoernoois;
 
     public Toernooi() {
@@ -29,11 +24,11 @@ public class Toernooi {
 
 
 
-    public ArrayList<CommisieLidInToernooi> getCommisieLidInToernooi() {
+    public ArrayList<CommissieLidInToernooi> getCommisieLidInToernooi() {
         return commisieLidInToernooi;
     }
 
-    public void setCommisieLidInToernooi(ArrayList<CommisieLidInToernooi> commisieLidInToernooi) {
+    public void setCommisieLidInToernooi(ArrayList<CommissieLidInToernooi> commisieLidInToernooi) {
         this.commisieLidInToernooi = commisieLidInToernooi;
     }
 
