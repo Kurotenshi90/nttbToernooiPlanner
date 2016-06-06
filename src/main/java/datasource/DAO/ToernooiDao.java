@@ -271,7 +271,7 @@ public class ToernooiDao extends DAO {
             stringBuilderDeeltoernooiKlasse.append("}]");
             preparedStatement.setString(11, stringBuilderDeeltoernooiKlasse.toString());
 
-            preparedStatement.executeUpdate();
+            preparedStatement.execute();
 
         }catch (Exception e){
             e.printStackTrace();
