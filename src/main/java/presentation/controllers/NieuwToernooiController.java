@@ -169,7 +169,7 @@ public class NieuwToernooiController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                String string = DatetimeDeeltoernooi.getDisplayedLocalDateTime().format(dateTimeFormatter);
+                String string = DatetimeDeeltoernooi.getLocalDateTime().format(dateTimeFormatter);
                 LocalDateTime localDateTime = LocalDateTime.parse(string, dateTimeFormatter);
                 nieuwToernooiModel.addDeeltoernooi(new Deeltoernooi(Integer.parseInt(MaxAantalSpelers.getText()),0, localDateTime, Double.parseDouble(PrijsValue.getText()),Spelvorm.getValue().toString(), false));
                 Deeltoernooi.getItems().setAll(nieuwToernooiModel.getDeeltoernoois());

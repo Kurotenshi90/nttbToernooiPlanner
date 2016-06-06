@@ -11,19 +11,28 @@ public class Wedstrijd {
     private int teWinnenRondes;
     private int wedstrijdnr;
     private LocalDateTime startTijdDeeltoernooi;
-    private int tafelnr;
+    private Tafel tafel;
     private ArrayList<SpelerInWedstrijd> speler1;
     private ArrayList<SpelerInWedstrijd> speler2;
+    private ArrayList<Ronde> rondes;
 
 
-    public Wedstrijd(int deeltoernooinr, int teWinnenRondes, int wedstrijdnr, LocalDateTime startTijdDeeltoernooi, int tafelnr) {
+    public Wedstrijd(int deeltoernooinr, int teWinnenRondes, int wedstrijdnr, LocalDateTime startTijdDeeltoernooi) {
+        rondes = new ArrayList<>();
         this.deeltoernooinr = deeltoernooinr;
         this.teWinnenRondes = teWinnenRondes;
         this.wedstrijdnr = wedstrijdnr;
         this.startTijdDeeltoernooi = startTijdDeeltoernooi;
-        this.tafelnr = tafelnr;
         this.speler1 = new ArrayList<>();
         this.speler2 = new ArrayList<>();
+    }
+
+    public ArrayList<Ronde> getRondes() {
+        return rondes;
+    }
+
+    public void setRondes(ArrayList<Ronde> rondes) {
+        this.rondes = rondes;
     }
 
     public int getDeeltoernooinr() {
@@ -50,12 +59,16 @@ public class Wedstrijd {
         this.startTijdDeeltoernooi = startTijdDeeltoernooi;
     }
 
-    public int getTafelnr() {
-        return tafelnr;
+    public Tafel getTafel() {
+        return tafel;
     }
 
-    public void setTafelnr(int tafelnr) {
-        this.tafelnr = tafelnr;
+    public void setTafel(Tafel tafel) {
+        this.tafel = tafel;
+    }
+
+    public void removeTafel(){
+        tafel = null;
     }
 
     public int getWedstrijdnr() {

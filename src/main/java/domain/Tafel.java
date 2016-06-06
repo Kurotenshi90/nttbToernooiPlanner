@@ -47,4 +47,8 @@ public class Tafel {
     public void setWedstrijdnummer(int wedstrijdnummer) {
         this.wedstrijdnummer = wedstrijdnummer;
     }
+
+    public String toString() {
+        return naam;
+    }
 }

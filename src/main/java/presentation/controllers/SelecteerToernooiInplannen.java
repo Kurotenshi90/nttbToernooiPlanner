@@ -42,6 +42,7 @@ public class SelecteerToernooiInplannen implements Initializable{
     @FXML private Button Button_ToernooiInplannen;
     @FXML private Button Button_MatchInplannen;
     @FXML private Button Button_Terug;
+    @FXML private Button Button_ScoreInvoeren;
 
     private HomePageModel homePageModel;
     @Override
@@ -55,6 +56,24 @@ public class SelecteerToernooiInplannen implements Initializable{
 
 
     private void initializeButtons() {
+        Button_ScoreInvoeren.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/ScoresInvoeren.fxml"));
+                ScoreInvoerenController controller = new ScoreInvoerenController(TableViewToernooiOverzicht.getSelectionModel().getSelectedItem().getId());
+                loader.setController(controller);
+                Stage stage = (Stage) Button_MatchInplannen.getScene().getWindow();
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Scene scene = new Scene(root, 1920, 1080);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
         Button_MatchInplannen.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

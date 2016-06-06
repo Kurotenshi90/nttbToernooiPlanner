@@ -152,7 +152,7 @@ public class UpdateToernooiController implements Initializable {
         AddDeeltoernooi.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                toernooiModel.addDeeltoernooi(new Deeltoernooi(Integer.parseInt(MaxAantalSpelers.getText()),0, DatetimeDeeltoernooi.getDisplayedLocalDateTime(), Double.parseDouble(PrijsValue.getText()),Spelvorm.getValue().toString(), false));
+                toernooiModel.addDeeltoernooi(new Deeltoernooi(Integer.parseInt(MaxAantalSpelers.getText()),0, DatetimeDeeltoernooi.getLocalDateTime(), Double.parseDouble(PrijsValue.getText()),Spelvorm.getValue().toString(), false));
                 Deeltoernooi.getItems().setAll(toernooiModel.getDeeltoernoois());
             }
         });
