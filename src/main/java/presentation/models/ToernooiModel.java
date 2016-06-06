@@ -3,9 +3,6 @@ package presentation.models;
 import domain.*;
 import services.*;
 
-import java.lang.reflect.Array;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +13,7 @@ import java.util.List;
 public class ToernooiModel {
     private ArrayList<NieuwToernooiCommissieLeden> nieuwToernooiCommissieLeden;
     private ArrayList<NieuwToernooiCommissieLeden> nieuwToernooiCommissieLedenshow;
-    private ArrayList<CommisieLidInToernooi> addedCommisieLeden = new ArrayList<>();
+    private ArrayList<CommissieLidInToernooi> addedCommisieLeden = new ArrayList<>();
 
     private ArrayList<Deeltoernooi> deeltoernoois = new ArrayList<>();
     private ArrayList<Locatie> locaties = new ArrayList<>();
@@ -63,11 +60,11 @@ public class ToernooiModel {
         this.locatie = locatie;
     }
 
-    public List<CommisieLidInToernooi> getAddedCommisieLeden() {
+    public List<CommissieLidInToernooi> getAddedCommisieLeden() {
         return addedCommisieLeden;
     }
 
-    public void addAddedCommisieLeden(CommisieLidInToernooi addedCommisieLid) {
+    public void addAddedCommisieLeden(CommissieLidInToernooi addedCommisieLid) {
         addedCommisieLeden.add(addedCommisieLid);
         makeCommissieledenList();
     }
@@ -76,7 +73,7 @@ public class ToernooiModel {
         nieuwToernooiCommissieLedenshow = new ArrayList<>();
         for (NieuwToernooiCommissieLeden ntc: nieuwToernooiCommissieLeden) {
             boolean bestaat = false;
-            for(CommisieLidInToernooi ct: addedCommisieLeden){
+            for(CommissieLidInToernooi ct: addedCommisieLeden){
                 if(ntc.getLidnr() == ct.getLidnr()) {
                     bestaat = true;
                 }
@@ -107,7 +104,7 @@ public class ToernooiModel {
         return klasseShow;
     }
 
-    public void deleteCommissieLid(CommisieLidInToernooi deletedCommissielid){
+    public void deleteCommissieLid(CommissieLidInToernooi deletedCommissielid){
         for(int i= addedCommisieLeden.size()-1; i>=0; i--){
             if(deletedCommissielid.getLidnr() == addedCommisieLeden.get(i).getLidnr()){
                 addedCommisieLeden.remove(i);
@@ -144,7 +141,7 @@ public class ToernooiModel {
     public void getOneToernooi(int toernooiID){
         toernooi = toernooiService.getOneToernooi(toernooiID);
         deeltoernoois = toernooi.getDeeltoernoois();
-        for(CommisieLidInToernooi commisieLidInToernooi: toernooi.getCommisieLidInToernooi()){
+        for(CommissieLidInToernooi commisieLidInToernooi: toernooi.getCommisieLidInToernooi()){
             addedCommisieLeden.add(commisieLidInToernooi);
         }
     }

@@ -41,6 +41,7 @@ public class SelecteerToernooiInplannen implements Initializable{
     @FXML private Button DeelnemersAanpassen;
     @FXML private Button Button_ToernooiInplannen;
     @FXML private Button Button_MatchInplannen;
+    @FXML private Button Button_Terug;
     @FXML private Button Button_ScoreInvoeren;
 
     private HomePageModel homePageModel;
@@ -150,6 +151,24 @@ public class SelecteerToernooiInplannen implements Initializable{
             }
         });
 
+        Button_Terug.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/Menu.fxml"));
+                MenuController controller = new MenuController();
+                loader.setController(controller);
+                Stage stage = (Stage) Button_Terug.getScene().getWindow();
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Scene scene = new Scene(root, 1920, 1080);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
 
     }
 

@@ -45,6 +45,7 @@ public class ToernooiBeherenController implements Initializable{
     @FXML private Button Button_ToernooiBekijken;
     @FXML private Button Button_ToernooiVerwijderen;
     @FXML private Button Home;
+    @FXML private Button Button_Terug;
     private HomePageModel homePageModel;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -104,9 +105,8 @@ public class ToernooiBeherenController implements Initializable{
             public void handle(ActionEvent event) {
                 HomePageToernooi toernooi = TableViewToernooiOverzicht.getSelectionModel().getSelectedItem();
                 if(toernooi != null) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/NieuwToernooi.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/BekijkToernooi.fxml"));
                     BekijkToernooiController controller = new BekijkToernooiController(toernooi.getId());
-
                     loader.setController(controller);
                     Stage stage = (Stage) Button_ToernooiBekijken.getScene().getWindow();
                     Parent root = null;
@@ -190,6 +190,25 @@ public class ToernooiBeherenController implements Initializable{
             }
 
 
+        });
+
+        Button_Terug.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/Menu.fxml"));
+                MenuController controller = new MenuController();
+                loader.setController(controller);
+                Stage stage = (Stage) Button_Terug.getScene().getWindow();
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Scene scene = new Scene(root, 1920, 1080);
+                stage.setScene(scene);
+                stage.show();
+            }
         });
 
     }

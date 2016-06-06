@@ -1,6 +1,5 @@
 package datasource.DAO;
 
-import domain.CommisieLidInToernooi;
 import domain.Deelnemer;
 
 import java.sql.PreparedStatement;
