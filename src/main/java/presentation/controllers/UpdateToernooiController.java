@@ -35,9 +35,9 @@ public class UpdateToernooiController implements Initializable {
     @FXML TableView<NieuwToernooiCommissieLeden> CommisieLeden;
     @FXML TableColumn<NieuwToernooiCommissieLeden, String> CommisieVoornaam;
 
-    @FXML TableView<CommisieLidInToernooi> AddedCommisieLeden;
-    @FXML TableColumn<CommisieLidInToernooi, String> AddedCommisieVoornaam;
-    @FXML TableColumn<CommisieLidInToernooi, String> AddedCommisieAchternaam;
+    @FXML TableView<CommissieLidInToernooi> AddedCommisieLeden;
+    @FXML TableColumn<CommissieLidInToernooi, String> AddedCommisieVoornaam;
+    @FXML TableColumn<CommissieLidInToernooi, String> AddedCommisieAchternaam;
 
     @FXML TableView<Locatie> LocatieTable;
     @FXML TableColumn<Locatie, String> Plaats;
@@ -236,7 +236,7 @@ public class UpdateToernooiController implements Initializable {
             public void handle(ActionEvent event) {
                 NieuwToernooiCommissieLeden selected = CommisieLeden.getSelectionModel().getSelectedItem();
                 if(selected != null) {
-                    CommisieLidInToernooi commissieLid = new CommisieLidInToernooi();
+                    CommissieLidInToernooi commissieLid = new CommissieLidInToernooi();
                     commissieLid.setNaam(selected.getNaam());
                     commissieLid.setLidnr(selected.getLidnr());
                     toernooiModel.addAddedCommisieLeden(commissieLid);
@@ -261,7 +261,7 @@ public class UpdateToernooiController implements Initializable {
         CommisieLidVerwijderen.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                CommisieLidInToernooi selected = AddedCommisieLeden.getSelectionModel().getSelectedItem();
+                CommissieLidInToernooi selected = AddedCommisieLeden.getSelectionModel().getSelectedItem();
                 if(selected !=null) {
                     toernooiModel.deleteCommissieLid(selected);
                     AddedCommisieLeden.getItems().setAll(toernooiModel.getAddedCommisieLeden());
@@ -323,7 +323,7 @@ public class UpdateToernooiController implements Initializable {
     }
 
     private void initializeTableViewAddedCommisieLeden() {
-        AddedCommisieVoornaam.setCellValueFactory(new PropertyValueFactory<CommisieLidInToernooi, String>("naam"));
+        AddedCommisieVoornaam.setCellValueFactory(new PropertyValueFactory<CommissieLidInToernooi, String>("naam"));
         AddedCommisieLeden.getItems().setAll(toernooiModel.getAddedCommisieLeden());
     }
 

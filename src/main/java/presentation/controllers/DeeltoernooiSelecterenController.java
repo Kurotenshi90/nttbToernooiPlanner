@@ -18,6 +18,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import presentation.models.DeeltoernooiSelecterenModel;
+import presentation.models.LadderInplannenModel;
 
 import java.net.URL;
 import java.util.Date;
@@ -46,6 +47,7 @@ public class DeeltoernooiSelecterenController implements Initializable{
 
     @FXML private Button DeeltoernooiInplannen;
     @FXML private Button Annuleren;
+    @FXML private Button OverzichtPoule;
 
     public DeeltoernooiSelecterenController(int toernooi) {
         this.deeltoernooiSelecterenModel = new DeeltoernooiSelecterenModel(toernooi);
@@ -62,6 +64,8 @@ public class DeeltoernooiSelecterenController implements Initializable{
             DeeltoernooiInplannen.setText("Deeltoernooi Starten");
         }
 
+        OverzichtPoule.setVisible(true);
+
         Deeltoernooi.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -70,6 +74,10 @@ public class DeeltoernooiSelecterenController implements Initializable{
                 }
             }
         });
+
+        if(deeltoernooiSelecterenModel.getToernooi().getToernooisoort().equals("Knockout")){
+            OverzichtPoule.setVisible(false);
+        }
     }
 
     private void initializeTableViewToernooiInfo(){
@@ -147,9 +155,36 @@ public class DeeltoernooiSelecterenController implements Initializable{
                         }
                         deeltoernooiSelecterenModel.knockoutToernooiAanmaken(deeltoernooi);
                     } else if(deeltoernooiSelecterenModel.getToernooi().getToernooisoort().equals("Ladder")){
-                        deeltoernooiSelecterenModel.deeltoernooiStarten(deeltoernooi);
+                        loader = new FXMLLoader(getClass().getClassLoader().getResource("views/LadderInplannen.fxml"));
+                        LadderInplannenController controller = new LadderInplannenController(deeltoernooiSelecterenModel.getToernooi(), deeltoernooi.getDeeltoernooinr());
+                        loader.setController(controller);
                     }
                     Stage stage = (Stage) DeeltoernooiInplannen.getScene().getWindow();
+                    Parent root = null;
+                    try {
+                        root = loader.load();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Scene scene = new Scene(root, 1920, 1080);
+                    stage.setScene(scene);
+                    stage.show();
+                }
+            }
+        });
+
+        OverzichtPoule.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Deeltoernooi deeltoernooi = Deeltoernooi.getSelectionModel().getSelectedItem();
+                if(deeltoernooi != null) {
+                    FXMLLoader loader= null;
+                    //if(deeltoernooi.getSpelvorm().equals("enkel")) {
+                        loader = new FXMLLoader(getClass().getClassLoader().getResource("views/PouleOverzicht.fxml"));
+                        PouleOverzichtController controller = new PouleOverzichtController(deeltoernooiSelecterenModel.getToernooi(), deeltoernooi.getDeeltoernooinr());
+                        loader.setController(controller);
+                    //}
+                    Stage stage = (Stage) OverzichtPoule.getScene().getWindow();
                     Parent root = null;
                     try {
                         root = loader.load();

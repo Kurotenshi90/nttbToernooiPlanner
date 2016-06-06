@@ -24,6 +24,7 @@
        <Button fx:id="DeelnemersAanpassen" layoutX="1547.0" layoutY="200.0" mnemonicParsing="false" styleClass="button-big" text="Deelnemers beheren" />
        <Button fx:id="Button_ToernooiInplannen" layoutX="1550.0" layoutY="300.0" mnemonicParsing="false" styleClass="button-big" text="Toernooi inplannen" />
        <Button fx:id="Button_MatchInplannen" layoutX="1550.0" layoutY="400.0" mnemonicParsing="false" styleClass="button-big" text="Match Inplannen" />
+       <Button fx:id="Button_Terug" layoutX="1550.0" layoutY="850.0" mnemonicParsing="false" styleClass="button-big" text="Terug" />
        <Button fx:id="Button_ScoreInvoeren" layoutX="1550.0" layoutY="500.0" mnemonicParsing="false" styleClass="button-big" text="Scores Invoeren" />
       <ImageView fitHeight="200.0" fitWidth="1920.0">
          <image>

@@ -16,72 +16,40 @@ import javafx.stage.Stage;
 import presentation.models.BekijkToernooiModel;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.text.DateFormat;
 import java.util.ResourceBundle;
 
 /**
  * Created by donnyolijslager on 19-05-16.
  */
 public class BekijkToernooiController implements Initializable{
-    @FXML
-    Button CommisieLidToevoegen;
-    @FXML Button CommisieLidVerwijderen;
-    @FXML Button ToernooiAanmaken;
-    @FXML Button Home;
-    @FXML Button Annuleren;
-
-    @FXML
-    TableView<NieuwToernooiCommissieLeden> CommisieLeden;
-    @FXML
-    TableColumn<NieuwToernooiCommissieLeden, String> CommisieVoornaam;
-
-    @FXML TableView<CommisieLidInToernooi> AddedCommisieLeden;
-    @FXML TableColumn<CommisieLidInToernooi, String> AddedCommisieVoornaam;
-    @FXML TableColumn<CommisieLidInToernooi, String> AddedCommisieAchternaam;
-
-    @FXML TableView<Locatie> LocatieTable;
-    @FXML TableColumn<Locatie, String> Plaats;
-    @FXML TableColumn<Locatie, String> Straat;
-    @FXML TableColumn<Locatie, String> Huisnummer;
-
-    @FXML
-    TextField ToernooiNaamValue;
-    @FXML TextField PrijsValue;
-    @FXML
-    TextArea BetalingsinformatieValue;
+    @FXML TextField ToernooiNaamValue;
+    @FXML TextArea BetalingsinformatieValue;
+    @FXML TextField InschrijfdatumValue;
+    @FXML TextField BegindatumValue;
+    @FXML TextField EinddatumValue;
     @FXML TextField PlaatsValue;
     @FXML TextField StraatValue;
     @FXML TextField HuisnummerValue;
+    @FXML TextField ToernooisoortValue;
 
-    @FXML DatePicker InschrijfdatumValue;
-    @FXML DatePicker BegindatumValue;
-    @FXML DatePicker EinddatumValue;
+    @FXML TableView<CommissieLidInToernooi> Commissieleden;
+    @FXML TableColumn<CommissieLidInToernooi, String> CommissieNaam;
 
-    @FXML ChoiceBox<String> SysteemType;
 
     @FXML TableView<domain.Deeltoernooi> Deeltoernooi;
-    @FXML TableColumn<domain.Deeltoernooi,String> DeeltoernooiSpelvorm;
+    @FXML TableColumn<Deeltoernooi, String> DeeltoernooiSpelvorm;
     @FXML TableColumn<Deeltoernooi, String> DeeltoernooiMaxSpelers;
-    @FXML TableView<domain.Klasse> Klasse;
-    @FXML TableColumn<Klasse, String> KlasseLeeftijd;
-    @FXML TableColumn<Klasse, String> KlasseLicentie;
+    @FXML TableColumn<Deeltoernooi, Double> DeeltoernooiPrijs;
+    @FXML TableColumn<Deeltoernooi, DateFormat> DeeltoernooiDatumTijd;
+
+
     @FXML TableView<Klasse> DeeltoernooiKlasse;
     @FXML TableColumn<Klasse, String> DeeltoernooiKlasseLeeftijd;
     @FXML TableColumn<Klasse, String> DeeltoernooiKlasseLicentie;
-    @FXML ChoiceBox Spelvorm;
-    @FXML TextField MaxAantalSpelers;
 
-    @FXML Button AddDeeltoernooi;
-    @FXML Button KlasseToevoegen;
-    @FXML Button KlasseVerwijderen;
-    @FXML Button DeleteDeeltoernooi;
-    @FXML Button NieuweLocatieToevoegen;
 
-    @FXML Label MaxAantalSpelersLabel;
-    @FXML Label SpelvormLabel;
-    @FXML Label LocatieLabel;
+    @FXML Button Button_Terug;
 
     private int toernooiID;
     private BekijkToernooiModel toernooiModel;
@@ -95,130 +63,86 @@ public class BekijkToernooiController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         toernooiModel.getOneToernooi(toernooiID);
         setTextFields();
-        initializeTableViewAddedCommisieLeden();
-        initializeChoiceboxSysteemType();
-        initializeTableViewDeeltoernooi();
-        initializeTableViewDeeltoernooiKlasse();
         initializeButtons();
         disableTextfields();
-        setInvisable();
+        initializeTableViewCommissieleden();
+        initializeTableViewDeeltoernooi();
+        initializeTableViewDeeltoernooiKlasse();
     }
 
     private void disableTextfields() {
+        ToernooiNaamValue.setDisable(true);
+        BetalingsinformatieValue.setDisable(true);
         InschrijfdatumValue.setDisable(true);
         BegindatumValue.setDisable(true);
         EinddatumValue.setDisable(true);
-        ToernooiNaamValue.editableProperty().setValue(false);
-        PrijsValue.editableProperty().setValue(false);
-        BetalingsinformatieValue.editableProperty().setValue(false);
-        PlaatsValue.editableProperty().setValue(false);
-        StraatValue.editableProperty().setValue(false);
-        HuisnummerValue.editableProperty().setValue(false);
-    }
+        PlaatsValue.setDisable(true);
+        StraatValue.setDisable(true);
+        HuisnummerValue.setDisable(true);
+        ToernooisoortValue.setDisable(true);
 
-    private void setInvisable(){
-        AddedCommisieLeden.setDisable(true);
-        AddDeeltoernooi.setVisible(false);
-        KlasseToevoegen.setVisible(false);
-        KlasseVerwijderen.setVisible(false);
-        DeleteDeeltoernooi.setVisible(false);
-        CommisieLidVerwijderen.setVisible(false);
-        SysteemType.setDisable(true);
-        Spelvorm.setVisible(false);
-        MaxAantalSpelers.setVisible(false);
-        ToernooiAanmaken.setVisible(false);
-        CommisieLidToevoegen.setVisible(false);
-        LocatieTable.setVisible(false);
-        CommisieLeden.setVisible(false);
-        NieuweLocatieToevoegen.setVisible(false);
-        Klasse.setVisible(false);
-        MaxAantalSpelersLabel.setVisible(false);
-        SpelvormLabel.setVisible(false);
-        LocatieLabel.setVisible(false);
+        Commissieleden.setMouseTransparent(true);
+        Commissieleden.setFocusTraversable(false);
+        Deeltoernooi.setEditable(false);
+        DeeltoernooiKlasse.setFocusTraversable(false);
+        DeeltoernooiKlasse.setSelectionModel(null);
+
     }
 
     private void initializeButtons() {
+        Button_Terug.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/ToernooiBeheren.fxml"));
+                ToernooiBeherenController controller = new ToernooiBeherenController();
+                loader.setController(controller);
+                Stage stage = (Stage) Button_Terug.getScene().getWindow();
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Scene scene = new Scene(root, 1920, 1080);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+
         Deeltoernooi.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     Deeltoernooi deeltoernooi = Deeltoernooi.getSelectionModel().getSelectedItem();
                     DeeltoernooiKlasse.getItems().setAll(deeltoernooi.getKlasses());
+                    DeeltoernooiKlasse.getItems().setAll(toernooiModel.getKlasses(deeltoernooi.getKlasses()));
                 }
-            }
-        });
-        Home.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/Menu.fxml"));
-                MenuController controller = new MenuController();
-                loader.setController(controller);
-                Stage stage = (Stage) Home.getScene().getWindow();
-                Parent root = null;
-                try {
-                    root = loader.load();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                Scene scene = new Scene(root, 1920, 1080);
-                stage.setScene(scene);
-                stage.show();
-            }
-        });
-        Annuleren.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/ToernooiBeheren.fxml"));
-                ToernooiBeherenController controller = new ToernooiBeherenController();
-                loader.setController(controller);
-                Stage stage = (Stage) Annuleren.getScene().getWindow();
-                Parent root = null;
-                try {
-                    root = loader.load();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                Scene scene = new Scene(root, 1920, 1080);
-                stage.setScene(scene);
-                stage.show();
             }
         });
     }
 
     private void setTextFields() {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(toernooiModel.getToernooi().getInschrijfdatum());
-        InschrijfdatumValue.setValue(LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH)));
-        cal.setTime(toernooiModel.getToernooi().getBegindatum());
-        BegindatumValue.setValue(LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH)));
-        cal.setTime(toernooiModel.getToernooi().getEinddatum());
-        EinddatumValue.setValue(LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH)));
-
         ToernooiNaamValue.setText(toernooiModel.getToernooi().getNaam());
         BetalingsinformatieValue.setText(toernooiModel.getToernooi().getBetalingsinformatie());
+        InschrijfdatumValue.setText(toernooiModel.getToernooi().getInschrijfdatum().toString());
+        BegindatumValue.setText(toernooiModel.getToernooi().getBegindatum().toString());
+        EinddatumValue.setText(toernooiModel.getToernooi().getEinddatum().toString());
         PlaatsValue.setText(toernooiModel.getToernooi().getLocatie().getPlaats());
         StraatValue.setText(toernooiModel.getToernooi().getLocatie().getStraatnaam());
         HuisnummerValue.setText(toernooiModel.getToernooi().getLocatie().getHuisnummer());
+        ToernooisoortValue.setText(toernooiModel.getToernooi().getToernooisoort());
     }
 
-    private void initializeTableViewAddedCommisieLeden() {
-        AddedCommisieVoornaam.setCellValueFactory(new PropertyValueFactory<CommisieLidInToernooi, String>("naam"));
-        AddedCommisieLeden.getItems().setAll(toernooiModel.getToernooi().getCommisieLidInToernooi());
-    }
-
-
-    private void initializeChoiceboxSysteemType(){
-        ArrayList<String> toernooitypes = new ArrayList<>();
-        for(Toernooitype t : toernooiModel.getToernooitypes()){
-            toernooitypes.add(t.getType());
-        }
-        SysteemType.getItems().setAll(toernooitypes);
-        SysteemType.setValue(toernooiModel.getToernooi().getToernooisoort());
+    private void initializeTableViewCommissieleden() {
+        CommissieNaam.setCellValueFactory(new PropertyValueFactory<CommissieLidInToernooi, String>("naam"));
+        Commissieleden.getItems().setAll(toernooiModel.getToernooi().getCommisieLidInToernooi());
     }
 
     private  void initializeTableViewDeeltoernooi(){
         DeeltoernooiSpelvorm.setCellValueFactory(new PropertyValueFactory<Deeltoernooi, String>("spelvorm"));
         DeeltoernooiMaxSpelers.setCellValueFactory(new PropertyValueFactory<Deeltoernooi, String>("maxAantalSpelers"));
+        DeeltoernooiPrijs.setCellValueFactory(new PropertyValueFactory<Deeltoernooi, Double>("prijs"));
+        DeeltoernooiDatumTijd.setCellValueFactory(new PropertyValueFactory<Deeltoernooi, DateFormat>("beginTijd"));
         Deeltoernooi.getItems().setAll(toernooiModel.getToernooi().getDeeltoernoois());
     }
 

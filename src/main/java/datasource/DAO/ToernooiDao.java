@@ -5,8 +5,6 @@ import domain.*;
 import java.sql.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 /**
  * Created by Peter-Paul on 11/05/2016.
@@ -51,7 +49,7 @@ public class ToernooiDao extends DAO {
     public Toernooi getOneToernooi(int toernooiID){
 
         Toernooi toernooi = new Toernooi();
-        ArrayList<CommisieLidInToernooi> commissieLeden = new ArrayList<>();
+        ArrayList<CommissieLidInToernooi> commissieLeden = new ArrayList<>();
         connect();
         ResultSet toernooiResult = null;
         ResultSet commissieResult = null;
@@ -77,7 +75,7 @@ public class ToernooiDao extends DAO {
             }
 
             while (commissieResult.next()){
-                CommisieLidInToernooi commissieLid = new CommisieLidInToernooi();
+                CommissieLidInToernooi commissieLid = new CommissieLidInToernooi();
                 commissieLid.setLidnr(commissieResult.getInt(1));
                 commissieLid.setNaam(commissieResult.getString(2));
                 String rol = commissieResult.getString(3);
@@ -264,7 +262,7 @@ public class ToernooiDao extends DAO {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("[{");
             boolean checkPastFirstRound= false;
-            for(CommisieLidInToernooi c: toernooi.getCommisieLidInToernooi()){
+            for(CommissieLidInToernooi c: toernooi.getCommisieLidInToernooi()){
                 if(checkPastFirstRound){
                     stringBuilder.append("},{");
                 }
@@ -329,7 +327,6 @@ public class ToernooiDao extends DAO {
                 }
             }
             stringBuilderDeeltoernooiKlasse.append("}]");
-
             preparedStatement.setString(11, stringBuilderDeeltoernooiKlasse.toString());
 
             int i = preparedStatement.executeUpdate();

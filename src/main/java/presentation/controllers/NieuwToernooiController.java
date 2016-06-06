@@ -38,8 +38,8 @@ public class NieuwToernooiController implements Initializable {
     @FXML TableView<NieuwToernooiCommissieLeden> CommisieLeden;
     @FXML TableColumn<NieuwToernooiCommissieLeden, String> CommisieVoornaam;
 
-    @FXML TableView<CommisieLidInToernooi> AddedCommisieLeden;
-    @FXML TableColumn<CommisieLidInToernooi, String> AddedCommisieVoornaam;
+    @FXML TableView<CommissieLidInToernooi> AddedCommisieLeden;
+    @FXML TableColumn<CommissieLidInToernooi, String> AddedCommisieVoornaam;
 
     @FXML TableView<Locatie> LocatieTable;
     @FXML TableColumn<Locatie, String> Plaats;
@@ -125,7 +125,7 @@ public class NieuwToernooiController implements Initializable {
     }
 
     private void initializeTableViewAddedCommisieLeden() {
-        AddedCommisieVoornaam.setCellValueFactory(new PropertyValueFactory<CommisieLidInToernooi, String>("naam"));
+        AddedCommisieVoornaam.setCellValueFactory(new PropertyValueFactory<CommissieLidInToernooi, String>("naam"));
         AddedCommisieLeden.getItems().setAll(nieuwToernooiModel.getAddedCommisieLeden());
     }
     private  void initializeTableViewDeeltoernooi(){
@@ -181,7 +181,7 @@ public class NieuwToernooiController implements Initializable {
             public void handle(ActionEvent event) {
                 NieuwToernooiCommissieLeden selected = CommisieLeden.getSelectionModel().getSelectedItem();
                 if(selected != null) {
-                    CommisieLidInToernooi commissieLid = new CommisieLidInToernooi();
+                    CommissieLidInToernooi commissieLid = new CommissieLidInToernooi();
                     commissieLid.setNaam(selected.getNaam());
                     commissieLid.setLidnr(selected.getLidnr());
                     nieuwToernooiModel.addAddedCommisieLeden(commissieLid);
@@ -271,7 +271,7 @@ public class NieuwToernooiController implements Initializable {
         CommisieLidVerwijderen.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                CommisieLidInToernooi selected = AddedCommisieLeden.getSelectionModel().getSelectedItem();
+                CommissieLidInToernooi selected = AddedCommisieLeden.getSelectionModel().getSelectedItem();
                 if (selected != null) {
                     nieuwToernooiModel.deleteCommissieLid(selected);
                     AddedCommisieLeden.getItems().setAll(nieuwToernooiModel.getAddedCommisieLeden());
