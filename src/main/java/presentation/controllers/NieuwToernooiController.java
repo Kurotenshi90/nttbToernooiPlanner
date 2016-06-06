@@ -57,7 +57,7 @@ public class NieuwToernooiController implements Initializable {
     @FXML DatePicker BegindatumValue;
     @FXML DatePicker EinddatumValue;
 
-    @FXML ChoiceBox<String> SysteemType;
+    @FXML ChoiceBox<Toernooitype> SysteemType;
 
     @FXML TableView<Deeltoernooi> Deeltoernooi;
     @FXML TableColumn<Deeltoernooi,String> DeeltoernooiSpelvorm;
@@ -137,9 +137,9 @@ public class NieuwToernooiController implements Initializable {
     }
 
     private void initializeChoiceboxSysteemType(){
-        ArrayList<String> toernooitypes = new ArrayList<>();
+        ArrayList<Toernooitype> toernooitypes = new ArrayList<>();
         for(Toernooitype t : nieuwToernooiModel.getToernooitypes()){
-            toernooitypes.add(t.getType());
+            toernooitypes.add(t);
         }
         SysteemType.getItems().setAll(toernooitypes);
     }
@@ -229,7 +229,7 @@ public class NieuwToernooiController implements Initializable {
         ToernooiAanmaken.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                nieuwToernooiModel.saveToernooi(0, ToernooiNaamValue.getText(), java.sql.Date.valueOf(BegindatumValue.getValue()), java.sql.Date.valueOf(EinddatumValue.getValue()), java.sql.Date.valueOf(InschrijfdatumValue.getValue()), BetalingsinformatieValue.getText(), SysteemType.getValue());
+                nieuwToernooiModel.saveToernooi(0, ToernooiNaamValue.getText(), java.sql.Date.valueOf(BegindatumValue.getValue()), java.sql.Date.valueOf(EinddatumValue.getValue()), java.sql.Date.valueOf(InschrijfdatumValue.getValue()), BetalingsinformatieValue.getText(), SysteemType.getValue().getType());
                 goToHome(ToernooiAanmaken);
             }
         });
@@ -298,6 +298,27 @@ public class NieuwToernooiController implements Initializable {
                 stage.initOwner(NieuweLocatieToevoegen.getScene().getWindow());
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.show();
+            }
+        });
+
+        SysteemType.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ArrayList<String> spelvormen = new ArrayList<>();
+                Toernooitype spelSysteem = SysteemType.getSelectionModel().getSelectedItem();
+                if(spelSysteem.getType().equals("Ladder")){
+                    for(Spelvorm t : nieuwToernooiModel.getSpelvormen()){
+                        if(!t.getSpelvorm().equals("Dubbel")) {
+                            spelvormen.add(t.getSpelvorm());
+                        }
+                    }
+
+                } else {
+                    for(Spelvorm t : nieuwToernooiModel.getSpelvormen()){
+                            spelvormen.add(t.getSpelvorm());
+                    }
+                }
+                Spelvorm.getItems().setAll(spelvormen);
             }
         });
 

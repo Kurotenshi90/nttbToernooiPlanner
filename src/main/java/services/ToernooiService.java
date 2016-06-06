@@ -42,4 +42,8 @@ public class ToernooiService {
     public void deleteToernooi(int toernooiID) {
         toernooiDao.deleteToernooi(toernooiID);
     }
+
+    public void deeltoernooiStarten(Deeltoernooi deeltoernooi) {
+        toernooiDao.deeltoernooiStarten(deeltoernooi);
+    }
 }

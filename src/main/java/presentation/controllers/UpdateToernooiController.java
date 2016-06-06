@@ -55,7 +55,7 @@ public class UpdateToernooiController implements Initializable {
     @FXML DatePicker BegindatumValue;
     @FXML DatePicker EinddatumValue;
 
-    @FXML ChoiceBox<String> SysteemType;
+    @FXML ChoiceBox<Toernooitype> SysteemType;
 
     @FXML TableView<domain.Deeltoernooi> Deeltoernooi;
     @FXML TableColumn<Deeltoernooi,String> DeeltoernooiSpelvorm;
@@ -119,7 +119,14 @@ public class UpdateToernooiController implements Initializable {
     private void initializeChoiceBoxSpelvorm(){
         ArrayList<String> spelvormen = new ArrayList<>();
         for(Spelvorm t : toernooiModel.getSpelvormen()){
-            spelvormen.add(t.getSpelvorm());
+            if(!toernooiModel.getToernooi().getToernooisoort().equals("Ladder")) {
+                spelvormen.add(t.getSpelvorm());
+            } else {
+                if(!t.getSpelvorm().equals("Dubbel")){
+                    spelvormen.add(t.getSpelvorm());
+                }
+            }
+
         }
         Spelvorm.getItems().setAll(spelvormen);
     }
@@ -130,12 +137,16 @@ public class UpdateToernooiController implements Initializable {
     }
 
     private void initializeChoiceboxSysteemType(){
-        ArrayList<String> toernooitypes = new ArrayList<>();
+        ArrayList<Toernooitype> toernooitypes = new ArrayList<>();
         for(Toernooitype t : toernooiModel.getToernooitypes()){
-            toernooitypes.add(t.getType());
+            toernooitypes.add(t);
         }
         SysteemType.getItems().setAll(toernooitypes);
-        SysteemType.setValue(toernooiModel.getToernooi().getToernooisoort());
+        for (Toernooitype t: toernooitypes){
+            if(t.getType().equals(toernooiModel.getToernooi().getToernooisoort())){
+                SysteemType.setValue(t);
+            }
+        }
     }
 
     private void initializeButtons() {
@@ -262,10 +273,37 @@ public class UpdateToernooiController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println(toernooiID);
-                toernooiModel.saveToernooi(toernooiID,ToernooiNaamValue.getText(), java.sql.Date.valueOf(BegindatumValue.getValue()), java.sql.Date.valueOf(EinddatumValue.getValue()), java.sql.Date.valueOf(InschrijfdatumValue.getValue()), BetalingsinformatieValue.getText(), SysteemType.getValue());
+                toernooiModel.saveToernooi(toernooiID,ToernooiNaamValue.getText(), java.sql.Date.valueOf(BegindatumValue.getValue()), java.sql.Date.valueOf(EinddatumValue.getValue()), java.sql.Date.valueOf(InschrijfdatumValue.getValue()), BetalingsinformatieValue.getText(), SysteemType.getValue().getType());
                 goToHome(ToernooiAanmaken);
             }
         });
+
+        SysteemType.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ArrayList<String> spelvormen = new ArrayList<>();
+                Toernooitype spelSysteem;
+                if(SysteemType.getSelectionModel().getSelectedItem() == null) {
+                    spelSysteem = new Toernooitype(toernooiModel.getToernooi().getToernooisoort());
+                } else {
+                    spelSysteem = SysteemType.getSelectionModel().getSelectedItem();
+                }
+                if(spelSysteem.getType().equals("Ladder")){
+                    for(Spelvorm t : toernooiModel.getSpelvormen()){
+                        if(!t.getSpelvorm().equals("Dubbel")) {
+                            spelvormen.add(t.getSpelvorm());
+                        }
+                    }
+
+                } else {
+                    for(Spelvorm t : toernooiModel.getSpelvormen()){
+                        spelvormen.add(t.getSpelvorm());
+                    }
+                }
+                Spelvorm.getItems().setAll(spelvormen);
+            }
+        });
+
     }
 
     private void setTextFields() {

@@ -58,6 +58,10 @@ public class DeeltoernooiSelecterenController implements Initializable{
         initializeTableVIewKlasse();
         alleButtons();
 
+        if(deeltoernooiSelecterenModel.getToernooi().getToernooisoort().equals("Ladder")){
+            DeeltoernooiInplannen.setText("Deeltoernooi Starten");
+        }
+
         Deeltoernooi.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -142,6 +146,8 @@ public class DeeltoernooiSelecterenController implements Initializable{
 
                         }
                         deeltoernooiSelecterenModel.knockoutToernooiAanmaken(deeltoernooi);
+                    } else if(deeltoernooiSelecterenModel.getToernooi().getToernooisoort().equals("Ladder")){
+                        deeltoernooiSelecterenModel.deeltoernooiStarten(deeltoernooi);
                     }
                     Stage stage = (Stage) DeeltoernooiInplannen.getScene().getWindow();
                     Parent root = null;

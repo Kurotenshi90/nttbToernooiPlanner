@@ -232,13 +232,13 @@ public class SpelersAanpasseController implements Initializable {
                 deelnemer = new Deelnemer(Deeltoernooi.getSelectionModel().getSelectedItem().getDeeltoernooinr(),
                         Voornaam.getText(), Achternaam.getText(), Integer.parseInt(Bondsnummer.getText()),
                         Geslacht.getValue().toString(), Licentie.getSelectionModel().getSelectedItem().getLicentietype(), 0,
-                        Vereniging.getSelectionModel().getSelectedItem().getVerenigingnr(), Deeltoernooi.getSelectionModel().getSelectedItem().toString());
+                        Vereniging.getSelectionModel().getSelectedItem().getVerenigingnr(), Deeltoernooi.getSelectionModel().getSelectedItem().getBeginTijd().toString());
                 Deelnemer partner;
                 if (Deeltoernooi.getSelectionModel().getSelectedItem().getSpelvorm().equals("Dubbel")){
                     partner = new Deelnemer(Deeltoernooi.getSelectionModel().getSelectedItem().getDeeltoernooinr(),
                             VoornaamPartner.getText(), AchternaamPartner.getText(), Integer.parseInt(BondsnummerPartner.getText()),
                             GeslachtPartner.getValue().toString(), LicentiePartner.getSelectionModel().getSelectedItem().getLicentietype(), deelnemer.getBondsnr(),
-                            Vereniging.getSelectionModel().getSelectedItem().getVerenigingnr(), Deeltoernooi.getSelectionModel().getSelectedItem().toString());
+                            Vereniging.getSelectionModel().getSelectedItem().getVerenigingnr(), Deeltoernooi.getSelectionModel().getSelectedItem().getBeginTijd().toString());
                     deelnemer.setBondsnrPartner(partner.getBondsnr());
                     spelersAanpassenModel.addDeelnemer(partner);
                 }
