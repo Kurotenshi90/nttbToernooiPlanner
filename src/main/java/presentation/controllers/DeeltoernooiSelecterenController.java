@@ -18,6 +18,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import presentation.models.DeeltoernooiSelecterenModel;
+import presentation.models.LadderInplannenModel;
 
 import java.net.URL;
 import java.util.Date;
@@ -149,6 +150,10 @@ public class DeeltoernooiSelecterenController implements Initializable{
 
                         }
                         deeltoernooiSelecterenModel.knockoutToernooiAanmaken(deeltoernooi);
+                    } else if(deeltoernooiSelecterenModel.getToernooi().getToernooisoort().equals("Ladder")){
+                        loader = new FXMLLoader(getClass().getClassLoader().getResource("views/LadderInplannen.fxml"));
+                        LadderInplannenController controller = new LadderInplannenController(deeltoernooiSelecterenModel.getToernooi(), deeltoernooi.getDeeltoernooinr());
+                        loader.setController(controller);
                     }
                     Stage stage = (Stage) DeeltoernooiInplannen.getScene().getWindow();
                     Parent root = null;
