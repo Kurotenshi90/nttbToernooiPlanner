@@ -46,7 +46,7 @@ public class DeelnemerListCell extends ListCell<Deelnemer> {
         if(empty){
             clearContent();
         }
-    }
+    }//derp
 
     private void clearContent() {
         setText(null);

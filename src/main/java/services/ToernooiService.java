@@ -1,9 +1,7 @@
 package services;
 
 import datasource.DAO.ToernooiDao;
-import domain.Deeltoernooi;
-import domain.HomePageToernooi;
-import domain.Toernooi;
+import domain.*;
 
 import java.util.ArrayList;
 
@@ -41,5 +39,9 @@ public class ToernooiService {
 
     public void deleteToernooi(int toernooiID) {
         toernooiDao.deleteToernooi(toernooiID);
+    }
+
+    public ArrayList<PouleOverzicht> getSpelersInPoule(int deeltoernooinummer){
+        return toernooiDao.getSpelersInPoule(deeltoernooinummer);
     }
 }

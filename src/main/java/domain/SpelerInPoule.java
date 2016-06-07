@@ -1,9 +1,12 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * Created by dirk on 3-6-2016.
  */
-public class SpelerInPoule {
+public class SpelerInPoule extends Deelnemer{
     private int deelnemernr;
     private int deeltoernooinr;
     private int poulenr;
@@ -11,15 +14,16 @@ public class SpelerInPoule {
     private int gewonnenRondes;
     private int puntenVoor;
     private int puntenTegen;
+    private ArrayList<SpelerInPoule> spelersInPoule;
 
-    public SpelerInPoule(int deelnemernr, int deeltoernooinr, int poulenr, int gewonnenWedstrijden, int gewonnenRondes, int puntenVoor, int puntenTegen) {
-        this.deelnemernr = deelnemernr;
-        this.deeltoernooinr = deeltoernooinr;
+    public SpelerInPoule(int deelnemerID, int deelToernooinr, String voornaam, String achternaam, int bondsnr, String geslacht, String licentie, int verenigingnr, int deelnemernr, int deeltoernooinr, int poulenr, int gewonnenWedstrijden, int gewonnenRondes, int puntenVoor, int puntenTegen) {
+        super(deelnemerID, deelToernooinr, voornaam, achternaam, bondsnr, geslacht, licentie, verenigingnr);
         this.poulenr = poulenr;
         this.gewonnenWedstrijden = gewonnenWedstrijden;
         this.gewonnenRondes = gewonnenRondes;
         this.puntenVoor = puntenVoor;
         this.puntenTegen = puntenTegen;
+        spelersInPoule = new ArrayList<>();
     }
 
     public int getDeelnemernr() {
@@ -76,5 +80,13 @@ public class SpelerInPoule {
 
     public void setPuntenTegen(int puntenTegen) {
         this.puntenTegen = puntenTegen;
+    }
+
+    public ArrayList<SpelerInPoule> getSpelersInPoule() {
+        return spelersInPoule;
+    }
+
+    public void setSpelersInPoule(ArrayList<SpelerInPoule> spelersInPoule) {
+        this.spelersInPoule = spelersInPoule;
     }
 }

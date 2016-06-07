@@ -12,8 +12,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import presentation.models.PouleInplannenModel;
+import presentation.models.PouleOverzichtModel;
 
 import java.net.URL;
 import java.util.Date;
@@ -28,13 +30,13 @@ public class PouleOverzichtController implements Initializable {
     @FXML private TableColumn<Toernooi, Date> ToernooiStartdatumInfo;
     @FXML private TableColumn<Toernooi, Date> ToernooiEinddatumInfo;
 
-    @FXML private TableView<Poule> Poules;
-    @FXML private TableColumn<Poule, String> PouleNummer;
+    @FXML private TableView<PouleOverzicht> Poules;
+    @FXML private TableColumn<PouleOverzicht, String> PouleNummer;
 
     @FXML private TableView<SpelerInPoule> DeelnemersInPoule;
-    @FXML private TableColumn<Deelnemer, String> DeelnemerVoornaam;
-    @FXML private TableColumn<Deelnemer, String> DeelnemerAchternaam;
-    @FXML private TableColumn<Deelnemer, Integer> DeelnemerBondsnr;
+    @FXML private TableColumn<SpelerInPoule, String> DeelnemerVoornaam;
+    @FXML private TableColumn<SpelerInPoule, String> DeelnemerAchternaam;
+    @FXML private TableColumn<SpelerInPoule, Integer> DeelnemerBondsnr;
     @FXML private TableColumn<SpelerInPoule, Integer> DeelnemerGewonnenWedstrijd;
     @FXML private TableColumn<SpelerInPoule, Integer> DeelnemerGewonnenRondes;
     @FXML private TableColumn<SpelerInPoule, Integer> DeelnemerPuntenVoor;
@@ -42,11 +44,11 @@ public class PouleOverzichtController implements Initializable {
 
     @FXML private Button Button_Terug;
 
-    private PouleInplannenModel pouleInplannenModel;
+    private PouleOverzichtModel pouleOverzichtModel;
     private Toernooi toernooi;
 
     public PouleOverzichtController(Toernooi toernooi, int deeltoernooinummer) {
-        this.pouleInplannenModel = new PouleInplannenModel(toernooi, deeltoernooinummer);
+        this.pouleOverzichtModel = new PouleOverzichtModel(toernooi, deeltoernooinummer);
         this.toernooi = toernooi;
     }
 
@@ -82,6 +84,12 @@ public class PouleOverzichtController implements Initializable {
                 stage.show();
             }
         });
+        Poules.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                DeelnemersInPoule.getItems().setAll(Poules.getSelectionModel().getSelectedItem().getSpelerInPoules());
+            }
+        });
     }
 
     private void initializeTableViewToernooiInfo(){
@@ -89,20 +97,20 @@ public class PouleOverzichtController implements Initializable {
         ToernooiStartdatumInfo.setCellValueFactory(new PropertyValueFactory<Toernooi, Date>("begindatum"));
         ToernooiEinddatumInfo.setCellValueFactory(new PropertyValueFactory<Toernooi, Date>("einddatum"));
 
-        ToernooiInfoTable.getItems().setAll(pouleInplannenModel.getToernooi());
+        ToernooiInfoTable.getItems().setAll(pouleOverzichtModel.getToernooi());
     }
 
     private void initializeTableViewPoules(){
-        PouleNummer.setCellValueFactory(new PropertyValueFactory<Poule, String>("naam"));
-        if (pouleInplannenModel.getPoules() != null) {
-            Poules.getItems().setAll(pouleInplannenModel.getPoules());
+        PouleNummer.setCellValueFactory(new PropertyValueFactory<PouleOverzicht, String>("naam"));
+        if (pouleOverzichtModel.getPouleOverzichts() != null) {
+            Poules.getItems().setAll(pouleOverzichtModel.getSpelersInPoule());
         }
     }
 
     private void initializeSpelersInPoule(){
-        DeelnemerVoornaam.setCellValueFactory(new PropertyValueFactory<Deelnemer, String>("voornaam"));
-        DeelnemerAchternaam.setCellValueFactory(new PropertyValueFactory<Deelnemer, String>("achternaam"));
-        DeelnemerBondsnr.setCellValueFactory(new PropertyValueFactory<Deelnemer, Integer>("bondsnr"));
+        DeelnemerVoornaam.setCellValueFactory(new PropertyValueFactory<SpelerInPoule, String>("voornaam"));
+        DeelnemerAchternaam.setCellValueFactory(new PropertyValueFactory<SpelerInPoule, String>("achternaam"));
+        DeelnemerBondsnr.setCellValueFactory(new PropertyValueFactory<SpelerInPoule, Integer>("bondsnr"));
         DeelnemerGewonnenWedstrijd.setCellValueFactory(new PropertyValueFactory<SpelerInPoule, Integer>("gewonnenWedstrijden"));
         DeelnemerGewonnenRondes.setCellValueFactory(new PropertyValueFactory<SpelerInPoule, Integer>("gewonnenRondes"));
         DeelnemerPuntenVoor.setCellValueFactory(new PropertyValueFactory<SpelerInPoule, Integer>("puntenVoor"));
