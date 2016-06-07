@@ -60,6 +60,10 @@ public class DeeltoernooiSelecterenController implements Initializable{
         initializeTableVIewKlasse();
         alleButtons();
 
+        if(deeltoernooiSelecterenModel.getToernooi().getToernooisoort().equals("Ladder")){
+            DeeltoernooiInplannen.setText("Deeltoernooi Starten");
+        }
+
         OverzichtPoule.setVisible(true);
 
         Deeltoernooi.setOnMousePressed(new EventHandler<MouseEvent>() {

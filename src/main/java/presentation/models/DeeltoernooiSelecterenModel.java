@@ -28,4 +28,8 @@ public class DeeltoernooiSelecterenModel {
     public void knockoutToernooiAanmaken(Deeltoernooi deeltoernooi) {
         toernooiService.knockoutToernooiAanmaken(deeltoernooi);
     }
+
+    public void deeltoernooiStarten(Deeltoernooi deeltoernooi) {
+        toernooiService.deeltoernooiStarten(deeltoernooi);
+    }
 }

@@ -41,7 +41,12 @@ public class ToernooiService {
         toernooiDao.deleteToernooi(toernooiID);
     }
 
-    public ArrayList<PouleOverzicht> getSpelersInPoule(int deeltoernooinummer){
+
+    public ArrayList<PouleOverzicht> getSpelersInPoule(int deeltoernooinummer) {
         return toernooiDao.getSpelersInPoule(deeltoernooinummer);
+    }
+
+    public void deeltoernooiStarten(Deeltoernooi deeltoernooi) {
+        toernooiDao.deeltoernooiStarten(deeltoernooi);
     }
 }

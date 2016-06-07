@@ -62,6 +62,7 @@ public class KnockoutInplannenController implements Initializable {
     @FXML private Button RemoveDeelnemer2InBracket;
     @FXML private Button Opslaan;
     @FXML private Button Annuleren;
+    @FXML private Button DeeltoernooiStarten;
 
     public KnockoutInplannenController(Toernooi toernooi, int deeltoernooinummer) {
         this.knockoutInplannenModel = new KnockoutInplannenModel(toernooi, deeltoernooinummer);
@@ -74,6 +75,7 @@ public class KnockoutInplannenController implements Initializable {
         initializeTableViewToernooiInfo();
         initializeButtons();
         setTextfieldsUneditable();
+        DeeltoernooiStarten.setVisible(false);
     }
 
     private void initializeTableViewDeelnemers(){
