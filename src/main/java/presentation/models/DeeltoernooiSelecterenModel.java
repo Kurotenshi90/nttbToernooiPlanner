@@ -32,4 +32,8 @@ public class DeeltoernooiSelecterenModel {
     public void deeltoernooiStarten(Deeltoernooi deeltoernooi) {
         toernooiService.deeltoernooiStarten(deeltoernooi);
     }
+
+    public void planKnockout(int deeltoernooinr, int tewinnenrondes, int aantaldoor){
+        toernooiService.planKnockout(deeltoernooinr, tewinnenrondes, aantaldoor);
+    }
 }

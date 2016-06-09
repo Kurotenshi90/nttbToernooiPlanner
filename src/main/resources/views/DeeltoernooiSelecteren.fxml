@@ -25,7 +25,7 @@
       </TableView>
       <Button fx:id="Annuleren" layoutX="150.0" layoutY="968.0" mnemonicParsing="false" styleClass="button-big" text="Terug" />
       <Button fx:id="DeeltoernooiInplannen" layoutX="1508.0" layoutY="256.0" mnemonicParsing="false" styleClass="button-big" text="Deeltoernooi inplannen" />
-      <Button fx:id="OverzichtPoule" layoutX="1508.0" layoutY="356.0" mnemonicParsing="false" styleClass="button-big" text="Toon Overzicht" />
+      <Button fx:id="OverzichtPoule" layoutX="1508.0" layoutY="356.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="297.0" styleClass="button-big" text="Toon Overzicht" />
        <TableView fx:id="Klasse" layoutX="1021.0" layoutY="247.0" prefHeight="500.0" prefWidth="300.0">
         <columns>
           <TableColumn fx:id="KlasseLeeftijd" prefWidth="75.0" text="Leeftijd" />
@@ -45,5 +45,8 @@
             <TableColumn fx:id="ToernooiEinddatumInfo" prefWidth="75.0" text="Einddatum" />
          </columns>
       </TableView>
+      <Button fx:id="KnockoutStarten" layoutX="1508.0" layoutY="515.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="297.0" styleClass="button-big" text="Knockout starten" />
+      <TextField fx:id="TeWinnenRondes" layoutX="1665.0" layoutY="453.0" prefHeight="27.0" prefWidth="140.0" promptText="Te winnen rondes" />
+      <TextField fx:id="AantalDoor" layoutX="1508.0" layoutY="453.0" prefHeight="27.0" prefWidth="131.0" promptText="aantal door" />
    </children>
 </Pane>

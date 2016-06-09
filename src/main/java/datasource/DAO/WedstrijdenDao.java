@@ -68,14 +68,15 @@ public class WedstrijdenDao extends DAO {
                                                                         "inner join \n" +
                                                                         "Deelnemer dn on dn.Deelnemernr = di.Deelnemernr\n" +
                                                                         "left join Tafels t on t.Wedstrijdnr = w.Wedstrijdnr  \n" +
-                                                                        "where d.Toernooinr = ? and w.TeWinnenRondes >= 1");
+                                                                        "where d.Toernooinr = ? and w.TeWinnenRondes >= 1 " +
+                                                                        "and w.TeWinnenRondes > (select count(*) from Ronde r where r.Wedstrijdnr = w.Wedstrijdnr)");
             preparedStatement.setInt(1, toernooiId);
             ResultSet rs = preparedStatement.executeQuery();
             PreparedStatement preparedStatement2 = conn.prepareStatement("select d.DeelToernooinr, w.TeWinnenRondes, w.Wedstrijdnr, d.Startdatum, t.TAFELNR from DeelToernooi d \n" +
                                                                          "left join \n" +
                                                                          "Wedstrijd w on  d.DeelToernooinr = w.DeelToernooinr \n" +
                                                                          "left join Tafels t on t.Wedstrijdnr = w.Wedstrijdnr  \n" +
-                                                                         "where d.Toernooinr = ? and w.TeWinnenRondes >= 1 and exists (select 1 from DeelnemerInWedstrijd di where di.Wedstrijdnr = w.Wedstrijdnr)");
+                                                                         "where d.Toernooinr = ? and w.TeWinnenRondes >= 1 and exists (select 1 from DeelnemerInWedstrijd di where di.Wedstrijdnr = w.Wedstrijdnr) and w.TeWinnenRondes > (select count(*) from Ronde r where r.Wedstrijdnr = w.Wedstrijdnr)");
 
             preparedStatement2.setInt(1, toernooiId);
             ResultSet rs2 = preparedStatement2.executeQuery();
@@ -189,6 +190,56 @@ public class WedstrijdenDao extends DAO {
         disconnect();
     }
 
+    public ArrayList<Wedstrijd> getWedstrijdenOpDeeltoernooi(int deeltoernooinr){
+        ArrayList<Wedstrijd> wedstrijd = new ArrayList<>();
+        connect();
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement("select d.DeelToernooinr, w.TeWinnenRondes, w.Wedstrijdnr, w.DeelToernooinr, d.Startdatum, t.TAFELNR, di.Team, dn.Voornaam, dn.Achternaam, dn.Bondsnr from DeelToernooi d \n" +
+                    "inner join \n" +
+                    "Wedstrijd w on  d.DeelToernooinr = w.DeelToernooinr \n" +
+                    "inner join \n" +
+                    "DeelnemerInWedstrijd di on di.Wedstrijdnr = w.Wedstrijdnr\n" +
+                    "inner join \n" +
+                    "Deelnemer dn on dn.Deelnemernr = di.Deelnemernr\n" +
+                    "left join Tafels t on t.Wedstrijdnr = w.Wedstrijdnr  \n" +
+                    "where w.Deeltoernooinr = ? and w.TeWinnenRondes >= 1 " +
+                    "and w.TeWinnenRondes > (select count(*) from Ronde r where r.Wedstrijdnr = w.Wedstrijdnr)");
+            preparedStatement.setInt(1, deeltoernooinr);
+            ResultSet rs = preparedStatement.executeQuery();
+            PreparedStatement preparedStatement2 = conn.prepareStatement("select d.DeelToernooinr, w.TeWinnenRondes, w.Wedstrijdnr, d.Startdatum, t.TAFELNR from DeelToernooi d \n" +
+                    "left join \n" +
+                    "Wedstrijd w on  d.DeelToernooinr = w.DeelToernooinr \n" +
+                    "left join Tafels t on t.Wedstrijdnr = w.Wedstrijdnr  \n" +
+                    "where w.deeltoernooinr = ? and w.TeWinnenRondes >= 1 and exists (select 1 from DeelnemerInWedstrijd di where di.Wedstrijdnr = w.Wedstrijdnr) and w.TeWinnenRondes > (select count(*) from Ronde r where r.Wedstrijdnr = w.Wedstrijdnr)");
+
+            preparedStatement2.setInt(1, deeltoernooinr);
+            ResultSet rs2 = preparedStatement2.executeQuery();
+
+            while(rs2.next()){
+                Wedstrijd wedstrijd1 = new Wedstrijd(rs2.getInt(1), rs2.getInt(2),rs2.getInt(3),rs2.getTimestamp(4).toLocalDateTime());
+                wedstrijd.add(wedstrijd1);
+
+            }
+
+            while(rs.next()){
+                for(Wedstrijd w : wedstrijd){
+                    if(rs.getInt(3) == w.getWedstrijdnr()){
+                        if(rs.getBoolean(7)){
+                            w.addSpeler2(new SpelerInWedstrijd(rs.getString(8),rs.getString(9), rs.getInt(10)));
+                        }else{
+                            w.addSpeler1(new SpelerInWedstrijd(rs.getString(8),rs.getString(9), rs.getInt(10)));
+                        }
+                    }
+                }
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        disconnect();
+        return wedstrijd;
+    }
 
 
 }

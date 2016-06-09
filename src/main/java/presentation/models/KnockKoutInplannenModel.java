@@ -8,13 +8,12 @@ import java.util.ArrayList;
 /**
  * Created by donnyolijslager on 30-05-16.
  */
-public class KnockoutInplannenModel {
-    protected ToernooiService toernooiService;
-    protected Toernooi toernooi;
-    protected int deeltoernooinr;
-    private KnockoutDeeltoernooi brackedt;
+public class KnockKoutInplannenModel extends KnockoutInplannenModel{
+    private int deeltoernooinr;
+    private PouleKnockoutDeeltoernooi brackedt;
 
-    public KnockoutInplannenModel(Toernooi toernooi, int deeltoernooinr){
+    public KnockKoutInplannenModel(Toernooi toernooi, int deeltoernooinr){
+        super(toernooi, deeltoernooinr);
         toernooiService = new ToernooiService();
         this.toernooi = toernooi;
         this.deeltoernooinr = deeltoernooinr;
@@ -32,7 +31,7 @@ public class KnockoutInplannenModel {
     public void getDeeltoernooi() {
         for(Deeltoernooi d : toernooi.getDeeltoernoois()){
             if(d.getDeeltoernooinr() == deeltoernooinr) {
-                brackedt =  (KnockoutDeeltoernooi)d;
+                brackedt =  (PouleKnockoutDeeltoernooi)d;
             }
         }
     }

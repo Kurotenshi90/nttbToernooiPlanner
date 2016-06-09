@@ -16,11 +16,13 @@
       <ListView fx:id="SpelerA" layoutX="750.0" layoutY="200.0" prefHeight="150.0" prefWidth="300.0" />
       <ListView fx:id="SpelerB" layoutX="750.0" layoutY="400.0" prefHeight="150.0" prefWidth="300.0" />
       <Button fx:id="Terug" layoutX="150.0" layoutY="850.0" mnemonicParsing="false" styleClass="button-big" text="Terug" />
-      <Button fx:id="DaagUit" layoutX="900.0" layoutY="581.0" mnemonicParsing="false" styleClass="button-small" text="Daag uit" />
+      <Button fx:id="DaagUit" layoutX="900.0" layoutY="629.0" mnemonicParsing="false" styleClass="button-small" text="Daag uit" />
       <Button fx:id="AddSpelerA" layoutX="675.0" layoutY="210.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
       <Button fx:id="RemoveSpelerA" layoutX="675.0" layoutY="290.0" mnemonicParsing="false" styleClass="button-ball" text="&lt;" />
       <Button fx:id="AddSpelerB" layoutX="675.0" layoutY="410.0" mnemonicParsing="false" styleClass="button-ball" text="&gt;" />
       <Button fx:id="RemoveSpelerB" layoutX="675.0" layoutY="490.0" mnemonicParsing="false" styleClass="button-ball" text="&lt;" />
       <Label layoutX="883.0" layoutY="350.0" style="-fx-font-size: 30px;" text="VS" />
+      <TextField fx:id="TeWinnenRondes" layoutX="900.0" layoutY="579.0" prefHeight="27.0" prefWidth="150.0" promptText="Te winnen rondes" />
+      <ListView fx:id="Wedstrijden" layoutX="1362.0" layoutY="200.0" prefHeight="611.0" prefWidth="422.0" />
    </children>
 </Pane>

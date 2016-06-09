@@ -44,4 +44,9 @@ public class WedstrijdenService {
     public void rondeVerwijderen(Ronde ronde){
         wedstrijdenDao.verwijderRonde(ronde);
     }
+
+    public ArrayList<Wedstrijd> getWedstrijdenOpDeeltoernooi(int deeltoernooinr) {
+        return wedstrijdenDao.getWedstrijdenOpDeeltoernooi(deeltoernooinr);
+    }
+
 }

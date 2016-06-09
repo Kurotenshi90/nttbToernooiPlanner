@@ -407,6 +407,38 @@ public class ToernooiDao extends DAO {
                 planSpelersIn.setInt(2, planSpelers.getDeeltoernooinr());
                 planSpelersIn.executeUpdate();
                 disconnect();
+            } else if (deeltoernooi instanceof PouleKnockoutDeeltoernooi && (((PouleKnockoutDeeltoernooi) deeltoernooi).getBrackets().size()==0)){
+                connect();
+
+
+                PouleKnockoutDeeltoernooi genereerPoules = (PouleKnockoutDeeltoernooi) deeltoernooi;
+                PreparedStatement generatePoules = conn.prepareStatement("EXEC STP_PoulesAanmaken ?, ?");
+                generatePoules.setInt(1, genereerPoules.getDeeltoernooinr());
+                generatePoules.setInt(2, genereerPoules.getPoules().size());
+                generatePoules.executeUpdate();
+                disconnect();
+                connect();
+
+                PreparedStatement schrijfSpelersIn = conn.prepareStatement("EXEC STP_InsertDeelnemerIntoPoule ?");
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("[{");
+                boolean checkPastFirstRound= false;
+                for(int i = 0; i<((PouleKnockoutDeeltoernooi) deeltoernooi).getPoules().size();i++){
+                    for(Deelnemer deelnemer: ((PouleKnockoutDeeltoernooi) deeltoernooi).getPoules().get(i).getDeelnemers()){
+                        if(checkPastFirstRound){
+                            stringBuilder.append("},{");
+                        }
+                        stringBuilder.append("\"Deelnemernr\":"+deelnemer.getDeelnemerID()+",");
+                        stringBuilder.append("\"Deeltoernooinr\":"+deeltoernooi.getDeeltoernooinr()+",");
+                        stringBuilder.append("\"Poulenr\":"+(i+1));
+                        checkPastFirstRound = true;
+                    }
+                }
+                stringBuilder.append("}]");
+                schrijfSpelersIn.setString(1, stringBuilder.toString());
+                schrijfSpelersIn.executeUpdate();
+
+                disconnect();
             }
 
         } catch (SQLException e) {
@@ -438,8 +470,6 @@ public class ToernooiDao extends DAO {
         try {
             connect();
             ResultSet resultSet = conn.prepareStatement("SELECT 1 FROM Bracket WHERE Deeltoernooinr = "+ deeltoernooi.getDeeltoernooinr()).executeQuery();
-            disconnect();
-            connect();
             while(!resultSet.isBeforeFirst()){
                 PreparedStatement preparedStatement = conn.prepareStatement("EXEC STP_KnockoutWedstrijdenAanmaken ?, ?");
                 preparedStatement.setInt(1, deeltoernooi.getDeeltoernooinr());
@@ -478,5 +508,31 @@ public class ToernooiDao extends DAO {
 
 
         disconnect();
+    }
+
+    public void planKnockout(int deeltoernooinr, int tewinnenrondes, int aantalDoor){
+
+
+        try {
+            connect();
+
+            PreparedStatement preparedStatement1 = conn.prepareStatement("EXEC STP_SetAantalDoor ?, ?");
+            preparedStatement1.setInt(1, deeltoernooinr);
+            preparedStatement1.setInt(2, aantalDoor);
+            preparedStatement1.executeUpdate();
+            disconnect();
+            connect();
+
+
+
+            PreparedStatement preparedStatement = conn.prepareStatement("EXEC STP_PouleNaarKnockoutDoorplannen ?, ?");
+            preparedStatement.setInt(1, deeltoernooinr);
+            preparedStatement.setInt(2, tewinnenrondes);
+            preparedStatement.executeUpdate();
+            disconnect();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }

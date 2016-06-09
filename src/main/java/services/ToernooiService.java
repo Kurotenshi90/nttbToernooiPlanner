@@ -46,4 +46,8 @@ public class ToernooiService {
     public void deeltoernooiStarten(Deeltoernooi deeltoernooi) {
         toernooiDao.deeltoernooiStarten(deeltoernooi);
     }
+
+    public void planKnockout(int deeltoernooinr, int tewinnenrondes, int aantalDoor){
+        toernooiDao.planKnockout(deeltoernooinr, tewinnenrondes, aantalDoor);
+    }
 }

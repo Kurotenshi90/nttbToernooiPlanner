@@ -1,6 +1,8 @@
 package datasource.DAO;
 
 import domain.Deelnemer;
+import domain.DeelnemerLadder;
+import domain.LadderDeeltoernooi;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -85,5 +87,44 @@ public class DeelnemerDao extends DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public ArrayList<DeelnemerLadder> getLadderDeelnemers(int deeltoernooinr){
+        ArrayList<DeelnemerLadder> deelnemerLadders = new ArrayList<>();
+        connect();
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement("select l.Deelnemernr, d.DeelToernooinr, d.Voornaam, d.Achternaam, d.Bondsnr, d.Geslacht, d.Licentie, d.Verenigingnr, l.Rangnr from ladder l inner join Deelnemer d on d.Deelnemernr = l.Deelnemernr\n" +
+                                                                        "where l.DeelToernooinr = ?\n" +
+                                                                        "Order by  l.Rangnr asc");
+            preparedStatement.setInt(1, deeltoernooinr);
+            ResultSet deelnemerResult = preparedStatement.executeQuery();
+
+            while(deelnemerResult.next()){
+                DeelnemerLadder deelnemerLadder = new DeelnemerLadder(deelnemerResult.getInt(1),deelnemerResult.getInt(2),deelnemerResult.getString(3),deelnemerResult.getString(4),deelnemerResult.getInt(5), deelnemerResult.getString(6), deelnemerResult.getString(7), deelnemerResult.getInt(8), deelnemerResult.getInt(9));
+                deelnemerLadders.add(deelnemerLadder);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        disconnect();
+        return deelnemerLadders;
+    }
+
+    public void daagUit(DeelnemerLadder deelnemerLadderA, DeelnemerLadder deelnemerLadderB, int teWinnenRondes) {
+        connect();
+
+        try {
+            PreparedStatement daagUit = conn.prepareStatement("EXEC STP_DaagUit ?, ?, ?, ?");
+            daagUit.setInt(1, deelnemerLadderA.getDeelnemerID());
+            daagUit.setInt(2, deelnemerLadderB.getDeelnemerID());
+            daagUit.setInt(3, teWinnenRondes);
+            daagUit.setInt(4, deelnemerLadderA.getDeelToernooinr());
+            int i = daagUit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        disconnect();
     }
 }

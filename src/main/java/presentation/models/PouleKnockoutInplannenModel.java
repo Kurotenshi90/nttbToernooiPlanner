@@ -8,15 +8,12 @@ import java.util.ArrayList;
 /**
  * Created by dirk on 26-5-2016.
  */
-public class PouleInplannenModel {
-    protected Toernooi toernooi;
-    protected int deeltoernooinummer;
-    private PouleDeeltoernooi pouledt;
-    protected ToernooiService toernooiService;
+public class PouleKnockoutInplannenModel extends PouleInplannenModel{
+    private PouleKnockoutDeeltoernooi pouledt;
+    private ToernooiService toernooiService;
 
-    public PouleInplannenModel(Toernooi toernooi, int deeltoernooinummer) {
-        this.toernooi = toernooi;
-        this.deeltoernooinummer = deeltoernooinummer;
+    public PouleKnockoutInplannenModel(Toernooi toernooi, int deeltoernooinummer) {
+        super(toernooi, deeltoernooinummer);
         getDeeltoernooi();
         this.toernooiService = new ToernooiService();
     }
@@ -28,7 +25,7 @@ public class PouleInplannenModel {
     public void getDeeltoernooi() {
         for(Deeltoernooi d : toernooi.getDeeltoernoois()){
             if(d.getDeeltoernooinr() == deeltoernooinummer) {
-                pouledt =  (PouleDeeltoernooi)d;
+                pouledt =  (PouleKnockoutDeeltoernooi)d;
             }
         }
     }
@@ -87,6 +84,7 @@ public class PouleInplannenModel {
 
     public void saveDeelnemersInPoule(){
         toernooiService.saveToernooiIndeling(pouledt);
+        System.out.println("hallo");
     }
 
     public void planEnSluitDeeltoernooiPlanning(int teWinnenRondes){
