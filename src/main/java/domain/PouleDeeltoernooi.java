@@ -8,6 +8,7 @@ import java.util.ArrayList;
  */
 public class PouleDeeltoernooi extends Deeltoernooi {
     private ArrayList<Poule> poules;
+    private ArrayList<PouleOverzicht> pouleOverzichts;
     private ArrayList<Deelnemer> deelnemers;
 
 
@@ -15,6 +16,7 @@ public class PouleDeeltoernooi extends Deeltoernooi {
         super(maxAantalSpelers, deeltoernooinr, beginTijd, prijs, spelvorm, gesloten);
         this.poules = new ArrayList<Poule>();
         this.deelnemers = new ArrayList<Deelnemer>();
+        this.pouleOverzichts = new ArrayList<PouleOverzicht>();
     }
 
     public ArrayList<Poule> getPoules() {
@@ -41,5 +43,13 @@ public class PouleDeeltoernooi extends Deeltoernooi {
     @Override
     public void setDeelnemers(ArrayList<Deelnemer> deelnemers) {
         this.deelnemers = deelnemers;
+    }
+
+    public ArrayList<PouleOverzicht> getPouleOverzichts() {
+        return pouleOverzichts;
+    }
+
+    public void setPouleOverzichts(ArrayList<PouleOverzicht> pouleOverzichts) {
+        this.pouleOverzichts = pouleOverzichts;
     }
 }

@@ -36,4 +36,6 @@ public class Poule {
     public void removeDeelnemer(Deelnemer deelnemer){
         deelnemers.remove(deelnemer);
     }
+
+
 }

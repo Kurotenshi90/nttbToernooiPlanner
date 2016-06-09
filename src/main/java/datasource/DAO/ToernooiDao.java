@@ -510,6 +510,24 @@ public class ToernooiDao extends DAO {
         disconnect();
     }
 
+    public ArrayList<PouleOverzicht> getSpelersInPoule(int deeltoernooinummer){
+        ArrayList<PouleOverzicht> pouleOverzicht = new ArrayList<>();
+        try{
+            connect();
+            ResultSet resultSet = conn.prepareStatement("SELECT d.*, sip.* FROM SpelersInPoule sip INNER JOIN Deelnemer d on sip.Deelnemernr = d.Deelnemernr WHERE sip.DeelToernooinr = " + deeltoernooinummer + "Order by sip.poulenr asc").executeQuery();
+            while(resultSet.next()){
+                if(pouleOverzicht.size() != resultSet.getInt(11)){
+                    pouleOverzicht.add(new PouleOverzicht("Poule " + resultSet.getInt(11)));
+                }
+                pouleOverzicht.get(resultSet.getInt(11)-1).addSpelerInPoule(new SpelerInPoule(resultSet.getInt(1), resultSet.getInt(2), resultSet.getString(4), resultSet.getString(5), resultSet.getInt(6), resultSet.getString(7), resultSet.getString(8), resultSet.getInt(3), resultSet.getInt(9), resultSet.getInt(10), resultSet.getInt(11), resultSet.getInt(12), resultSet.getInt(13), resultSet.getInt(14), resultSet.getInt(15)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pouleOverzicht;
+    }
+
+
     public void planKnockout(int deeltoernooinr, int tewinnenrondes, int aantalDoor){
 
 

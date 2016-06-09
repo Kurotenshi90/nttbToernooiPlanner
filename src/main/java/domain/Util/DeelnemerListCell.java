@@ -73,7 +73,7 @@ public class DeelnemerListCell extends ListCell<DeelnemerLadder> {
             addContent(cache);
 
         }
-    }
+    }//derp
 
     private void setGrid() {
         grid.add(rankText, 0, 0);
