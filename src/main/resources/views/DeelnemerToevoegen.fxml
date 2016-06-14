@@ -21,52 +21,54 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TextField fx:id="Voornaam" layoutX="248.0" layoutY="291.0" />
-      <Label layoutX="248.0" layoutY="269.0" text="Voornaam" />
-      <Label layoutX="431.0" layoutY="270.0" text="Achternaam" />
-      <TextField fx:id="Achternaam" layoutX="431.0" layoutY="291.0" />
-      <Label layoutX="607.0" layoutY="274.0" text="Bondsnummer" />
-      <TextField fx:id="Bondsnummer" layoutX="607.0" layoutY="291.0" />
-      <ChoiceBox fx:id="Geslacht" layoutX="773.0" layoutY="291.0" prefWidth="150.0" />
-      <Label layoutX="773.0" layoutY="274.0" text="Geslacht" />
-      <ComboBox fx:id="Deeltoernooi" layoutX="954.0" layoutY="291.0" prefWidth="150.0" />
-      <Label layoutX="954.0" layoutY="274.0" text="Deeltoernooi" />
-      <ChoiceBox fx:id="Licentie" layoutX="1125.0" layoutY="291.0" prefWidth="150.0" />
-      <Label layoutX="1125.0" layoutY="274.0" text="Licentie" />
-      <Label fx:id="PartnerLable" layoutX="248.0" layoutY="334.0" text="Partner" />
+      <TextField fx:id="Voornaam" layoutX="250.0" layoutY="250.0" />
+      <Label layoutX="250.0" layoutY="230.0" text="Voornaam" />
+      <Label layoutX="430.0" layoutY="230.0" text="Achternaam" />
+      <TextField fx:id="Achternaam" layoutX="430.0" layoutY="250.0" />
+      <Label layoutX="610.0" layoutY="230.0" text="Bondsnummer" />
+      <TextField fx:id="Bondsnummer" layoutX="610.0" layoutY="250.0" />
+      <ChoiceBox fx:id="Geslacht" layoutX="790.0" layoutY="250.0" prefWidth="150.0" />
+      <Label layoutX="790.0" layoutY="230.0" text="Geslacht" />
+      <ComboBox fx:id="Deeltoernooi" layoutX="970.0" layoutY="250.0" prefWidth="150.0" />
+      <Label layoutX="970.0" layoutY="230.0" text="Deeltoernooi" />
+      <ChoiceBox fx:id="Licentie" layoutX="1150.0" layoutY="250.0" prefWidth="150.0" />
+      <Label layoutX="1150.0" layoutY="230.0" text="Licentie" />
+      <Label fx:id="PartnerLable" layoutX="250.0" layoutY="280.0" style="-fx-font-size: 20;" text="Partner" />
       <Button fx:id="Opslaan" layoutX="1451.0" layoutY="901.0" mnemonicParsing="false" styleClass="button-big" text="Opslaan" />
       <Button fx:id="Annuleren" layoutX="206.0" layoutY="906.0" mnemonicParsing="false" styleClass="button-big" text="Annuleren" />
-      <Button fx:id="DeelnemerToevoegen" layoutX="1350.0" layoutY="383.0" mnemonicParsing="false" styleClass="button-small" text="Deelnemer toevoegen" />
+      <Button fx:id="DeelnemerToevoegen" layoutX="1351.0" layoutY="383.0" mnemonicParsing="false" styleClass="button-small" text="Deelnemer toevoegen" />
       <ImageView fitHeight="200.0" fitWidth="1920.0">
          <image>
             <Image url="@../images/TopBorder.png" />
          </image>
       </ImageView>
-      <Label fx:id="LicentiePartnerLable" layoutX="1125.0" layoutY="367.0" text="Licentie" />
-      <ChoiceBox fx:id="LicentiePartner" layoutX="1125.0" layoutY="384.0" prefWidth="150.0" />
-      <Label fx:id="DeeltoernooiPartnerLable" layoutX="954.0" layoutY="367.0" text="Deeltoernooi" />
-      <Label fx:id="GeslachtPartnerLable" layoutX="773.0" layoutY="367.0" text="Geslacht" />
-      <ChoiceBox fx:id="GeslachtPartner" layoutX="773.0" layoutY="384.0" prefWidth="150.0" />
-      <TextField fx:id="BondsnummerPartner" layoutX="607.0" layoutY="384.0" />
-      <Label fx:id="BondsnummerPartnerLable" layoutX="607.0" layoutY="367.0" text="Bondsnummer" />
-      <TextField fx:id="AchternaamPartner" layoutX="431.0" layoutY="384.0" />
-      <Label fx:id="AchternaamPartnerLable" layoutX="431.0" layoutY="363.0" text="Achternaam" />
-      <Label fx:id="VoornaamPartnerLable" layoutX="248.0" layoutY="362.0" text="Voornaam" />
-      <TextField fx:id="VoornaamPartner" layoutX="248.0" layoutY="384.0" />
-      <TextField fx:id="DeeltoernooiPartner" layoutX="955.0" layoutY="386.0" />
-      <TextField fx:id="Toernooinaam" layoutX="254.0" layoutY="138.0" />
-      <TextField fx:id="Spelvorm" layoutX="437.0" layoutY="138.0" />
-      <TextField fx:id="Inschrijfdatum" layoutX="613.0" layoutY="138.0" />
-      <TextField fx:id="Begindatum" layoutX="780.0" layoutY="138.0" />
-      <TextField fx:id="Einddatum" layoutX="968.0" layoutY="138.0" />
-      <Label layoutX="254.0" layoutY="123.0" text="Toernooinaam" />
-      <Label layoutX="437.0" layoutY="123.0" text="Spelvorm" />
-      <Label layoutX="613.0" layoutY="123.0" text="inschrijfdatum" />
-      <Label layoutX="779.0" layoutY="123.0" text="Begindatum" />
-      <Label layoutX="968.0" layoutY="123.0" text="Einddatum" />
-      <ChoiceBox fx:id="Vereniging" layoutX="248.0" layoutY="212.0" prefWidth="150.0" />
-      <Label layoutX="248.0" layoutY="183.0" text="Vereniging" />
-      <Button fx:id="VerenigingToevoegen" layoutX="439.0" layoutY="212.0" mnemonicParsing="false" styleClass="button-small" text="Vereniging toevoegen" />
-      <Button fx:id="DeelnemerVerwijderen" layoutX="1551.0" layoutY="383.0" mnemonicParsing="false" styleClass="button-small" text="Deelnemer verwijderen" />
+      <Label fx:id="LicentiePartnerLable" layoutX="1150.0" layoutY="310.0" text="Licentie" />
+      <ChoiceBox fx:id="LicentiePartner" layoutX="1150.0" layoutY="330.0" prefWidth="150.0" />
+      <Label fx:id="DeeltoernooiPartnerLable" layoutX="970.0" layoutY="310.0" text="Deeltoernooi" />
+      <Label fx:id="GeslachtPartnerLable" layoutX="790.0" layoutY="310.0" text="Geslacht" />
+      <ChoiceBox fx:id="GeslachtPartner" layoutX="790.0" layoutY="330.0" prefWidth="150.0" />
+      <TextField fx:id="BondsnummerPartner" layoutX="610.0" layoutY="330.0" />
+      <Label fx:id="BondsnummerPartnerLable" layoutX="610.0" layoutY="310.0" text="Bondsnummer" />
+      <TextField fx:id="AchternaamPartner" layoutX="430.0" layoutY="330.0" />
+      <Label fx:id="AchternaamPartnerLable" layoutX="431.0" layoutY="310.0" text="Achternaam" />
+      <Label fx:id="VoornaamPartnerLable" layoutX="250.0" layoutY="310.0" text="Voornaam" />
+      <TextField fx:id="VoornaamPartner" layoutX="248.0" layoutY="330.0" />
+      <TextField fx:id="DeeltoernooiPartner" layoutX="970.0" layoutY="330.0" />
+      <TextField fx:id="Toernooinaam" layoutX="250.0" layoutY="145.0" />
+      <TextField fx:id="Spelvorm" layoutX="430.0" layoutY="145.0" />
+      <TextField fx:id="Inschrijfdatum" layoutX="610.0" layoutY="145.0" />
+      <TextField fx:id="Begindatum" layoutX="790.0" layoutY="145.0" />
+      <TextField fx:id="Einddatum" layoutX="970.0" layoutY="145.0" />
+      <Label layoutX="250.0" layoutY="125.0" text="Toernooinaam" />
+      <Label layoutX="430.0" layoutY="125.0" text="Spelvorm" />
+      <Label layoutX="610.0" layoutY="125.0" text="inschrijfdatum" />
+      <Label layoutX="790.0" layoutY="125.0" text="Begindatum" />
+      <Label layoutX="970.0" layoutY="125.0" text="Einddatum" />
+      <ChoiceBox fx:id="Vereniging" layoutX="1330.0" layoutY="250.0" prefWidth="150.0" />
+      <Label layoutX="1330.0" layoutY="230.0" text="Vereniging" />
+      <Button fx:id="VerenigingToevoegen" layoutX="1510.0" layoutY="250.0" mnemonicParsing="false" styleClass="button-small" text="Vereniging toevoegen" />
+      <Button fx:id="DeelnemerVerwijderen" layoutX="1545.0" layoutY="383.0" mnemonicParsing="false" styleClass="button-small" text="Deelnemer verwijderen" />
+      <Label layoutX="250.0" layoutY="200.0" style="-fx-font-size: 20;" text="Deelnemer" />
+      <Label layoutX="250.0" layoutY="87.0" style="-fx-font-size: 20;" text="Toernooi Informatie" />
    </children>
 </Pane>

@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import presentation.models.ScoresInvoerenModel;
@@ -135,6 +136,8 @@ public class ScoreInvoerenController implements Initializable {
                     geselecteerdeWedstrijd = wedstrijd;
                     Wedstrijd.getItems().setAll(wedstrijd);
                     Rondes.getItems().setAll(wedstrijd.getRondes());
+                    System.out.println(wedstrijd.getRondes().size());
+                    System.out.println(geselecteerdeWedstrijd.getRondes().size());
                 }
             }
         });
@@ -157,11 +160,43 @@ public class ScoreInvoerenController implements Initializable {
                 int scoreB = Integer.parseInt(ScoreB.getText());
                 Ronde ronde = new Ronde(scoreA, scoreB);
                 if(geselecteerdeWedstrijd!=null){
-                    geselecteerdeWedstrijd.getRondes().add(ronde);
+                    geselecteerdeWedstrijd.addRonde(ronde);
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/set ingevuld.fxml"));
+                    SetDialogController controller = new SetDialogController();
+
                     Rondes.getItems().setAll(geselecteerdeWedstrijd.getRondes());
                     scoresInvoerenModel.rondeInvoeren(geselecteerdeWedstrijd.getWedstrijdnr(), ronde);
+
+                    if(geselecteerdeWedstrijd.getRondes().size() == geselecteerdeWedstrijd.getTeWinnenRondes()){
+                        geselecteerdeWedstrijd = null;
+                        Wedstrijd.getItems().clear();
+                        Rondes.getItems().clear();
+                        ScoreA.setText("");
+                        ScoreB.setText("");
+
+                        controller.setlabel("U heeft de winnende set ingevuld");
+                    }
+
+
                     scoresInvoerenModel.resetRondes(toernooinr);
                     Wedstrijden.getItems().setAll(scoresInvoerenModel.getGeplandeWedstrijden());
+
+
+
+                    loader.setController(controller);
+                    Parent root = null;
+                    try {
+                        root = loader.load();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Stage stage = new Stage();
+                    Scene scene = new Scene(root, 502, 135);
+                    stage.setScene(scene);
+                    stage.initOwner(ScoreInvoeren.getScene().getWindow());
+                    stage.initModality(Modality.WINDOW_MODAL);
+                    stage.show();
                 }
             }
         });

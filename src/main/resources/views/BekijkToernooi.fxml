@@ -21,8 +21,8 @@
         <Label layoutX="400.0" layoutY="240.0" text="Begindatum" />
         <Label layoutX="400.0" layoutY="300.0" text="Eindatum" />
         <Label layoutX="400.0" layoutY="180.0" text="Inschrijfdatum" />
-        <TextArea fx:id="BetalingsinformatieValue" layoutX="120.0" layoutY="300.0" prefHeight="67.0" prefWidth="192.0" />
-        <Label layoutX="120.0" layoutY="280.0" text="Betalingsinformatie" />
+        <TextArea fx:id="BetalingsinformatieValue" layoutX="120.0" layoutY="280.0" prefHeight="67.0" prefWidth="192.0" />
+        <Label layoutX="121.0" layoutY="257.0" text="Betalingsinformatie" />
         <TextField fx:id="StraatValue" editable="false" layoutX="680.0" layoutY="260.0" />
         <Label layoutX="680.0" layoutY="240.0" text="Straat" />
         <Label layoutX="680.0" layoutY="180.0" text="Plaats" />
@@ -89,5 +89,6 @@
       <TextField fx:id="InschrijfdatumValue" layoutX="400.0" layoutY="200.0" />
       <TextField fx:id="BegindatumValue" layoutX="400.0" layoutY="260.0" />
       <TextField fx:id="EinddatumValue" layoutX="400.0" layoutY="320.0" />
+      <Label layoutX="120.0" layoutY="124.0" text="Toernooi informatie" />
     </children>
 </Pane>

@@ -12,16 +12,20 @@
             <Image url="@../images/TopBorder.png" />
          </image>
       </ImageView>
-      <Button fx:id="Annuleren" layoutX="200.0" layoutY="883.0" mnemonicParsing="false" styleClass="button-big" text="Annuleren" />
-      <Button layoutX="1553.0" layoutY="964.0" mnemonicParsing="false" styleClass="button-big" text="Opslaan" />
+      <Button fx:id="Annuleren" layoutX="61.0" layoutY="887.0" mnemonicParsing="false" styleClass="button-big" text="Annuleren" />
       <ListView fx:id="Wedstrijden" layoutX="61.0" layoutY="180.0" prefHeight="555.0" prefWidth="565.0" />
-      <ChoiceBox fx:id="SelecteerDeeltoernooi" layoutX="61.0" layoutY="136.0" prefWidth="150.0" />
-      <Label layoutX="61.0" layoutY="100.0" text="Zoek op deeltoernooi" />
+      <ChoiceBox fx:id="SelecteerDeeltoernooi" layoutX="61.0" layoutY="145.0" prefWidth="150.0" />
+      <Label layoutX="61.0" layoutY="120.0" text="Zoek op deeltoernooi" />
       <ListView fx:id="Wedstrijd" layoutX="717.0" layoutY="180.0" prefHeight="88.0" prefWidth="491.0" />
       <ListView fx:id="Rondes" layoutX="1404.0" layoutY="180.0" prefHeight="331.0" prefWidth="410.0" />
       <TextField fx:id="ScoreA" layoutX="761.0" layoutY="332.0" />
       <TextField fx:id="ScoreB" layoutX="985.0" layoutY="332.0" />
       <Button fx:id="RondeVerwijderen" layoutX="1405.0" layoutY="551.0" mnemonicParsing="false" styleClass="button-small" text="Ronde verwijderen" />
       <Button fx:id="ScoreInvoeren" layoutX="888.0" layoutY="445.0" mnemonicParsing="false" styleClass="button-small" text="Invoeren" />
+      <Label layoutX="717.0" layoutY="128.0" text="Huidig geselecteerde wedstrijd" />
+      <Label layoutX="1404.0" layoutY="128.0" text="Gespeelde sets" />
+      <Label layoutX="761.0" layoutY="295.0" text="Score A" />
+      <Label layoutX="985.0" layoutY="295.0" text="Score B" />
+      <Label layoutX="61.0" layoutY="92.0" text="Wedstrijden" />
    </children>
 </Pane>

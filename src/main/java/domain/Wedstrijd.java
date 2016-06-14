@@ -27,6 +27,11 @@ public class Wedstrijd {
         this.speler2 = new ArrayList<>();
     }
 
+
+    public void addRonde(Ronde ronde){
+        rondes.add(ronde);
+    }
+
     public ArrayList<Ronde> getRondes() {
         return rondes;
     }

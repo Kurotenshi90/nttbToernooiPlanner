@@ -29,6 +29,7 @@ public class Main extends Application {
             primaryStage.setTitle("Toernooi manager V0.0.0.1");
             primaryStage.setScene(new Scene(root, 1920, 1080));
             primaryStage.setMaximized(true);
+            primaryStage.setResizable(false);
             primaryStage.show();
 
     }

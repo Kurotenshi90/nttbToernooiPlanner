@@ -13,10 +13,10 @@
          </image>
       </ImageView>
       <Button fx:id="ToernooiBeheren" layoutX="825.0" layoutY="300.0" mnemonicParsing="false" styleClass="button-big" text="Toernooi beheren" />
-      <Button fx:id="InschrijvenToernooi" layoutX="825.0" layoutY="400.0" mnemonicParsing="false" styleClass="button-big" text="Inschrijven toernooi" />
+      <Button fx:id="InschrijvenToernooi" layoutX="825.0" layoutY="400.0" mnemonicParsing="false" styleClass="button-big" text="Toernooi inplannen" />
       <Button fx:id="Inloggen" layoutX="825.0" layoutY="600.0" mnemonicParsing="false" styleClass="button-big" text="Inloggen" />
       <Button fx:id="Exit" layoutX="825.0" layoutY="700.0" mnemonicParsing="false" styleClass="button-big" text="Exit" />
       <Button fx:id="Home" layoutX="10.0" layoutY="5.0" mnemonicParsing="false" styleClass="button-home" />
-      <Button fx:id="ToevoegenCommissielid" layoutX="825.0" layoutY="500.0" mnemonicParsing="false" styleClass="button-big" text="Toevoegen lid" />
+      <Button fx:id="ToevoegenCommissielid" layoutX="825.0" layoutY="500.0" mnemonicParsing="false" styleClass="button-big" text="Lid toevoegen" />
    </children>
 </Pane>

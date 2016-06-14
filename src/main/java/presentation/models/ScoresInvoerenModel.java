@@ -32,10 +32,10 @@ public class ScoresInvoerenModel {
     }
 
     public void resetRondes(int toernooiId){
+        getPlanningwedstrijd(toernooiId);
         for(Wedstrijd w: planningWedstrijd.getWedstrijden()){
             w.setRondes(new ArrayList<>());
         }
-        getPlanningwedstrijd(toernooiId);
         setRondes(toernooiId);
     }
     public void setRondes(int toernooiId) {

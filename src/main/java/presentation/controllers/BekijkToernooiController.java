@@ -71,15 +71,15 @@ public class BekijkToernooiController implements Initializable{
     }
 
     private void disableTextfields() {
-        ToernooiNaamValue.setDisable(true);
-        BetalingsinformatieValue.setDisable(true);
-        InschrijfdatumValue.setDisable(true);
-        BegindatumValue.setDisable(true);
-        EinddatumValue.setDisable(true);
-        PlaatsValue.setDisable(true);
-        StraatValue.setDisable(true);
-        HuisnummerValue.setDisable(true);
-        ToernooisoortValue.setDisable(true);
+        ToernooiNaamValue.setEditable(false);
+        BetalingsinformatieValue.setEditable(false);
+        InschrijfdatumValue.setEditable(false);
+        BegindatumValue.setEditable(false);
+        EinddatumValue.setEditable(false);
+        PlaatsValue.setEditable(false);
+        StraatValue.setEditable(false);
+        HuisnummerValue.setEditable(false);
+        ToernooisoortValue.setEditable(false);
 
         Commissieleden.setMouseTransparent(true);
         Commissieleden.setFocusTraversable(false);
@@ -115,7 +115,6 @@ public class BekijkToernooiController implements Initializable{
                 if (event.getButton() == MouseButton.PRIMARY) {
                     Deeltoernooi deeltoernooi = Deeltoernooi.getSelectionModel().getSelectedItem();
                     DeeltoernooiKlasse.getItems().setAll(deeltoernooi.getKlasses());
-                    DeeltoernooiKlasse.getItems().setAll(toernooiModel.getKlasses(deeltoernooi.getKlasses()));
                 }
             }
         });
