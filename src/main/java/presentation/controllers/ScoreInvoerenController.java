@@ -168,7 +168,7 @@ public class ScoreInvoerenController implements Initializable {
                     Rondes.getItems().setAll(geselecteerdeWedstrijd.getRondes());
                     scoresInvoerenModel.rondeInvoeren(geselecteerdeWedstrijd.getWedstrijdnr(), ronde);
 
-                    if(geselecteerdeWedstrijd.getRondes().size() == geselecteerdeWedstrijd.getTeWinnenRondes()){
+                    if(checkIfWon()){
                         geselecteerdeWedstrijd = null;
                         Wedstrijd.getItems().clear();
                         Rondes.getItems().clear();
@@ -211,5 +211,21 @@ public class ScoreInvoerenController implements Initializable {
                 }
             }
         });
+    }
+
+    public boolean checkIfWon(){
+        int tests1 = 0;
+        int tests2 = 0;
+        for(Ronde ronde : geselecteerdeWedstrijd.getRondes()){
+            if(ronde.getScoreA() > ronde.getScoreB()){
+                tests1 ++;
+            } else {
+                tests2 ++;
+            }
+        }
+        if(tests1 == geselecteerdeWedstrijd.getTeWinnenRondes() || tests2 == geselecteerdeWedstrijd.getTeWinnenRondes()){
+            return true;
+        }
+        return false;
     }
 }
